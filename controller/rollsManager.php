@@ -29,4 +29,16 @@ class RollsManager
         $req->bindValue(":price", $rolls->getPrice(), PDO::PARAM_STR);
         $req->execute();
     }
+
+    public function showRolls()
+    {
+        $rolls = [];
+        $req = $this->db->query("SELECT * FROM rolls ORDER BY name");
+        $datas = $req->fetchAll();
+        foreach ($datas as $data) {
+            $roll = new Rolls($data);
+            $rolls[] = $roll;
+        }
+        return $rolls;
+    }
 }
