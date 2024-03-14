@@ -58,7 +58,7 @@ class Rolls
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = strtoupper($name);
 
         return $this;
     }
@@ -138,7 +138,7 @@ class Rolls
      */
     public function setPrice($price)
     {
-        $this->price = $price;
+        $this->price = floatval($price);
 
         return $this;
     }
