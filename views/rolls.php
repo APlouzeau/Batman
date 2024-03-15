@@ -25,16 +25,13 @@ if ($_POST) {
             "description" => $description,
             "price" => $price,
         ]);
-
         $rollsManager->addRolls($newRoll);
         echo "L'ajout a réussi.";
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
 }
-include_once "../controller/rollsManager.php";
-$manager = new RollsManager();
-$rolls = $manager->showRolls();
+
 
 ?>
 <form method="post" class="container">
@@ -54,16 +51,17 @@ $rolls = $manager->showRolls();
 <div class="container">
     <section class="d-flex flex-wrap justify-content-center">
         <?php
+        $rolls = $rollsManager->showRolls();
         foreach ($rolls as $roll) :
         ?>
-            <div class="card m-5" style="width: 20rem;">
+            <div class="card m-4" style="width: 20rem;">
                 <div class="card-body">
                     <h5 class="card-title"><?= $roll->getName() ?></h5>
                     <p class="card-text"><?= $roll->getDescription() ?></p>
-                    <div class="d-flex flex-wrap justify-content-around">
-                        <a href="#" class="btn btn-warning">Modifier</a>
+                    <div class="d-flex justify-content-around align-items-end">
                         <a href="#" class="btn btn-primary">Détails</a>
-                        <a href="#" class="btn btn-danger">Supprimer</a>
+                        <a href="../views/modifyRolls.php?id=<?= $roll->getId() ?>" class="btn btn-warning">Modifier</a>
+                        <a href="../views/deleteRolls.php?id=<?= $roll->getId() ?>" class="btn btn-danger">Supprimer</a>
                     </div>
                 </div>
             </div>

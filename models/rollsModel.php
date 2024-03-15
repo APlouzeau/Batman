@@ -7,7 +7,7 @@ class Rolls
     private string $length;
     private string $recovery;
     private string $description;
-    private int $price;
+    private float $price;
 
     public function __construct(array $data)
     {

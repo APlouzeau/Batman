@@ -9,67 +9,50 @@ require_once "./head.php";
 require_once "./header.php";
 require_once "../controller/rollsManager.php";
 
-$rollsManager = new RollsManager();
 
+$rollsManager = new RollsManager();
+$roll = $rollsManager->getRollsById($_GET["id"]);
 if ($_POST) {
+    $id = $roll->getId();
     $name = $_POST["name"];
     $length = $_POST["length"];
     $recovery = $_POST["recovery"];
     $description = $_POST["description"];
     $price = $_POST["price"];
+    var_dump($id);
     try {
-        $newRoll = new Rolls([
+        $updateRoll = new Rolls([
+            "id" => $id,
             "name" => $name,
             "length" => $length,
             "recovery" => $recovery,
             "description" => $description,
             "price" => $price,
         ]);
-
-        $rollsManager->addRolls($newRoll);
-        echo "L'ajout a réussi.";
+        $rollsManager->updateRolls($updateRoll, $id);
+        header("Location:rolls.php");
+        echo "La modification a réussi.";
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
 }
-include_once "../controller/rollsManager.php";
-$manager = new RollsManager();
-$rolls = $manager->showRolls();
+
 
 ?>
+
 <form method="post" class="container">
     <label class="form-label" for="name">Nom / Ref</label>
-    <input type="name" name="name" id="name" class="form-control" min=1 max=901 placeholder="Référence du rouleau">
+    <input type="name" name="name" id="name" class="form-control" min=1 max=901 value="<?= $roll->getName() ?>">
     <label class="form-label" for="length">Longueur</label>
-    <input type="number" name="length" id="length" class="form-control" placeholder="Longueur du rouleau en m">
+    <input type="number" name="length" id="length" class="form-control" placeholder="Longueur du rouleau en m" value="<?= $roll->getLength() ?>">
     <label class="form-label" for="recovery">Recouvrement</label>
-    <input type="number" name="recovery" id="recovery" class="form-control" placeholder="Le recouvrement longitudinal en mm"></input>
+    <input type="number" name="recovery" id="recovery" class="form-control" placeholder="Le recouvrement longitudinal en mm" value="<?= $roll->getRecovery() ?>"></input>
     <label class="form-label" for="description">Description</label>
-    <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau"></input>
+    <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau" value="<?= $roll->getDescription() ?>"></input>
     <label class="form-label" for="price">Prix</label>
-    <input type="text" name="price" id="price" class="form-control" placeholder="Prix au m²"></input>
-    <input type="submit" value="Créer" class="btn btn-success mt-3">
+    <input type="text" name="price" id="price" class="form-control" placeholder="Prix au m²" value="<?= $roll->getPrice() ?>"></input>
+    <input type="submit" value="Modifier" class="btn btn-success mt-3">
 </form>
-
-<div class="container">
-    <section class="d-flex flex-wrap justify-content-center">
-        <?php
-        foreach ($rolls as $roll) :
-        ?>
-            <div class="card m-5" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $roll->getName() ?></h5>
-                    <p class="card-text"><?= $roll->getDescription() ?></p>
-                    <div class="d-flex flex-wrap justify-content-around">
-                        <a href="#" class="btn btn-warning">Modifier</a>
-                        <a href="#" class="btn btn-primary">Détails</a>
-                        <a href="#" class="btn btn-danger">Supprimer</a>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach ?>
-    </section>
-</div>
 
 <?php
 require_once "../views/footer.php";
