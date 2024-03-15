@@ -3,7 +3,7 @@
 <body>
     <div class="container-fluid">
 
-        <header">
+        <header>
             <h1 class="text-center"><a styles="none" href="../index.php">SOPEYO</a></h1>
             <ul class="nav justify-content-around bg-primary">
                 <li class="nav-item">
@@ -32,4 +32,4 @@
                     </ul>
                 </li>
             </ul>
-            </header>
+        </header>
