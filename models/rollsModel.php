@@ -6,8 +6,9 @@ class Rolls
     private string $name;
     private string $length;
     private string $recovery;
+    private string $summary;
     private string $description;
-    private int $price;
+    private float $price;
 
     public function __construct(array $data)
     {
@@ -58,7 +59,7 @@ class Rolls
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = strtoupper($name);
 
         return $this;
     }
@@ -138,7 +139,27 @@ class Rolls
      */
     public function setPrice($price)
     {
-        $this->price = $price;
+        $this->price = floatval($price);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of summary
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Set the value of summary
+     *
+     * @return  self
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
 
         return $this;
     }

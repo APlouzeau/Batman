@@ -21,12 +21,55 @@ class RollsManager
 
     public function addRolls(Rolls $rolls)
     {
-        $req = $this->db->prepare("INSERT INTO rolls (name, length, recovery, description, price) VALUE (:name, :length, :recovery, :description, :price)");
+        $req = $this->db->prepare("INSERT INTO rolls (name, length, recovery, summary description, price) VALUE (:name, :length, :recovery, :summary, :description, :price)");
         $req->bindValue(":name", $rolls->getName(), PDO::PARAM_STR);
         $req->bindValue(":length", $rolls->getLength(), PDO::PARAM_STR);
         $req->bindValue(":recovery", $rolls->getRecovery(), PDO::PARAM_STR);
+        $req->bindValue(":summary", $rolls->getSummary(), PDO::PARAM_STR);
         $req->bindValue(":description", $rolls->getDescription(), PDO::PARAM_STR);
         $req->bindValue(":price", $rolls->getPrice(), PDO::PARAM_STR);
+        $req->execute();
+    }
+
+    public function showRolls()
+    {
+        $rolls = [];
+        $req = $this->db->query("SELECT * FROM rolls ORDER BY name");
+        $datas = $req->fetchAll();
+        foreach ($datas as $data) {
+            $roll = new Rolls($data);
+            $rolls[] = $roll;
+        }
+        return $rolls;
+    }
+
+    public function updateRolls(Rolls $roll, $id)
+    {
+        $req = $this->db->prepare("UPDATE rolls SET name = :name, summary = :summary, description = :description, length = :length, recovery = :recovery, price = :price WHERE id = :id");
+        $req->bindValue(":id", $id, PDO::PARAM_INT);
+        $req->bindValue(":name", $roll->getName(), PDO::PARAM_STR);
+        $req->bindValue(":length", $roll->getLength(), PDO::PARAM_STR);
+        $req->bindValue(":recovery", $roll->getRecovery(), PDO::PARAM_STR);
+        $req->bindValue(":summary", $roll->getSummary(), PDO::PARAM_STR);
+        $req->bindValue(":description", $roll->getDescription(), PDO::PARAM_STR);
+        $req->bindValue(":price", $roll->getPrice(), PDO::PARAM_STR);
+        $req->execute();
+    }
+
+    public function getRollsById(int $id)
+    {
+        $req = $this->db->prepare("SELECT * FROM rolls WHERE id = :id");
+        $req->bindValue(":id", $id, PDO::PARAM_INT);
+        $req->execute();
+        $data = $req->fetch();
+        $roll = new Rolls($data);
+        return $roll;
+    }
+
+    public function deleteRolls(int $id)
+    {
+        $req = $this->db->prepare("DELETE FROM rolls WHERE id = :id");
+        $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->execute();
     }
 }
