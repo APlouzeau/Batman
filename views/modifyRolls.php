@@ -3,7 +3,7 @@ define("BASE_URL", "/EYOSOP");
 require_once "./head.php";
 ?>
 
-<title>Ajout de nouveau rouleau</title>
+<title>Modifier rouleau</title>
 
 <?php
 require_once "./header.php";
@@ -17,6 +17,7 @@ if ($_POST) {
     $name = $_POST["name"];
     $length = $_POST["length"];
     $recovery = $_POST["recovery"];
+    $summary = $_POST["summary"];
     $description = $_POST["description"];
     $price = $_POST["price"];
     var_dump($id);
@@ -26,6 +27,7 @@ if ($_POST) {
             "name" => $name,
             "length" => $length,
             "recovery" => $recovery,
+            "summary" => $summary,
             "description" => $description,
             "price" => $price,
         ]);
@@ -47,6 +49,8 @@ if ($_POST) {
     <input type="number" name="length" id="length" class="form-control" placeholder="Longueur du rouleau en m" value="<?= $roll->getLength() ?>">
     <label class="form-label" for="recovery">Recouvrement</label>
     <input type="number" name="recovery" id="recovery" class="form-control" placeholder="Le recouvrement longitudinal en mm" value="<?= $roll->getRecovery() ?>"></input>
+    <label class="form-label" for="summary">Résumé</label>
+    <input type="text" name="summary" id="summary" class="form-control" placeholder="Résumé succint concernant le rouleau" value="<?= $roll->getSummary() ?>"></input>
     <label class="form-label" for="description">Description</label>
     <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau" value="<?= $roll->getDescription() ?>"></input>
     <label class="form-label" for="price">Prix</label>

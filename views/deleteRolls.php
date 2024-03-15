@@ -3,7 +3,7 @@ define("BASE_URL", "/EYOSOP");
 require_once "./head.php";
 ?>
 
-<title>Ajout de nouveau rouleau</title>
+<title>Suppression rouleau</title>
 
 <?php
 require_once "./header.php";
