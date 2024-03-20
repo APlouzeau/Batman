@@ -4,6 +4,7 @@ class Products
 {
     private int $id;
     private string $name;
+    private string $type;
     private string $length;
     private string $recovery;
     private string $summary;
@@ -160,6 +161,26 @@ class Products
     public function setSummary($summary)
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of summary
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of summary
+     *
+     * @return  self
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }
