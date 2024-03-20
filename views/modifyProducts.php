@@ -7,11 +7,11 @@ require_once "./head.php";
 
 <?php
 require_once "./header.php";
-require_once "../controller/rollsManager.php";
+require_once "../controller/productsManager.php";
 
 
-$rollsManager = new RollsManager();
-$roll = $rollsManager->getRollsById($_GET["id"]);
+$productsManager = new ProductsManager();
+$roll = $productsManager->getProductsById($_GET["id"]);
 if ($_POST) {
     $id = $roll->getId();
     $name = $_POST["name"];
@@ -22,7 +22,7 @@ if ($_POST) {
     $price = $_POST["price"];
     var_dump($id);
     try {
-        $updateRoll = new Rolls([
+        $updateProduct = new Products([
             "id" => $id,
             "name" => $name,
             "length" => $length,
@@ -31,8 +31,8 @@ if ($_POST) {
             "description" => $description,
             "price" => $price,
         ]);
-        $rollsManager->updateRolls($updateRoll, $id);
-        header("Location:rolls.php");
+        $productsManager->updateProducts($updateProduct, $id);
+        header("Location:products.php");
         echo "La modification a réussi.";
     } catch (Exception $e) {
         $error = $e->getMessage();
