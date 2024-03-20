@@ -21,8 +21,9 @@ class ProductsManager
 
     public function addProducts(Products $product)
     {
-        $req = $this->db->prepare("INSERT INTO products (name, length, recovery, summary, description, price) VALUE (:name, :length, :recovery, :summary, :description, :price)");
+        $req = $this->db->prepare("INSERT INTO products (name, type, length, recovery, summary, description, price) VALUE (:name, :type, :length, :recovery, :summary, :description, :price)");
         $req->bindValue(":name", $product->getName(), PDO::PARAM_STR);
+        $req->bindValue(":type", $product->getType(), PDO::PARAM_STR);
         $req->bindValue(":length", $product->getLength(), PDO::PARAM_STR);
         $req->bindValue(":recovery", $product->getRecovery(), PDO::PARAM_STR);
         $req->bindValue(":summary", $product->getSummary(), PDO::PARAM_STR);
@@ -45,9 +46,10 @@ class ProductsManager
 
     public function updateProducts(Products $product, $id)
     {
-        $req = $this->db->prepare("UPDATE products SET name = :name, summary = :summary, description = :description, length = :length, recovery = :recovery, price = :price WHERE id = :id");
+        $req = $this->db->prepare("UPDATE products SET name = :name, type = :type, summary = :summary, description = :description, length = :length, recovery = :recovery, price = :price WHERE id = :id");
         $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->bindValue(":name", $product->getName(), PDO::PARAM_STR);
+        $req->bindValue(":type", $product->getType(), PDO::PARAM_STR);
         $req->bindValue(":length", $product->getLength(), PDO::PARAM_STR);
         $req->bindValue(":recovery", $product->getRecovery(), PDO::PARAM_STR);
         $req->bindValue(":summary", $product->getSummary(), PDO::PARAM_STR);
@@ -72,11 +74,4 @@ class ProductsManager
         $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->execute();
     }
-
-    /* public function getPriceProductSelected()
-    {
-        $req = $this->db->prepare("SELECT price FROM product WHERE id = :id");
-        $req->bindValue(":id", $id, PDO::PARAM_INT);
-        $req->execute();
-    } */
 }
