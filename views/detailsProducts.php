@@ -1,9 +1,9 @@
 <?php
 define("BASE_URL", "/EYOSOP");
 require_once "../views/head.php";
-require_once "../controller/rollsManager.php";
-$rollsManager = new RollsManager();
-$roll = $rollsManager->getRollsById($_GET["id"]);
+require_once "../controller/productsManager.php";
+$productsManager = new ProductsManager();
+$roll = $productsManager->getProductsById($_GET["id"]);
 
 ?>
 

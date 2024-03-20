@@ -7,11 +7,11 @@ require_once "./head.php";
 
 <?php
 require_once "./header.php";
-require_once "../controller/rollsManager.php";
+require_once "../controller/productsManager.php";
 
-$rollsManager = new RollsManager();
-$rollsManager->deleteRolls($_GET["id"]);
-
+$productsManager = new ProductsManager();
+$productsManager->deleteProducts($_GET["id"]);
+header("Location:products.php");
 ?>
 
 
