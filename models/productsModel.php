@@ -1,6 +1,6 @@
 <?php
 
-class Rolls
+class Products
 {
     private int $id;
     private string $name;
