@@ -23,9 +23,4 @@ class EstimateManager
         $req->bindValue(":ressources", $estimate->getRessources(), PDO::PARAM_STR);
         $req->execute();
     }
-
-    public function createLine(array $datas)
-    {
-        $req = $this->db->prepare("INSERT INTO estimate (ressources");
-    }
 }

@@ -23,7 +23,7 @@
                         Ressources
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../views/products.php">Rouleaux</a></li>
+                        <li><a class="dropdown-item" href="../views/products.php">Produits</a></li>
                         <li><a class="dropdown-item" href="#">Terrasses</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -33,3 +33,4 @@
                 </li>
             </ul>
         </header>
+        <div style="min-height: 50em">

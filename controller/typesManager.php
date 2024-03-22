@@ -21,7 +21,7 @@ class TypesManager
 
     public function addTypes(Types $type)
     {
-        $req = $this->db->prepare("INSERT INTO type (type VALUE :type");
+        $req = $this->db->prepare("INSERT INTO type type VALUE :type");
         $req->bindValue(":name", $type->getName(), PDO::PARAM_STR);
         $req->execute();
     }
