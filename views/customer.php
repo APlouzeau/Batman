@@ -3,7 +3,7 @@ define("BASE_URL", "/EYOSOP");
 require_once "../views/head.php";
 ?>
 
-<title>Accueil</title>
+<title>Client</title>
 
 <?php
 require_once "../views/header.php";
@@ -16,8 +16,7 @@ require_once "../models/estimateModel.php";
 $customersManager = new CustomersManager();
 
 if ($_POST) {
-    var_dump($_POST);
-    $name = $_POST["name"];
+    $nameCustomer = $_POST["nameCustomer"];
     $adress = $_POST["adress"];
     $mailGeneric = $_POST["mailGeneric"];
     $siren = $_POST["siren"];
@@ -26,7 +25,7 @@ if ($_POST) {
     $adressContact = $_POST["adressContact"];
     try {
         $newCustomer = new Customers([
-            "name" => $name,
+            "nameCustomer" => $nameCustomer,
             "adress" => $adress,
             "mailGeneric" => $mailGeneric,
             "siren" => $siren,
@@ -34,8 +33,10 @@ if ($_POST) {
             "mailContact" => $mailContact,
             "adressContact" => $adressContact,
         ]);
-        var_dump($newCustomer);
         $customersManager->addCustomer($newCustomer);
+        $customersId = $customersManager->getCustomersbyName($nameCustomer);
+        $getId = $customersId->getId();
+        header("location:newEstimate.php?id=$getId");
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -49,7 +50,7 @@ if ($_POST) {
     </div>
     <div class="" id="buttonsCustomer" hidden=true>
         <button type="button" class="btn btn-success newCustomer" id="newCustomer">Nouveau Client</button>
-        <button type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</button>
+        <a href="../views/searchCustomer.php" type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</a>
     </div>
     <div class="container" id="formEstimate" hidden=true>
         <form method="post">
@@ -57,8 +58,8 @@ if ($_POST) {
                 <li class="list-group-item">
 
                     <h5>Nouveau client</h5>
-                    <label class="form-label" for="name">Nom / Entité</label>
-                    <input class="form-control" type="text" name="name" id="name">
+                    <label class="form-label" for="nameCustomer">Nom / Entité</label>
+                    <input class="form-control" type="text" name="nameCustomer" id="nameCustomer">
 
                     <label class="form-label" for="adress">Adresse</label>
                     <input class="form-control" type="text" name="adress" id="adress">

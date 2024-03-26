@@ -3,10 +3,10 @@
 class Customers
 {
     private int $id;
-    private string $name;
+    private string $nameCustomer;
     private string $adress;
     private string $mailGeneric;
-    private int $siren;
+    private string $siren;
     private string $nameContact;
     private string $mailContact;
     private string $adressContact;
@@ -50,9 +50,9 @@ class Customers
     /**
      * Get the value of name
      */
-    public function getName()
+    public function getNameCustomer()
     {
-        return $this->name;
+        return $this->nameCustomer;
     }
 
     /**
@@ -60,9 +60,9 @@ class Customers
      *
      * @return  self
      */
-    public function setName($name)
+    public function setNameCustomer($nameCustomer)
     {
-        $this->name = $name;
+        $this->nameCustomer = $nameCustomer;
 
         return $this;
     }
