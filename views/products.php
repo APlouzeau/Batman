@@ -32,6 +32,7 @@ if ($_POST) {
             "description" => $description,
             "price" => $price,
         ]);
+        var_dump($newProduct);
         $productsManager->addProducts($newProduct);
         echo "L'ajout a réussi.";
     } catch (Exception $e) {
