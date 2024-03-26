@@ -13,7 +13,6 @@ class CustomersManager
         $userName = "root";
         try {
             $this->db = new PDO("mysql:host=localhost; dbname=$dbName; port=$port", $userName, "");
-            echo "La connextion à la base de donnée à réussi.";
         } catch (PDOException $e) {
             echo $e->getMessage();
             echo "La connexion à la base de donnée a échouée.";
@@ -22,9 +21,8 @@ class CustomersManager
 
     public function addCustomer(Customers $customer)
     {
-        echo 'coucou';
-        $req = $this->db->prepare("INSERT INTO customer (name, adress, mailGeneric, siren, nameContact, mailContact, adressContact) VALUE (:name, :adress, :mailGeneric, :siren, :nameContact, :mailContact, :adressContact)");
-        $req->bindValue(":name", $customer->getName(), PDO::PARAM_STR);
+        $req = $this->db->prepare("INSERT INTO customer (nameCustomer, adress, mailGeneric, siren, nameContact, mailContact, adressContact) VALUE (:nameCustomer, :adress, :mailGeneric, :siren, :nameContact, :mailContact, :adressContact)");
+        $req->bindValue(":nameCustomer", $customer->getNameCustomer(), PDO::PARAM_STR);
         $req->bindValue(":adress", $customer->getAdress(), PDO::PARAM_STR);
         $req->bindValue(":mailGeneric", $customer->getMailGeneric(), PDO::PARAM_STR);
         $req->bindValue(":siren", $customer->getSiren(), PDO::PARAM_INT);
@@ -32,6 +30,37 @@ class CustomersManager
         $req->bindValue(":mailContact", $customer->getMailContact(), PDO::PARAM_STR);
         $req->bindValue(":adressContact", $customer->getAdressContact(), PDO::PARAM_STR);
         $req->execute();
-        echo 'LE client a été ajouté)';
+    }
+
+    public function getAllCustomers()
+    {
+        $customers = [];
+        $req = $this->db->query("SELECT * FROM customer");
+        $datas = $req->fetchAll();
+        foreach ($datas as $data) {
+            $customer = new Customers($data);
+            $customers[] = $customer;
+        }
+        return $customers;
+    }
+
+    public function getCustomers($id)
+    {
+        $req = $this->db->prepare("SELECT * FROM customer WHERE id = :id");
+        $req->bindValue("id", $id, PDO::PARAM_STR);
+        $req->execute();
+        $data = $req->fetch();
+        $customer = new Customers($data);
+        return $customer;
+    }
+
+    public function getCustomersbyName($nameCustomer)
+    {
+        $req = $this->db->prepare("SELECT * FROM customer WHERE  nameCustomer = :nameCustomer");
+        $req->bindValue("nameCustomer", $nameCustomer, PDO::PARAM_STR);
+        $req->execute();
+        $data = $req->fetch();
+        $customer = new Customers($data);
+        return $customer;
     }
 }

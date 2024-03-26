@@ -3,6 +3,8 @@
 class Estimate
 {
     private int $id;
+    private string $nameEstimate;
+    private string $customer;
     private $date;
     private string $ressources;
 
@@ -77,6 +79,46 @@ class Estimate
     public function setRessources($ressources)
     {
         $this->ressources = $ressources;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nameEstimate
+     */
+    public function getNameEstimate()
+    {
+        return $this->nameEstimate;
+    }
+
+    /**
+     * Set the value of nameEstimate
+     *
+     * @return  self
+     */
+    public function setNameEstimate($nameEstimate)
+    {
+        $this->nameEstimate = $nameEstimate;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set the value of customer
+     *
+     * @return  self
+     */
+    public function setCustomer($customer)
+    {
+        $this->customer = $customer;
 
         return $this;
     }

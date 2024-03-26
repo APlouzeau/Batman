@@ -19,8 +19,11 @@ class EstimateManager
 
     public function createEstimate(Estimate $estimate)
     {
-        $req = $this->db->prepare("INSERT INTO estimate (ressources) VALUE (:ressources)");
-        $req->bindValue(":ressources", $estimate->getRessources(), PDO::PARAM_STR);
+        echo 'méthode createEstimate appelée.';
+        $req = $this->db->prepare("INSERT INTO estimate (nameEstimate, customer) VALUE (:nameEstimate, :customer");
+        $req->bindValue(":nameEstimate", $estimate->getNameEstimate(), PDO::PARAM_STR);
+        $req->bindValue(":customer", $estimate->getCustomer(), PDO::PARAM_STR);
         $req->execute();
+        echo 'Devis créé.';
     }
 }
