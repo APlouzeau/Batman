@@ -1,5 +1,7 @@
 <?php
 
+require_once "../models/estimateModel.php";
+
 class EstimateManager
 {
     private $db;
@@ -19,11 +21,20 @@ class EstimateManager
 
     public function createEstimate(Estimate $estimate)
     {
-        echo 'méthode createEstimate appelée.';
-        $req = $this->db->prepare("INSERT INTO estimate (nameEstimate, customer) VALUE (:nameEstimate, :customer");
+        echo "Méthode createEstimate appelée.";
+        $req = $this->db->prepare("INSERT INTO estimate (nameEstimate, idCustomer) VALUE (:nameEstimate, :idCustomer)");
         $req->bindValue(":nameEstimate", $estimate->getNameEstimate(), PDO::PARAM_STR);
-        $req->bindValue(":customer", $estimate->getCustomer(), PDO::PARAM_STR);
+        $req->bindValue(":idCustomer", $estimate->getIdCustomer(), PDO::PARAM_STR);
         $req->execute();
-        echo 'Devis créé.';
+    }
+
+    public function getEstimateIdByName($nameEstimate)
+    {
+        $req = $this->db->prepare("SELECT * FROM estimate WHERE nameEstimate = :nameEstimate");
+        $req->bindValue(":nameEstimate", $nameEstimate, PDO::PARAM_STR);
+        $req->execute();
+        $data = $req->fetch();
+        $estimate = new Estimate($data);
+        return $estimate;
     }
 }

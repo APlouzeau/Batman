@@ -16,14 +16,17 @@ $customersManager = new CustomersManager();
 
 if ($_POST) {
     $nameEstimate = $_POST["nameEstimate"];
-    $customer = $_POST["customer"];
+    $idCustomer = $_GET["id"];
     try {
         $newEstimate = new Estimate([
             "nameEstimate" => $nameEstimate,
-            "customer" => $customer,
+            "idCustomer" => $idCustomer,
         ]);
-        var_dump($newEstimate);
         $estimateManager->createEstimate($newEstimate);
+        $estimate = $estimateManager->getEstimateIdByName($nameEstimate);
+        var_dump($estimate);
+        $estimateId = $estimate->getId();
+        header("Location:createEstimate.php?id=$estimateId");
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -46,7 +49,7 @@ if ($_GET) {
             <li class="list-group-item">
                 <h6>Client</h6>
                 <label class="form-label" for="customer">Nom / Entité</label>
-                <input class="form-control" type="text" name="customer" id="customer" value="<?= $nameCustomer ?>">
+                <input class="form-control" type="text" name="customer" id="idustomer" value="<?= $nameCustomer ?>">
             </li>
 
             <li class="list-group-item">
