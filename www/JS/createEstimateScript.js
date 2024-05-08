@@ -1,13 +1,24 @@
 let line = 1;
+let block = 2;
 
-let resultQuantity = document.querySelector(".quantity");
+let resultQuantity = document.querySelector('.quantity');
 resultQuantity.addEventListener('change', () => {
-    calcPrice(document.querySelector("#firstRow"));
+    calcPrice(document.querySelector('#row1'));
 })
 
 let resultPrice = document.querySelector(".unitPrice");
 resultPrice.addEventListener('change', () => {
-    calcPrice(document.querySelector("#firstRow"));
+    calcPrice(document.querySelector("#row1"));
+})
+
+let productLine1 = document.querySelector('.product');
+productLine1.addEventListener('change', () => {
+    calcPrice(document.querySelector('#row1'));
+})
+
+let showPriceLine1 = document.querySelector('#row1');
+showPriceLine1.addEventListener('change', () => {
+    showPrice(document.querySelector('#row1'));
 })
 
 function showPrice(element) {
@@ -16,19 +27,25 @@ function showPrice(element) {
     showUnitPrice.setAttribute('value', searchUnitPrice.value);
 }
 
+// Ok pour ligne ajoutées
 function calcPrice(element) {
-    let quantity = element.querySelector(".quantity");
+    let quantity = element.querySelector('.quantity');
     let quantityValue = quantity.value;
-    let getPrice = element.querySelector(".unitPrice");
+    let getPrice = element.querySelector('.unitPrice');
     let priceNumber = getPrice.value;
     let price = quantityValue * priceNumber;
     let resultPrice = element.querySelector('.resultPrice');
-    resultPrice.innerText = price;   
+    resultPrice.innerText = price;
 }
 
-let addLineEvent = document.querySelector('#addLine');
+let addLineEvent = document.querySelector('.addLineBlock1');
 addLineEvent.addEventListener("click", () => {
-    addLine('estimate');
+    addLine('.task1');
+})
+
+let addBlockEvent = document.querySelector('.addBlock');
+addBlockEvent.addEventListener("click", () => {
+    addBlock('.blockModel');
 })
 
 function select(id) {
@@ -51,9 +68,35 @@ function select(id) {
     }
 }
 
+function addBlock(blockModel) {
+    const node = document.querySelector(blockModel);
+    const clone = node.cloneNode(true);
+    clone.classList.add('block' + block);
+    clone.removeAttribute('hidden');
+    const newTable = clone.querySelector('table');
+    newTable.removeAttribute('id');
+    newTable.classList.add('task' + block);
+    const idLine = clone.querySelector('#row');
+    idLine.setAttribute('id', 'row' + block);
+    const newAddLineButton = clone.querySelector('.addLineBlock');
+    newAddLineButton.classList.remove("addLineBlock");
+    newAddLineButton.classList.add('addLineBlock' + block);
+    const newTableClass = '.task' + block;
+    newAddLineButton.addEventListener("click", () => {
+    addLine(newTableClass);
+})
+    const newRow = '#row' + block;
+    const selectProductLine1 = clone.querySelector('.product');
+    selectProductLine1.addEventListener('change', () => {
+        showPrice(clone.querySelector(newRow));
+    })
+    document.querySelector('.blockList').appendChild(clone);
+    block++;
+}
+
 function addLine(tableId) {  
     // Récupération d'une référence à la table
-    let refTable = document.getElementById(tableId);
+    let refTable = document.querySelector(tableId);
     
     // Insère une ligne dans la table à l'indice de ligne 0
     let newLine = refTable.insertRow(-1);
@@ -107,7 +150,7 @@ function addLine(tableId) {
     newCaseTotalPriceContent.classList.add('resultPrice');
     newCaseTotalPriceContent.setAttribute('id', 'totalPrice' + line)
     newCaseTotalPriceContent.value = 0;
-        
+    
     newCasePoste.appendChild(newCasePosteSelect);
     newCaseProduct.appendChild(newCaseProductSelect);
     newCaseQuantity.appendChild(newCaseQuantityContent);
@@ -117,7 +160,7 @@ function addLine(tableId) {
     line++;
 };
     
-let showUnitPriceEvent = document.querySelector('#product');
+let showUnitPriceEvent = document.querySelector('.product');
 showUnitPriceEvent.addEventListener('change' , () => {
     let shownUnitPrice = document.querySelector('.unitPrice');
     shownUnitPrice.setAttribute('value', showUnitPriceEvent.value);

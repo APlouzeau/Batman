@@ -22,9 +22,9 @@ if ($_POST) {
             "nameEstimate" => $nameEstimate,
             "idCustomer" => $idCustomer,
         ]);
+        var_dump($newEstimate);
         $estimateManager->createEstimate($newEstimate);
         $estimate = $estimateManager->getEstimateIdByName($nameEstimate);
-        var_dump($estimate);
         $estimateId = $estimate->getId();
         header("Location:createEstimate.php?id=$estimateId");
     } catch (Exception $e) {
