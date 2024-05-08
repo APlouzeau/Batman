@@ -1,5 +1,5 @@
 <div class="py-2 blockModel" hidden>
-    <label for="description" class="fs-6 fw-bold">Description</label>
+    <label for="description" class="fs-5 fw-bold">Description</label>
     <textarea rows="2" class="form-control" name="description"></textarea>
 
     <table id="task" class="text-center table table-striped">

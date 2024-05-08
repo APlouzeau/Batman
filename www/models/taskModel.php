@@ -3,7 +3,6 @@
 class Task
 {
     private $id;
-    private $lineNumber;
     private $description;
     private $quantity;
     private $unitPrice;
@@ -35,17 +34,7 @@ class Task
         return $this;
     }
 
-    public function getLineNumber()
-    {
-        return $this->lineNumber;
-    }
-
-    public function setLineNumber($lineNumber)
-    {
-        $this->lineNumber = $lineNumber;
-        return $this;
-    }
-    public function getDescription()
+   public function getDescription()
     {
         return $this->description;
     }

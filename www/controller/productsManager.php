@@ -53,6 +53,13 @@ class ProductsManager extends PDOServer
         $product = new Products($data);
         return $product;
     }
+    public function getProductsByName($name)
+    {
+        $req = $this->db->query("SELECT * FROM products WHERE name = '$name'");
+        $data = $req->fetch();
+        $product = new Products($data);
+        return $product;
+    }
 
     public function deleteProducts(int $id)
     {
@@ -60,4 +67,6 @@ class ProductsManager extends PDOServer
         $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->execute();
     }
+
+    
 }

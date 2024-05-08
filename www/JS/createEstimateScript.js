@@ -18,10 +18,10 @@ productLine1.addEventListener('change', () => {
 
 let showPriceLine1 = document.querySelector('#row1');
 showPriceLine1.addEventListener('change', () => {
-    showPrice(document.querySelector('#row1'));
+    showUnitPrice(document.querySelector('#row1'));
 })
 
-function showPrice(element) {
+function showUnitPrice(element) {
     let showUnitPrice = element.querySelector('.unitPrice');
     let searchUnitPrice = element.querySelector('.product');
     showUnitPrice.setAttribute('value', searchUnitPrice.value);
@@ -88,7 +88,7 @@ function addBlock(blockModel) {
     const newRow = '#row' + block;
     const selectProductLine1 = clone.querySelector('.product');
     selectProductLine1.addEventListener('change', () => {
-        showPrice(clone.querySelector(newRow));
+        showUnitPrice(clone.querySelector(newRow));
     })
     document.querySelector('.blockList').appendChild(clone);
     block++;
@@ -128,7 +128,7 @@ function addLine(tableId) {
         newCaseProductSelectOptions.text = element[0];
     });
     newCaseProductSelect.addEventListener('change', () => {
-        showPrice(newLine);
+        showUnitPrice(newLine);
         });
         
     let newCaseQuantityContent = document.createElement('input');

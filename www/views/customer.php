@@ -50,7 +50,7 @@ if ($_POST) {
     </div>
     <div class="" id="buttonsCustomer" hidden=true>
         <button type="button" class="btn btn-success newCustomer" id="newCustomer">Nouveau Client</button>
-        <a href="../views/searchCustomer.php" type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</a>
+        <a href="views/searchCustomer.php" type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</a>
     </div>
     <div class="container" id="formEstimate" hidden=true>
         <form method="post">
@@ -88,7 +88,7 @@ if ($_POST) {
         </form>
     </div>
 </div>
-<script src="../JS/estimate.JS"></script>
+<script src="JS/estimate.JS"></script>
 <?php
-require_once "../views/footer.php";
+require_once "views/footer.php";
 ?>

@@ -2,6 +2,7 @@
 
 class ProductByTask
 {
+    private $iProductByTask;
     private $idProduct;
     private $idTask;
     private $quantityProduct;
@@ -98,6 +99,26 @@ class ProductByTask
     public function setUnitPriceProduct($unitPriceProduct)
     {
         $this->unitPriceProduct = $unitPriceProduct;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of iProductByTask
+     */ 
+    public function getIProductByTask()
+    {
+        return $this->iProductByTask;
+    }
+
+    /**
+     * Set the value of iProductByTask
+     *
+     * @return  self
+     */ 
+    public function setIProductByTask($iProductByTask)
+    {
+        $this->iProductByTask = $iProductByTask;
 
         return $this;
     }
