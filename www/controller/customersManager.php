@@ -1,23 +1,10 @@
 <?php
 
 require_once "../models/customersModel.php";
+require_once "../models/PDOServer.php";
 
-class CustomersManager
+class CustomersManager extends PDOServer
 {
-    private $db;
-
-    public function __construct()
-    {
-        $dbName = "sopeyo";
-        $port = "3306";
-        $userName = "root";
-        try {
-            $this->db = new PDO("mysql:host=localhost; dbname=$dbName; port=$port", $userName, "");
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            echo "La connexion à la base de donnée a échouée.";
-        }
-    }
 
     public function addCustomer(Customers $customer)
     {
