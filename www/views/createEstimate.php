@@ -3,7 +3,7 @@ define("BASE_URL", "/EYOSOP");
 require_once "../views/head.php";
 ?>
 
-<title>Accueil</title>
+<title>Edition devis</title>
 
 <?php
 require_once "../views/header.php";
@@ -24,15 +24,17 @@ $taskManager = new TaskManager();
 $productByTaskManager = new productByTaskManager();
 
 if ($_POST) {
-    var_dump($_POST);
+   $idEstimate = $_GET['id'];  
     try {
-        $newTask = new Task([
-            $lineNb = $_POST["lineNb1"],
-            $description = $_POST["description"],
-            $quantity = $_POST["quantity"],
-            $unitPrice = $_POST["unitPrice"],
-
+         $newTask = new Task([
+            "description" => $_POST["description"],
+            "quantity" => $_POST["quantity"],
+            "unitPrice" => $_POST["unitPrice"],
         ]);
+        $newProduct = $productsManager->getProductsByName($_POST['product']);
+        var_dump($newTask);
+        var_dump($newProduct);
+        $taskManager->addTask($newTask, $newProduct, $idEstimate);
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -46,10 +48,12 @@ if ($_POST) {
             require_once "../views/blockModel.php";
             ?>
             <div class="py-2 block1" name="lineNb1">
-                <table class="text-center table table-striped task1">
+                <label for="description" class="fs-5 fw-bold">Description</label>
+                <textarea rows="2" class="form-control" name="description"></textarea>
+                    <table class="text-center table table-striped task1">
                     <thead>
                         <tr>
-                            <th>Poste</th>
+                            <th>Type</th>
                             <th>Produit</th>
                             <th>Quantité</th>
                             <th>Prix unitaire</th>
@@ -69,9 +73,9 @@ if ($_POST) {
                                 </select>
                             </td>
                             <td>
-                                <select class="form-select product" id="product" aria-label="Default select example">
+                                <select class="form-select product" id="product" aria-label="Default select example" name="product">
                                     <?php foreach ($productList as $type => $product) { ?>
-                                        <option class="<?= $product->getType() ?>" value="<?= $product->getPrice() ?>"><?= $product->getName() ?></option>
+                                        <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                                     <?php
                                     }
                                     ?>
@@ -101,7 +105,7 @@ if ($_POST) {
 
     <h5 class="resultPriceTotal"></h5>
 </div>
-<script src="../JS/createEstimateScript.js"></script>
+<script src="JS/createEstimateScript.js"></script>
 <?php
 require_once "../views/footer.php";
 ?>

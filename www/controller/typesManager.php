@@ -26,11 +26,10 @@ class TypesManager extends PDOServer
 
     public function getTypesById(int $id)
     {
-        $req = $this->db->prepare("SELECT * FROM type WHERE id = :id");
-        $req->bindValue(":id", $id, PDO::PARAM_INT);
-        $req->execute();
+        $req = $this->db->query("SELECT * FROM type WHERE id = $id");
         $data = $req->fetch();
         $type = new Types($data);
+        var_dump($type);
         return $type;
     }
 }
