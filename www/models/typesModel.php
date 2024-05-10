@@ -54,7 +54,7 @@ class Types
      */
     public function setName($name)
     {
-        $this->name = strtoupper($name);
+        $this->name = $name;
 
         return $this;
     }

@@ -1,23 +1,9 @@
 <?php
 
 require_once "../models/productsModel.php";
-
-class ProductsManager
+require_once "../models/PDOServer.php";
+class ProductsManager extends PDOServer
 {
-    private $db;
-
-    public function __construct()
-    {
-        $dbName = "sopeyo";
-        $port = "3306";
-        $userName = "root";
-        try {
-            $this->db = new PDO("mysql:host=localhost; dbname=$dbName; port=$port", $userName, "");
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            echo "La connexion à la base de donnée a échouée.";
-        }
-    }
 
     public function addProducts(Products $product)
     {
@@ -67,6 +53,13 @@ class ProductsManager
         $product = new Products($data);
         return $product;
     }
+    public function getProductsByName($name)
+    {
+        $req = $this->db->query("SELECT * FROM products WHERE name = '$name'");
+        $data = $req->fetch();
+        $product = new Products($data);
+        return $product;
+    }
 
     public function deleteProducts(int $id)
     {
@@ -74,4 +67,6 @@ class ProductsManager
         $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->execute();
     }
+
+    
 }

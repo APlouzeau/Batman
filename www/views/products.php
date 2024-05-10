@@ -14,7 +14,6 @@ $productsManager = new ProductsManager();
 $rollList = $productsManager->showProducts();
 $typesManager = new TypesManager();
 $typesList = $typesManager->showTypes();
-var_dump($_POST);
 if ($_POST) {
     $name = $_POST["name"];
     $type = $_POST["type"];
@@ -33,6 +32,7 @@ if ($_POST) {
             "description" => $description,
             "price" => $price,
         ]);
+        var_dump($newProduct);
         $productsManager->addProducts($newProduct);
         echo "L'ajout a réussi.";
     } catch (Exception $e) {
@@ -41,7 +41,7 @@ if ($_POST) {
 }
 
 ?>
-<form method="post" class="container">
+<form method="post" class="container" style="min-height:50em">
     <label class="form-label" for="name">Nom / Ref</label>
     <input type="name" name="name" id="name" class="form-control" min=1 max=901 placeholder="Référence du rouleau">
     <label class="form-label" for="type">Type</label>

@@ -3,8 +3,10 @@
 class Estimate
 {
     private int $id;
+    private string $nameEstimate;
+    private string $idCustomer;
     private $date;
-    private string $ressources;
+    private int $idTasks;
 
     public function __construct(array $data)
     {
@@ -62,21 +64,61 @@ class Estimate
     }
 
     /**
-     * Get the value of ressources
+     * Get the value of idTasks
      */
-    public function getRessources()
+    public function getIdTasks()
     {
-        return $this->ressources;
+        return $this->idTasks;
     }
 
     /**
-     * Set the value of ressources
+     * Set the value of idTasks
      *
      * @return  self
      */
-    public function setRessources($ressources)
+    public function setIdTasks($idTasks)
     {
-        $this->ressources = $ressources;
+        $this->idTasks = $idTasks;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nameEstimate
+     */
+    public function getNameEstimate()
+    {
+        return $this->nameEstimate;
+    }
+
+    /**
+     * Set the value of nameEstimate
+     *
+     * @return  self
+     */
+    public function setNameEstimate($nameEstimate)
+    {
+        $this->nameEstimate = $nameEstimate;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idCustomer
+     */
+    public function getIdCustomer()
+    {
+        return $this->idCustomer;
+    }
+
+    /**
+     * Set the value of idCustomer
+     *
+     * @return  self
+     */
+    public function setIdCustomer($idCustomer)
+    {
+        $this->idCustomer = $idCustomer;
 
         return $this;
     }
