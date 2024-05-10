@@ -1,40 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ee699cbe-78f3-47e3-8b74-84df0de5ffb8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/JS/createEstimateScript.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JS/estimate.JS" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JS/searchCustomer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ressources/BDD/V1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ressources/BDD/V1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ressources/BDD/V2.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ressources/Tarif SOPREMA ENTREPRISES au 01.07.2022.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/customersManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/estimateManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/productsManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/typesManager.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/customersModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/estimateModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/productsModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/roleModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/typesModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/userModel.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/createEstimate.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/customer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/deleteProducts.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/detailsProducts.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/footer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/head.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/header.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/modifyProducts.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/newEstimate.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/products.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/searchCustomer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/JS/createEstimateScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/JS/createEstimateScript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/JS/estimate.JS" beforeDir="false" afterPath="$PROJECT_DIR$/www/JS/estimate.JS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/controller/taskManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/controller/taskManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/views/blockModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/views/blockModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/views/createEstimate.php" beforeDir="false" afterPath="$PROJECT_DIR$/www/views/createEstimate.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,22 +22,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Eyola"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Eyola&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Eyola/Eyosop.git",
-    "accountId": "0d08d740-f5f8-4d52-9bf6-cf29e1849f84"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Eyola/Eyosop.git&quot;,
+    &quot;accountId&quot;: &quot;0d08d740-f5f8-4d52-9bf6-cf29e1849f84&quot;
   }
-}]]></component>
+}</component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2gB64Y8WuX5vmtwAFMnjYQNFUC2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -73,6 +48,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "estimate",
     "last_opened_file_path": "H:/Sites/Eyosop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -94,6 +73,7 @@
       <option name="presentableId" value="Default" />
       <updated>1715158432166</updated>
       <workItem from="1715158433220" duration="20000" />
+      <workItem from="1715251532662" duration="610000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,6 @@
 let line = 1;
-let block = 2;
+let block = 1;
+
 
 let resultQuantity = document.querySelector('.quantity');
 resultQuantity.addEventListener('change', () => {
@@ -16,10 +17,10 @@ productLine1.addEventListener('change', () => {
     calcPrice(document.querySelector('#row1'));
 })
 
-let showPriceLine1 = document.querySelector('#row1');
+/* let showPriceLine1 = document.querySelector('#row1');
 showPriceLine1.addEventListener('change', () => {
     showUnitPrice(document.querySelector('#row1'));
-})
+}) */
 
 function showUnitPrice(element) {
     let showUnitPrice = element.querySelector('.unitPrice');
@@ -38,14 +39,10 @@ function calcPrice(element) {
     resultPrice.innerText = price;
 }
 
-let addLineEvent = document.querySelector('.addLineBlock1');
-addLineEvent.addEventListener("click", () => {
-    addLine('.task1');
-})
 
 let addBlockEvent = document.querySelector('.addBlock');
 addBlockEvent.addEventListener("click", () => {
-    addBlock('.blockModel');
+    addBlock('.block');
 })
 
 function select(id) {
@@ -68,23 +65,43 @@ function select(id) {
     }
 }
 
+function addLine(lineModel, block) {
+    const node = document.querySelector(lineModel);
+    const clone = node.cloneNode(true);
+    cloneLineParams(clone, block);
+    clone.classList.remove('rowModel') 
+    document.querySelector('.row' + block).appendChild(clone);
+}
+
+let addLineEvent = document.querySelector('.addLineBlock1');
+addLineEvent.addEventListener("click", () => {
+    addLine('.rowModel', 0);
+})
+
 function addBlock(blockModel) {
     const node = document.querySelector(blockModel);
     const clone = node.cloneNode(true);
     clone.classList.add('block' + block);
+    clone.classList.remove('block');
+    clone.removeAttribute('id');
+    clone.setAttribute('id', 'block' + block);
     clone.removeAttribute('hidden');
+    const newDescription = clone.querySelector('.description');
+    newDescription.setAttribute('name', 'description' + block + '[]');
     const newTable = clone.querySelector('table');
+    newTable.classList.remove('task');
     newTable.removeAttribute('id');
     newTable.classList.add('task' + block);
-    const idLine = clone.querySelector('#row');
-    idLine.setAttribute('id', 'row' + block);
+    const classTbody = clone.querySelector('tbody');
+    classTbody.classList.add('row' + block);
+    cloneLineParams(clone, block);
     const newAddLineButton = clone.querySelector('.addLineBlock');
     newAddLineButton.classList.remove("addLineBlock");
     newAddLineButton.classList.add('addLineBlock' + block);
-    const newTableClass = '.task' + block;
+    const newTableClass = block;
     newAddLineButton.addEventListener("click", () => {
-    addLine(newTableClass);
-})
+        addLine('.rowModel', newTableClass);
+    })
     const newRow = '#row' + block;
     const selectProductLine1 = clone.querySelector('.product');
     selectProductLine1.addEventListener('change', () => {
@@ -93,75 +110,20 @@ function addBlock(blockModel) {
     document.querySelector('.blockList').appendChild(clone);
     block++;
 }
-
-function addLine(tableId) {  
-    // Récupération d'une référence à la table
-    let refTable = document.querySelector(tableId);
-    
-    // Insère une ligne dans la table à l'indice de ligne 0
-    let newLine = refTable.insertRow(-1);
-    
-    // Insère une cellule dans la ligne à l'indice 0
-    let newCasePoste = newLine.insertCell(-1);
-    let newCaseProduct = newLine.insertCell(-1);
-    let newCaseQuantity = newLine.insertCell(-1);
-    let newCaseUnitPrice = newLine.insertCell(-1);
-    let newCaseTotalPrice = newLine.insertCell(-1);
-    
-    // Ajoute un nœud texte à la cellule
-    let newCasePosteSelect = document.createElement('select');
-    newCasePosteSelect.classList.add('form-select');
-    let arrayOptionsPoste = select('type');
-    arrayOptionsPoste.forEach(element => {
-        let newCasePosteSelectOptions = document.createElement('option');
-        newCasePosteSelectOptions.text = element;
-        newCasePosteSelect.appendChild(newCasePosteSelectOptions);
-    });
-    
-    let newCaseProductSelect = document.createElement('select');
-    newCaseProductSelect.classList.add('form-select', 'product');
-    let arrayOptionsProduct = select('product');
-    arrayOptionsProduct.forEach(element => {
-        let newCaseProductSelectOptions = document.createElement('option');
-        newCaseProductSelectOptions.value = element[1];
-        newCaseProductSelect.appendChild(newCaseProductSelectOptions);
-        newCaseProductSelectOptions.text = element[0];
-    });
-    newCaseProductSelect.addEventListener('change', () => {
-        showUnitPrice(newLine);
-        });
-        
-    let newCaseQuantityContent = document.createElement('input');
-    newCaseQuantityContent.classList.add('form-control', 'quantity');
-    newCaseQuantityContent.setAttribute('id', 'quantity' + line);
-    newCaseQuantityContent.addEventListener('change', () => {
-        calcPrice(newLine);
-    });
-        
-        
-    let newCaseUnitPriceContent = document.createElement('input');
-    newCaseUnitPriceContent.classList.add('form-control', 'unitPrice');
-    newCaseUnitPriceContent.setAttribute('id', 'unitPrice' + line);
-    newCaseUnitPriceContent.addEventListener('change', () => {
-        calcPrice(newLine);
-    });
-        
-    let newCaseTotalPriceContent = document.createElement('div');
-    newCaseTotalPriceContent.classList.add('resultPrice');
-    newCaseTotalPriceContent.setAttribute('id', 'totalPrice' + line)
-    newCaseTotalPriceContent.value = 0;
-    
-    newCasePoste.appendChild(newCasePosteSelect);
-    newCaseProduct.appendChild(newCaseProductSelect);
-    newCaseQuantity.appendChild(newCaseQuantityContent);
-    newCaseUnitPrice.appendChild(newCaseUnitPriceContent);
-    newCaseTotalPrice.appendChild(newCaseTotalPriceContent);
-      
-    line++;
-};
     
 let showUnitPriceEvent = document.querySelector('.product');
 showUnitPriceEvent.addEventListener('change' , () => {
     let shownUnitPrice = document.querySelector('.unitPrice');
     shownUnitPrice.setAttribute('value', showUnitPriceEvent.value);
 })
+
+function cloneLineParams(clone, block) {
+    const productClone = clone.querySelector('.product');
+    productClone.setAttribute('name', 'product' + block + '[]');
+    const quantityClone = clone.querySelector('.quantity');
+    quantityClone.setAttribute('name', 'quantity' + block + '[]'); 
+    quantityClone.setAttribute('required', true);   
+    const unitPriceClone = clone.querySelector('.unitPrice');
+    unitPriceClone.setAttribute('name', 'unitPrice' + block + '[]');
+    unitPriceClone.setAttribute('required', true);
+}

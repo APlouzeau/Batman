@@ -90,5 +90,5 @@ if ($_POST) {
 </div>
 <script src="JS/estimate.JS"></script>
 <?php
-require_once "views/footer.php";
+require_once "../views/footer.php";
 ?>
