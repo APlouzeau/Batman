@@ -1,3 +1,4 @@
+console.log('saucisson');
 document.getElementById("newEstimate").addEventListener(
 'click', () => {
     document.getElementById("buttonsEstimate").hidden = true;

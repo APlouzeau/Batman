@@ -1,8 +1,8 @@
-<div class="py-2 blockModel" hidden>
+<div class="py-2 block" id="block" hidden>
     <label for="description" class="fs-5 fw-bold">Description</label>
-    <textarea rows="2" class="form-control" name="description"></textarea>
+    <textarea rows="2" class="form-control description" class="description" ></textarea>
 
-    <table id="task" class="text-center table table-striped">
+    <table id="task" class="text-center table table-striped task">
         <thead>
             <tr>
                 <th>Poste</th>
@@ -14,7 +14,7 @@
         </thead>
 
         <tbody>
-            <tr id="row">
+            <tr class="rowModel">
                 <td>
                     <select class="form-select type" id="type" aria-label="Default select example">
                         <?php foreach ($typesList as $type) { ?>
@@ -27,17 +27,17 @@
                 <td>
                     <select class="form-select product" aria-label="Default select example">
                         <?php foreach ($productList as $type => $product) { ?>
-                            <option class="<?= $product->getType() ?>" value="<?= $product->getPrice() ?>"><?= $product->getName() ?></option>
+                            <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                         <?php
                         }
                         ?>
                     </select>
                 </td>
                 <td>
-                    <input class="form-control quantity" name="quantity" type="number">
+                    <input class="form-control quantity" type="number">
                 </td>
                 <td>
-                    <input class="form-control unitPrice" name="unitPrice" type="number" value="">
+                    <input class="form-control unitPrice" type="number" step="any" value="">
                 </td>
                 <td>
                     <div class="resultPrice"></div>

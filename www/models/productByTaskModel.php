@@ -2,7 +2,7 @@
 
 class ProductByTask
 {
-    private $iProductByTask;
+    private $idProductByTask;
     private $idProduct;
     private $idTask;
     private $quantityProduct;
@@ -106,9 +106,9 @@ class ProductByTask
     /**
      * Get the value of iProductByTask
      */ 
-    public function getIProductByTask()
+    public function getIdProductByTask()
     {
-        return $this->iProductByTask;
+        return $this->idProductByTask;
     }
 
     /**
@@ -116,9 +116,9 @@ class ProductByTask
      *
      * @return  self
      */ 
-    public function setIProductByTask($iProductByTask)
+    public function setIdProductByTask($idProductByTask)
     {
-        $this->iProductByTask = $iProductByTask;
+        $this->idProductByTask = $idProductByTask;
 
         return $this;
     }
