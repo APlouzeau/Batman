@@ -1,5 +1,5 @@
 let line = 1;
-let block = 2;
+let block = document.getElementById('tasksNumber').value;
 
 
 let resultQuantity = document.querySelector('.quantity');
@@ -81,6 +81,9 @@ function addBlock(blockModel) {
     clone.removeAttribute('id');
     clone.setAttribute('id', 'block' + block);
     clone.removeAttribute('hidden');
+    const tasksNumber = clone.querySelector('.tasksNumber');
+    tasksNumber.setAttribute('name', 'taskNumber' + block + '[]');
+    tasksNumber.setAttribute('value', block)
     const newDescription = clone.querySelector('.description');
     newDescription.setAttribute('name', 'description' + block + '[]');
     const newTable = clone.querySelector('table');

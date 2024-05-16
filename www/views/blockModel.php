@@ -1,4 +1,5 @@
 <div class="py-2 block" id="block" hidden>
+    <input type="hidden" class ="tasksNumber">
     <label for="description" class="fs-5 fw-bold">Description</label>
     <textarea rows="2" class="form-control description" class="description" ></textarea>
 
