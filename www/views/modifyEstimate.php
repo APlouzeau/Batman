@@ -22,17 +22,25 @@ $typesList = $typesManager->showTypes();
 $taskManager = new TaskManager();
 $productByTaskManager = new productByTaskManager();
 $tasksList = $taskManager->showTasksById($_GET['id']);
+$tasksNumber = count($tasksList);
+
 if ($_POST) {
-/*     var_dump($_POST);        
-    var_dump($_POST['product0'][0]); */
-    $idEstimate = $_GET['id'];  
     try {
+    foreach ($tasksList as $tasksid) {
+        $idTasks[] = $tasksid['id'];
+    }
+    $taskManager->deleteTasks($idTasks);
+} catch (Exception $e) {
+    $error = $e->getMessage();
+}
+    $idEstimate = $_GET['id'];
+    /* try {
         $count = count($_POST) / 4;
         for ($i = 0; $i < $count; $i++) {        
             $newTask = new Task([
                 'description' => $_POST["description" . $i][0],
-                /* 'quantity' => $_POST["quantity" . $i], */
-                /* 'unitPrice' => $_POST["unitPrice" . $i] */
+                /* 'quantity' => $_POST["quantity" . $i], 
+                /* 'unitPrice' => $_POST["unitPrice" . $i] 
             ]);
             $idTask = $taskManager->addTask($newTask);
             $j = 0;
@@ -49,10 +57,10 @@ if ($_POST) {
                 $j++;   
 
             }
-        }
+        } 
     } catch (Exception $e) {
         $error = $e->getMessage();
-    }
+    }*/
 }
 
 
@@ -61,8 +69,10 @@ if ($_POST) {
 <div class="container">
     <form method="post">
         <div class="blockList">
+        <input type="hidden" id="tasksNumber" value="<?php echo $tasksNumber; ?>">
                 <?php
                 foreach ($tasksList as $taskDetails) {
+                    var_dump( $taskDetails );
                 ?>
             <div class="py-2 block<?= $taskDetails['taskNumber']?>" name="lineNb1">
                 <label for="description" class="fs-5 fw-bold">Description</label>

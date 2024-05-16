@@ -70,7 +70,11 @@ class TaskManager extends PDOServer
         return $datas;
     }
 
-    
+    public function deleteTasks(array $idTasks) {
+        foreach ($idTasks as $idTask) {
+            $this->db->query("DELETE FROM tasks WHERE id = $idTask");
+        }
+    }
 
 }
 

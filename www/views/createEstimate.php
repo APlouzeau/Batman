@@ -21,16 +21,19 @@ $typesManager = new TypesManager();
 $typesList = $typesManager->showTypes();
 $taskManager = new TaskManager();
 $productByTaskManager = new productByTaskManager();
+$tasksNumber = 1;
+var_dump($_POST);
 
 if ($_POST) {     
     $idEstimate = $_GET['id'];  
     try {
-        $count = count($_POST) / 4;
-        for ($i = 0; $i < $count; $i++) {        
+        $count = floor(count($_POST) / 4);
+        for ($i = 0; $i < $count; $i++) {       
             $newTask = new Task([
+                'taskNumber' => $_POST['taskNumber' . $i][0],
                 'descriptionTask' => $_POST["description" . $i][0],
-                /* 'quantity' => $_POST["quantity" . $i], */
-                /* 'unitPrice' => $_POST["unitPrice" . $i] */
+                /* 'quantity' => $_POST["quantity" . $i], 
+                'unitPrice' => $_POST["unitPrice" . $i]  */
             ]);
             $idTask = $taskManager->addTask($newTask);
             $taskManager->addTaskRef($idEstimate, $idTask);
@@ -47,11 +50,11 @@ if ($_POST) {
                 $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
                 $j++;   
             }
-        }
+        } /* header("Location:modifyEstimate.php?id=$estimateId"); */
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
-}
+} 
 
 /* $j = 0;
 foreach ($_POST['product' . $i] as $key => $value) {
@@ -62,12 +65,14 @@ foreach ($_POST['product' . $i] as $key => $value) {
         'quantityProduct' => $_POST["quantity" . $i][$j],
         'unitPriceProduct' => $_POST["unitPrice" . $i][$j]
     ]);
- */
+}  */
 ?>
 <div class="container">
     <form method="post">
         <div class="blockList">
-            <div class="py-2 block0" name="lineNb1" id="block0">
+        <input type="hidden" id="tasksNumber" value="1">
+            <div class="py-2 block0" id="block0">
+                <input type="hidden" name="taskNumber0[]" value="0">
                 <label for="description" class="fs-5 fw-bold">Description</label>
                     <textarea rows="2" class="form-control" name="description0[]" required></textarea>
                     <table class="text-center table table-striped task1">
