@@ -64,7 +64,7 @@ if ($_POST) {
         <label class="form-label" for="summary">Résumé</label>
         <input type="text" name="summary" id="summary" class="form-control" placeholder="Résumé succint concernant le rouleau" value="<?= $product->getSummary() ?>"></input>
         <label class="form-label" for="description">Description</label>
-        <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau" value="<?= $product->getDescription() ?>"></input>
+        <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau" value="<?= $product->getDescriptionProduct() ?>"></input>
         <label class="form-label" for="price">Prix</label>
         <input type="text" name="price" id="price" class="form-control" placeholder="Prix au m²" value="<?= $product->getPrice() ?>"></input>
         <input type="submit" value="Modifier" class="btn btn-success mt-3">

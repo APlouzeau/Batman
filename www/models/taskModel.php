@@ -3,7 +3,8 @@
 class Task
 {
     private $id;
-    private $description;
+    private $taskNumber;
+    private $descriptionTask;
     private $quantity;
     private $unitPrice;
 
@@ -34,14 +35,14 @@ class Task
         return $this;
     }
 
-   public function getDescription()
+   public function getDescriptionTask()
     {
-        return $this->description;
+        return $this->descriptionTask;
     }
 
-    public function setDescription($description)
+    public function setDescriptionTask($descriptionTask)
     {
-        $this->description = $description;
+        $this->descriptionTask = $descriptionTask;
         return $this;
     }
     public function getQuantity()
@@ -62,6 +63,26 @@ class Task
     public function setUnitPrice($unitPrice)
     {
         $this->unitPrice = $unitPrice;
+        return $this;
+    }
+
+    /**
+     * Get the value of taskNumber
+     */ 
+    public function getTaskNumber()
+    {
+        return $this->taskNumber;
+    }
+
+    /**
+     * Set the value of taskNumber
+     *
+     * @return  self
+     */ 
+    public function setTaskNumber($taskNumber)
+    {
+        $this->taskNumber = $taskNumber;
+
         return $this;
     }
 }
