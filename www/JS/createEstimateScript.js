@@ -1,5 +1,5 @@
 let line = 1;
-let block = 1;
+let block = 2;
 
 
 let resultQuantity = document.querySelector('.quantity');
@@ -72,11 +72,6 @@ function addLine(lineModel, block) {
     clone.classList.remove('rowModel') 
     document.querySelector('.row' + block).appendChild(clone);
 }
-
-let addLineEvent = document.querySelector('.addLineBlock1');
-addLineEvent.addEventListener("click", () => {
-    addLine('.rowModel', 0);
-})
 
 function addBlock(blockModel) {
     const node = document.querySelector(blockModel);

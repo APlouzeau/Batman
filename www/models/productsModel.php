@@ -8,7 +8,7 @@ class Products
     private string $length;
     private string $recovery;
     private string $summary;
-    private string $description;
+    private string $descriptionProduct;
     private float $price;
 
     public function __construct(array $data)
@@ -108,9 +108,9 @@ class Products
     /**
      * Get the value of description
      */
-    public function getDescription()
+    public function getDescriptionProduct()
     {
-        return $this->description;
+        return $this->descriptionProduct;
     }
 
     /**
@@ -118,9 +118,9 @@ class Products
      *
      * @return  self
      */
-    public function setDescription($description)
+    public function setDescriptionProduct($description)
     {
-        $this->description = $description;
+        $this->descriptionProduct = $description;
 
         return $this;
     }

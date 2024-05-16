@@ -21,19 +21,20 @@ $typesManager = new TypesManager();
 $typesList = $typesManager->showTypes();
 $taskManager = new TaskManager();
 $productByTaskManager = new productByTaskManager();
-
-if ($_POST) {     
+$tasksList = $taskManager->showTasksById($_GET['id']);
+if ($_POST) {
+/*     var_dump($_POST);        
+    var_dump($_POST['product0'][0]); */
     $idEstimate = $_GET['id'];  
     try {
         $count = count($_POST) / 4;
         for ($i = 0; $i < $count; $i++) {        
             $newTask = new Task([
-                'descriptionTask' => $_POST["description" . $i][0],
+                'description' => $_POST["description" . $i][0],
                 /* 'quantity' => $_POST["quantity" . $i], */
                 /* 'unitPrice' => $_POST["unitPrice" . $i] */
             ]);
             $idTask = $taskManager->addTask($newTask);
-            $taskManager->addTaskRef($idEstimate, $idTask);
             $j = 0;
             foreach ($_POST['product' . $i] as $value) {
                 $product = $productsManager->getProductsByName($_POST['product' . $i][$j]);
@@ -46,6 +47,7 @@ if ($_POST) {
                 ]);
                 $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
                 $j++;   
+
             }
         }
     } catch (Exception $e) {
@@ -53,23 +55,18 @@ if ($_POST) {
     }
 }
 
-/* $j = 0;
-foreach ($_POST['product' . $i] as $key => $value) {
-    $newProductByTask = new ProductByTask([
-        'idProductByTask' => '2',
-        'idProduct' => '3',
-        'idTask' => '4',
-        'quantityProduct' => $_POST["quantity" . $i][$j],
-        'unitPriceProduct' => $_POST["unitPrice" . $i][$j]
-    ]);
- */
+
+
 ?>
 <div class="container">
     <form method="post">
         <div class="blockList">
-            <div class="py-2 block0" name="lineNb1" id="block0">
+                <?php
+                foreach ($tasksList as $taskDetails) {
+                ?>
+            <div class="py-2 block<?= $taskDetails['taskNumber']?>" name="lineNb1">
                 <label for="description" class="fs-5 fw-bold">Description</label>
-                    <textarea rows="2" class="form-control" name="description0[]" required></textarea>
+                    <textarea rows="2" class="form-control" name="description0[]" required><?= $taskDetails['descriptionTask']?></textarea>
                     <table class="text-center table table-striped task1">
                         <thead>
                             <tr>
@@ -80,13 +77,21 @@ foreach ($_POST['product' . $i] as $key => $value) {
                                 <th>Montant total</th>
                             </tr>
                         </thead>
-
-                        <tbody class="row0">
+                        
+                        <tbody class="row<?= $taskDetails['taskNumber']?>">
+                        <?php
+                            $productsByTask = $taskManager->getProductsByTask($taskDetails['idTask']); //les infos des produits, sans leur identité, mais leur id
+                            foreach ($productsByTask as $productByTask) {
+                                $testproduct = $productsManager->getProductsById($productByTask['idProduct']);
+                                ?>
                             <tr>
                                 <td>
                                     <select class="form-select type" id="type" aria-label="Default select example">
                                         <?php foreach ($typesList as $type) { ?>
-                                            <option class="" value="<?= $type->getName() ?>"><?= $type->getName() ?></option>
+                                            <option class="" value="<?= $type->getName() ?>"
+                                            <?php 
+                                            if ($type->getName() == $testproduct->getType()) {
+                                                echo 'selected';} ?>><?= $type->getName() ?></option>
                                         <?php
                                         }
                                         ?>
@@ -95,28 +100,35 @@ foreach ($_POST['product' . $i] as $key => $value) {
                                 <td>
                                     <select class="form-select product" id="product" aria-label="Default select example" name="product0[]">
                                         <?php foreach ($productList as $type => $product) { ?>
-                                            <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                            <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"
+                                            <?php 
+                                            if ($product->getName() == $testproduct->getName()) {
+                                                echo 'selected';} ?>><?= $product->getName() ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
                                 </td>
                                 <td>
-                                    <input class="form-control quantity" id="quantity" name="quantity0[]" type="number" required>
+                                    <input class="form-control quantity" id="quantity" name="quantity0[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" required>
                                 </td>
                                 <td>
-                                    <input class="form-control unitPrice" name="unitPrice0[]" type="number" step="any" id="unitPrice" value="" required>
+                                    <input class="form-control unitPrice" name="unitPrice0[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" required>
                                 </td>
                                 <td>
                                     <div type="number" step="any" data-type="currency" class="resultPrice1"></div>
                                 </td>
                             </tr>
+                            <?php    
+                        }     
+                        ?> 
                         </tbody>
-                    </table>
-                <input type="button" class="btn btn-success addLineBlock1" value="Ajouter ligne" id="addLineBlock1" onclick="addLine('.rowModel', 0)"/>
+                        </table>
+                <input type="button" class="btn btn-success addLineBlock<?= $taskDetails['taskNumber']?>" value="Ajouter ligne" id="addLineBlock<?= $taskDetails['taskNumber']?>" onclick="addLine('.rowModel', <?= $taskDetails['taskNumber'] ?>)"/>
                 <hr class="border border-primary border-1 opacity-100">
             </div>
             <?php
+                }
             require_once "../views/blockModel.php";
             ?>
         </div>

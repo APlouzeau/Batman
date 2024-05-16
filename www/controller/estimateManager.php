@@ -22,4 +22,22 @@ class EstimateManager extends PDOServer
         $estimate = new Estimate($data);
         return $estimate;
     }
+
+    public function showEstimate() {
+        $estimates = [];
+        $req = $this->db->query("SELECT * FROM estimate ORDER BY date");
+        $datas = $req->fetchAll();
+        foreach ($datas as $data) {
+        $estimate = new Estimate($data);
+        $estimates[] = $estimate;
+        }
+        return $estimates;
+    }
+
+    public function showEstimateById($id) {
+        $req = $this->db->query("SELECT * FROM estimate WHERE id = $id");
+        $data = $req->fetch();
+        $estimate = new Estimate($data);
+        return $estimate;
+    }
 }

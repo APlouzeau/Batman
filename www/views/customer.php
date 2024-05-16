@@ -46,11 +46,12 @@ if ($_POST) {
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 50em" id="divButtonsEstimate">
     <div class="" id="buttonsEstimate">
         <button type="button" class="btn btn-success newEstimate" id="newEstimate">Nouveau</button>
-        <a href="../views/modifyEstimate.php" type="button" class="btn btn-warning modifyEstimate" id="modifyEstimate">Modifier</a>
+        <a href="views/searchEstimate.php" type="button" class="btn btn-warning modifyEstimate" id="modifyEstimate">Modifier</a>
     </div>
     <div class="" id="buttonsCustomer" hidden=true>
         <button type="button" class="btn btn-success newCustomer" id="newCustomer">Nouveau Client</button>
         <a href="views/searchCustomer.php" type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</a>
+        <button type="button" class="btn btn-danger newCustomer" id="buttonsBackEstimate" hidden=true>Retour</button>
     </div>
     <div class="container" id="formEstimate" hidden=true>
         <form method="post">
@@ -85,6 +86,7 @@ if ($_POST) {
 
             </ul>
             <input type="submit" class="btn btn-success" value="Ajouter" id="addLine" />
+                <button type="button" class="btn btn-danger newCustomer" id="buttonsBackNewCustomer" hidden=true>Retour</button>
         </form>
     </div>
 </div>
