@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+<!--     <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+    var_dump($_SESSION);
+} else {
+    var_dump($_SESSION);
+}
+?> -->
 
 <head>
     <meta charset="UTF-8">
