@@ -29,7 +29,6 @@ class TypesManager extends PDOServer
         $req = $this->db->query("SELECT * FROM type WHERE id = $id");
         $data = $req->fetch();
         $type = new Types($data);
-        var_dump($type);
         return $type;
     }
 }

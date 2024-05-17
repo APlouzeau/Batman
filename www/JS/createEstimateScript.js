@@ -1,5 +1,5 @@
 let line = 1;
-let block = 1;
+let block = document.getElementById('tasksNumber').value;
 
 
 let resultQuantity = document.querySelector('.quantity');
@@ -73,11 +73,6 @@ function addLine(lineModel, block) {
     document.querySelector('.row' + block).appendChild(clone);
 }
 
-let addLineEvent = document.querySelector('.addLineBlock1');
-addLineEvent.addEventListener("click", () => {
-    addLine('.rowModel', 0);
-})
-
 function addBlock(blockModel) {
     const node = document.querySelector(blockModel);
     const clone = node.cloneNode(true);
@@ -86,6 +81,9 @@ function addBlock(blockModel) {
     clone.removeAttribute('id');
     clone.setAttribute('id', 'block' + block);
     clone.removeAttribute('hidden');
+    const tasksNumber = clone.querySelector('.tasksNumber');
+    tasksNumber.setAttribute('name', 'taskNumber' + block + '[]');
+    tasksNumber.setAttribute('value', block)
     const newDescription = clone.querySelector('.description');
     newDescription.setAttribute('name', 'description' + block + '[]');
     const newTable = clone.querySelector('table');
