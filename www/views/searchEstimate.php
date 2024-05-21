@@ -1,12 +1,12 @@
 <?php
-require_once "../views/head.php";
+require_once APP_PATH . "/../views/head.php";
 ?>
 
 <title>Edition devis</title>
 
 <?php
-require_once "../views/header.php";
-require_once "../controller/estimateManager.php";
+require_once APP_PATH . "/../views/header.php";
+require_once APP_PATH . "/../controller/estimateManager.php";
 
 $estimateManager = new EstimateManager();
 $estimateList = $estimateManager->showEstimate();

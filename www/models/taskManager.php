@@ -1,8 +1,8 @@
 <?php
 
-require_once "../models/taskModel.php";
-require_once "../models/PDOServer.php";
-require_once "../models/productsModel.php";
+require_once APP_PATH . "/../models/taskModel.php";
+require_once APP_PATH . "/../models/PDOServer.php";
+require_once APP_PATH . "/../models/productsModel.php";
 
 class TaskManager extends PDOServer
 {

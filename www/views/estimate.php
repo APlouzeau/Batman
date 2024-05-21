@@ -1,17 +1,16 @@
 <?php
-define("BASE_URL", "/EYOSOP");
-require_once "../views/head.php";
+require_once APP_PATH . "/views/head.php";
 ?>
 
 <title>Client</title>
 
 <?php
-require_once "../views/header.php";
-require_once "../controller/estimateManager.php";
-require_once "../controller/productsManager.php";
-require_once "../controller/typesManager.php";
-require_once "../controller/customersManager.php";
-require_once "../models/estimateModel.php";
+require_once APP_PATH . "/views/header.php";
+require_once APP_PATH . "/models/productsManager.php";
+require_once APP_PATH . "/models/typesManager.php";
+require_once APP_PATH . "/models/customersManager.php";
+require_once APP_PATH . "/models/estimateManager.php";
+require_once APP_PATH . "/models/estimateModel.php";
 
 $customersManager = new CustomersManager();
 
@@ -50,7 +49,7 @@ if ($_POST) {
     </div>
     <div class="" id="buttonsCustomer" hidden=true>
         <button type="button" class="btn btn-success newCustomer" id="newCustomer">Nouveau Client</button>
-        <a href="views/searchCustomer.php" type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</a>
+        <a href="<?= BASE_URL . 'searchCustomer'; ?>" type="button" class="btn btn-warning existantCustomer" id="existantCustomer">Client existant</a>
         <button type="button" class="btn btn-danger newCustomer" id="buttonsBackEstimate" hidden=true>Retour</button>
     </div>
     <div class="container" id="formEstimate" hidden=true>
@@ -90,7 +89,7 @@ if ($_POST) {
         </form>
     </div>
 </div>
-<script src="JS/estimate.JS"></script>
+<script src="../JS/estimate.JS"></script>
 <?php
-require_once "../views/footer.php";
+require_once APP_PATH . "/views/footer.php";
 ?>
