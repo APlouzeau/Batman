@@ -1,18 +1,18 @@
 <?php
-require_once "../views/head.php";
+require_once APP_PATH . "/../views/head.php";
 ?>
 
 <title>Edition devis</title>
 
 <?php
-require_once "../views/header.php";
-require_once "../controller/estimateManager.php";
-require_once "../controller/productsManager.php";
-require_once "../controller/typesManager.php";
-require_once "../controller/taskManager.php";
-require_once "../controller/productByTaskManager.php";
-require_once "../models/estimateModel.php";
-require_once "../models/taskModel.php";
+require_once APP_PATH . "/../views/header.php";
+require_once APP_PATH . "/../controller/estimateManager.php";
+require_once APP_PATH . "/../controller/productsManager.php";
+require_once APP_PATH . "/../controller/typesManager.php";
+require_once APP_PATH . "/../controller/taskManager.php";
+require_once APP_PATH . "/../controller/productByTaskManager.php";
+require_once APP_PATH . "/../models/estimateModel.php";
+require_once APP_PATH . "/../models/taskModel.php";
 
 $estimateManager = new EstimateManager();
 $productsManager = new ProductsManager();
@@ -139,7 +139,7 @@ if ($_POST) {
             </div>
             <?php
                 }
-            require_once "../views/blockModel.php";
+            require_once APP_PATH . "/../views/blockModel.php";
             ?>
         </div>
         <input type="button" class="btn btn-success addBlock" value="Ajouter bloc" />
@@ -152,5 +152,5 @@ if ($_POST) {
 </div>
 <script src="JS/createEstimateScript.js"></script>
 <?php
-require_once "../views/footer.php";
+require_once APP_PATH . "/../views/footer.php";
 ?>

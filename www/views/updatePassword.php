@@ -1,22 +1,8 @@
-<?php
-require_once "../views/head.php";
-require_once "../views/header.php";
-require_once "../models/userModel.php";
-require_once "../controller/userManager.php";
-
-$userManager = new UserManager();
-
-?>
-
 <title>Profil</title>
-
-<?php
-require_once "../views/header.php";
-?>
 
 <div class="container d-flex flex-column align-items-center">
     <div>
-        <form action="controller/passwordModifyController.php" method="post">
+        <form action="<?= BASE_URL . 'updatePassword'; ?>" method="post">
 
             <label for="oldPassword">Ancien mot de passe</label>
             <input type="password" name="oldPassword" class="form-control">

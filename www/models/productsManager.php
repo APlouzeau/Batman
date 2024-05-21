@@ -1,7 +1,7 @@
 <?php
 
-require_once "../models/productsModel.php";
-require_once "../models/PDOServer.php";
+require_once APP_PATH . "/models/productsModel.php";
+require_once APP_PATH . "/models/PDOServer.php";
 class ProductsManager extends PDOServer
 {
 

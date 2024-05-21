@@ -1,14 +1,13 @@
 <?php
-define("BASE_URL", "/EYOSOP");
-require_once "./head.php";
+require_once APP_PATH . "/./head.php";
 ?>
 
 <title>Rouleaux</title>
 
 <?php
-require_once "./header.php";
-require_once "../controller/productsManager.php";
-require_once "../controller/typesManager.php";
+require_once APP_PATH . "/./header.php";
+require_once APP_PATH . "/../controller/productsManager.php";
+require_once APP_PATH . "/../controller/typesManager.php";
 
 $productsManager = new ProductsManager();
 $rollList = $productsManager->showProducts();
@@ -90,4 +89,4 @@ if ($_POST) {
 </div>
 
 <?php
-require_once "../views/footer.php";
+require_once APP_PATH . "/../views/footer.php";

@@ -1,7 +1,7 @@
 <?php
 
-require_once "../models/customersModel.php";
-require_once "../models/PDOServer.php";
+require_once APP_PATH . "/models/customersModel.php";
+require_once APP_PATH . "/models/PDOServer.php";
 
 class CustomersManager extends PDOServer
 {
@@ -31,7 +31,7 @@ class CustomersManager extends PDOServer
         return $customers;
     }
 
-    public function getCustomers($id)
+    public function getCustomerById($id)
     {
         $req = $this->db->prepare("SELECT * FROM customer WHERE id = :id");
         $req->bindValue("id", $id, PDO::PARAM_STR);

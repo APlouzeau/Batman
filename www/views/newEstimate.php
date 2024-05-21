@@ -1,50 +1,23 @@
 <?php
-define("BASE_URL", "/EYOSOP");
-require_once "../views/head.php";
+require_once APP_PATH . "/views/head.php";
 ?>
 
 <title>Accueil</title>
 
 <?php
-require_once "../views/header.php";
-require_once "../controller/estimateManager.php";
-require_once "../controller/customersManager.php";
-require_once "../models/estimateModel.php";
+require_once APP_PATH . "/views/header.php";
+require_once APP_PATH . "/models/estimateManager.php";
+require_once APP_PATH . "/models/customersManager.php";
+require_once APP_PATH . "/models/estimateModel.php";
 
-$estimateManager = new EstimateManager();
-$customersManager = new CustomersManager();
 
-if ($_POST) {
-    $nameEstimate = $_POST["nameEstimate"];
-    $idCustomer = $_GET["id"];
-    try {
-        $newEstimate = new Estimate([
-            "nameEstimate" => $nameEstimate,
-            "idCustomer" => $idCustomer,
-        ]);
-        var_dump($newEstimate);
-        $estimateManager->createEstimate($newEstimate);
-        $estimate = $estimateManager->getEstimateIdByName($nameEstimate);
-        $estimateId = $estimate->getId();
-        header("Location:createEstimate.php?id=$estimateId");
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-    }
-}
-
-if ($_GET) {
-    $selectedCustomer = $customersManager->getCustomers($_GET["id"]);
-    $nameCustomer = $selectedCustomer->getNameCustomer();
-    $contactCustomer = $selectedCustomer->getNameContact();
-    $mailContact = $selectedCustomer->getMailContact();
-    $adressContact = $selectedCustomer->getAdressContact();
-}
 
 
 ?>
 <div class="container justify-content-center">
 
-    <form method="post" class="" style="min-height: 50em">
+    <form method="post" class="" style="min-height: 50em" action="<?= BASE_URL . 'createEstimate'; ?>">
+        <input type="hidden" name="id" value="<?= $selectedCustomer->getId() ?>">
         <ul class="list-group ">
             <li class="list-group-item">
                 <h6>Client</h6>
@@ -76,5 +49,5 @@ if ($_GET) {
 
 
 <?php
-require_once "../views/footer.php";
+require_once APP_PATH . "/views/footer.php";
 ?>

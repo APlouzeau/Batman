@@ -1,7 +1,7 @@
 <?php
 
-require_once "../models/estimateModel.php";
-require_once "../models/PDOServer.php";
+require_once APP_PATH . "/models/estimateModel.php";
+require_once APP_PATH . "/models/PDOServer.php";
 class EstimateManager extends PDOServer
 {
 
@@ -11,6 +11,8 @@ class EstimateManager extends PDOServer
         $req->bindValue(":nameEstimate", $estimate->getNameEstimate(), PDO::PARAM_STR);
         $req->bindValue(":idCustomer", $estimate->getIdCustomer(), PDO::PARAM_STR);
         $req->execute();
+        $temp = $this->db->lastInsertId();
+        return $temp;
     }
 
     public function getEstimateIdByName($nameEstimate)
@@ -23,18 +25,20 @@ class EstimateManager extends PDOServer
         return $estimate;
     }
 
-    public function showEstimate() {
+    public function showEstimate()
+    {
         $estimates = [];
         $req = $this->db->query("SELECT * FROM estimate ORDER BY date");
         $datas = $req->fetchAll();
         foreach ($datas as $data) {
-        $estimate = new Estimate($data);
-        $estimates[] = $estimate;
+            $estimate = new Estimate($data);
+            $estimates[] = $estimate;
         }
         return $estimates;
     }
 
-    public function showEstimateById($id) {
+    public function showEstimateById($id)
+    {
         $req = $this->db->query("SELECT * FROM estimate WHERE id = $id");
         $data = $req->fetch();
         $estimate = new Estimate($data);
