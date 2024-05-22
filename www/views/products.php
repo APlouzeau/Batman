@@ -1,49 +1,8 @@
-<?php
-define("BASE_URL", "/EYOSOP");
-require_once "./head.php";
-?>
+<title>Produits</title>
 
-<title>Rouleaux</title>
-
-<?php
-require_once "./header.php";
-require_once "../controller/productsManager.php";
-require_once "../controller/typesManager.php";
-
-$productsManager = new ProductsManager();
-$rollList = $productsManager->showProducts();
-$typesManager = new TypesManager();
-$typesList = $typesManager->showTypes();
-if ($_POST) {
-    $name = $_POST["name"];
-    $type = $_POST["type"];
-    $length = $_POST["length"];
-    $recovery = $_POST["recovery"];
-    $summary = $_POST["summary"];
-    $description = $_POST["description"];
-    $price = $_POST["price"];
-    try {
-        $newProduct = new Products([
-            "name" => $name,
-            "type" => $type,
-            "length" => $length,
-            "recovery" => $recovery,
-            "summary" => $summary,
-            "description" => $description,
-            "price" => $price,
-        ]);
-        var_dump($newProduct);
-        $productsManager->addProducts($newProduct);
-        echo "L'ajout a réussi.";
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-    }
-}
-
-?>
-<form method="post" class="container" style="min-height:50em">
+<form method="post" class="container" style="min-height:50em" action="<?= BASE_URL . 'create'; ?>">
     <label class="form-label" for="name">Nom / Ref</label>
-    <input type="name" name="name" id="name" class="form-control" min=1 max=901 placeholder="Référence du rouleau">
+    <input type="name" name="name" id="name" class="form-control" min=1 max=100 placeholder="Référence du rouleau">
     <label class="form-label" for="type">Type</label>
     <select class="form-select" type="type" name="type" id="type" aria-label="Default select example">
         <?php foreach ($typesList as $type) { ?>
@@ -58,8 +17,8 @@ if ($_POST) {
     <input type="number" name="recovery" id="recovery" class="form-control" placeholder="Le recouvrement longitudinal en mm"></input>
     <label class="form-label" for="summary">Résumé</label>
     <input type="text" name="summary" id="summary" class="form-control" placeholder="Résumé succint concernant le rouleau"></input>
-    <label class="form-label" for="description">Description</label>
-    <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau"></input>
+    <label class="form-label" for="descriptionProduct">Description</label>
+    <input type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du rouleau"></input>
     <label class="form-label" for="price">Prix</label>
     <input type="text" name="price" id="price" class="form-control" placeholder="Prix au m²"></input>
     <input type="submit" value="Créer" class="btn btn-success mt-3">
@@ -79,9 +38,9 @@ if ($_POST) {
                         <li class="list-group-item">Prix : <?= $product->getPrice() ?> €/m²</li>
                     </ul>
                     <div class="">
-                        <a href="../views/detailsProducts.php?id=<?= $product->getId() ?>" class="btn btn-primary">Détails</a>
-                        <a href="../views/modifyProducts.php?id=<?= $product->getId() ?>" class="btn btn-warning">Modifier</a>
-                        <a href="../views/deleteProducts.php?id=<?= $product->getId() ?>" class="btn btn-danger">Supprimer</a>
+                        <a href="<?= BASE_URL . 'details?id=' . $product->getId(); ?>" class="btn btn-primary">Détails</a>
+                        <a href="<?= BASE_URL . 'modify?id=' . $product->getId(); ?>" class="btn btn-warning">Modifier</a>
+                        <a href="<?= BASE_URL . 'delete?id=' . $product->getId(); ?>" class="btn btn-danger">Supprimer</a>
                     </div>
                 </div>
             </div>
@@ -90,4 +49,4 @@ if ($_POST) {
 </div>
 
 <?php
-require_once "../views/footer.php";
+require_once APP_PATH . "/views/footer.php";

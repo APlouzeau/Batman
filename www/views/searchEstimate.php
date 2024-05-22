@@ -1,17 +1,5 @@
-<?php
-require_once "../views/head.php";
-?>
-
 <title>Edition devis</title>
 
-<?php
-require_once "../views/header.php";
-require_once "../controller/estimateManager.php";
-
-$estimateManager = new EstimateManager();
-$estimateList = $estimateManager->showEstimate();
-
-?>
 <div class="container">
     <select class="form-select selectEstimate" aria-label="Default select example">
         <option selected>Open this select menu</option>
@@ -21,7 +9,6 @@ $estimateList = $estimateManager->showEstimate();
         }
         ?>
     </select>
-    <a href="views/modifyEstimate.php?id=" class="link btn btn-warning align-items-center" type="button">Modifier Devis</a>
+    <a href="<?= BASE_URL . 'modifyEstimate'; ?>" class="link btn btn-warning align-items-center" type="button">Modifier Devis</a>
 </div>
 <script src="JS/searchEstimateScript.js"></script>
-

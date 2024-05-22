@@ -1,19 +1,19 @@
 <?php
 
-require_once "../models/productsModel.php";
-require_once "../models/PDOServer.php";
+require_once APP_PATH . "/models/productsModel.php";
+require_once APP_PATH . "/models/PDOServer.php";
 class ProductsManager extends PDOServer
 {
 
     public function addProducts(Products $product)
     {
-        $req = $this->db->prepare("INSERT INTO products (name, type, length, recovery, summary, descriptionProduct, price) VALUE (:name, :type, :length, :recovery, :summary, :descriptionProduct, :price)");
+        $req = $this->db->prepare("INSERT INTO products (name, type, length, recovery, summary, descriptionProduct, price) VALUES (:name, :type, :length, :recovery, :summary, :descriptionProduct, :price)");
         $req->bindValue(":name", $product->getName(), PDO::PARAM_STR);
         $req->bindValue(":type", $product->getType(), PDO::PARAM_STR);
         $req->bindValue(":length", $product->getLength(), PDO::PARAM_STR);
         $req->bindValue(":recovery", $product->getRecovery(), PDO::PARAM_STR);
         $req->bindValue(":summary", $product->getSummary(), PDO::PARAM_STR);
-        $req->bindValue(":description", $product->getDescriptionProduct(), PDO::PARAM_STR);
+        $req->bindValue(":descriptionProduct", $product->getDescriptionProduct(), PDO::PARAM_STR);
         $req->bindValue(":price", $product->getPrice(), PDO::PARAM_STR);
         $req->execute();
     }
@@ -39,7 +39,7 @@ class ProductsManager extends PDOServer
         $req->bindValue(":length", $product->getLength(), PDO::PARAM_STR);
         $req->bindValue(":recovery", $product->getRecovery(), PDO::PARAM_STR);
         $req->bindValue(":summary", $product->getSummary(), PDO::PARAM_STR);
-        $req->bindValue(":description", $product->getDescriptionProduct(), PDO::PARAM_STR);
+        $req->bindValue(":descriptionProduct", $product->getDescriptionProduct(), PDO::PARAM_STR);
         $req->bindValue(":price", $product->getPrice(), PDO::PARAM_STR);
         $req->execute();
     }

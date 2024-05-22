@@ -69,7 +69,7 @@ function addLine(lineModel, block) {
     const node = document.querySelector(lineModel);
     const clone = node.cloneNode(true);
     cloneLineParams(clone, block);
-    clone.classList.remove('rowModel') 
+    clone.classList.remove('rowModel'); 
     document.querySelector('.row' + block).appendChild(clone);
 }
 
