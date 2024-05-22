@@ -29,9 +29,9 @@ $router->addRoute('GET', BASE_URL . 'searchCustomer', 'customerController', 'sea
 $router->addRoute('GET', BASE_URL . 'estimate', 'EstimateController', 'estimate');
 $router->addRoute('GET', BASE_URL . 'newEstimate', 'EstimateController', 'newEstimatePage');
 $router->addRoute('POST', BASE_URL . 'createEstimate', 'EstimateController', 'newEstimate');
-$router->addRoute('GET', BASE_URL . 'searchEstimate', 'EstimateController', 'searchEstimate');
+$router->addRoute('GET', BASE_URL . 'searchEstimate', 'EstimateController', 'searchEstimateToModify');
 $router->addRoute('GET', BASE_URL . 'modifyEstimate', 'EstimateController', 'modifyEstimate');
-$router->addRoute('POST', BASE_URL . 'registerEstimate', 'EstimateController', 'registerEstimate');
+$router->addRoute('POST', BASE_URL . 'saveEstimate', 'EstimateController', 'saveEstimate');
 
 //routes profile
 $router->addRoute('GET', BASE_URL . 'profile', 'UserController', 'profile');
@@ -50,14 +50,22 @@ $router->addRoute('POST', BASE_URL . 'modify', 'ProductController', 'modifyProdu
 $router->addRoute('GET', BASE_URL . 'delete', 'ProductController', 'deleteProduct');
 $router->addRoute('POST', BASE_URL . 'create', 'ProductController', 'createProduct');
 
+//routes compta
+$router->addRoute('GET', BASE_URL . 'accounting', 'EstimateController', 'accountingPage');
+$router->addRoute('GET', BASE_URL . 'estimateToRegister', 'EstimateController', 'estimateToRegister');
+$router->addRoute('POST', BASE_URL . 'registerEstimate', 'EstimateController', 'registerEstimate');
+
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 
 $handler = $router->getHandler($method, $uri);
+echo '$handler';
 var_dump($handler);
+echo '$method';
 var_dump($method);
+echo '$uri';
 var_dump($uri);
 $controller = new $handler['controller']();
 $action = $handler['action'];

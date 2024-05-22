@@ -26,7 +26,7 @@
                         <a class="nav-link text-light" aria-current="page" href="<?= BASE_URL . 'estimate'; ?>">Devis</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  text-light" href="#">Comptabilité</a>
+                        <a class="nav-link  text-light" href="<?= BASE_URL . 'accounting'; ?>">Comptabilité</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link  text-light" href="#">Résultats</a>

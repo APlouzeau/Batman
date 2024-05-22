@@ -51,7 +51,7 @@ class EstimateController
         }
     }
 
-    public function registerEstimate()
+    public function saveEstimate()
     {
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
@@ -92,10 +92,10 @@ class EstimateController
         }
     }
 
-    public function searchEstimate()
+    public function searchEstimateToModify()
     {
         $estimateManager = new EstimateManager();
-        $estimateList = $estimateManager->showEstimate();
+        $estimateList = $estimateManager->showEstimateToModify();
         require_once APP_PATH . '/views/searchEstimate.php';
     }
 
@@ -153,5 +153,26 @@ class EstimateController
         $error = $e->getMessage();
     }*/
         }
+    }
+
+    public function accountingPage()
+    {
+        require_once APP_PATH . "/views/accounting.php";
+    }
+
+    public function estimateToRegister()
+    {
+        $estimateManager = new EstimateManager();
+        $estimateList = $estimateManager->showEstimateToModify();
+        require_once APP_PATH . "/views/estimateToRegister.php";
+    }
+
+    public function registerEstimate()
+    {
+        var_dump($_POST);
+        var_dump($_GET);
+        $estimateManager = new EstimateManager();
+        $estimateManager->registerEstimate($_POST["id"]);
+        $this->accountingPage();
     }
 }
