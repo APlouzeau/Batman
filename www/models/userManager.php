@@ -35,6 +35,18 @@ class userManager extends PDOServer
         return $req->execute();
     }
 
+    public function getAllUsers()
+    {
+        $req = $this->db->query('SELECT id, name, firstName, mail, role FROM users ORDER BY name');
+        $datas = $req->fetchAll();
+        $users = [];
+        foreach ($datas as $data) {
+            $user = new Users($data);
+            $users[] = $user;
+        }
+        return $users;
+    }
+
     public function getSelfUser($id)
     {
         $req = $this->db->query("SELECT id, name, firstName, mail, role FROM users WHERE id = $id");
@@ -65,5 +77,16 @@ class userManager extends PDOServer
                 $req->execute();
             }
         }
+    }
+
+    public function addUser(string $name, string $firstName, string $mail, string $password, int $role)
+    {
+        $req = $this->db->prepare('INSERT INTO users (name, firstName, mail, password, role) VALUES (:name, :firstName, :mail, :password, :role)');
+        $req->bindValue(':name', $name);
+        $req->bindValue(':firstName', $firstName);
+        $req->bindValue(':mail', $mail);
+        $req->bindValue(':password', password_hash($password, PASSWORD_BCRYPT));
+        $req->bindValue(':role', $role);
+        $req->execute();
     }
 }

@@ -4,8 +4,10 @@ require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/estimateManager.php";
 require_once APP_PATH . "/models/typesManager.php";
 require_once APP_PATH . "/models/productsManager.php";
+require_once APP_PATH . "/models/taskManager.php";
+require_once APP_PATH . "/models/productByTaskManager.php";
 
-class estimateController
+class EstimateController
 {
 
     public function estimate()
@@ -37,6 +39,7 @@ class estimateController
                 ]);
                 $idEstimate = $estimateManager->createEstimate($newEstimate);
                 $estimate = $estimateManager->showEstimateById($idEstimate);
+                var_dump($estimate);
                 $typesManager = new TypesManager();
                 $typesList = $typesManager->showTypes();
                 $productsManager = new ProductsManager();
@@ -48,16 +51,16 @@ class estimateController
         }
     }
 
-    public function createEstimate()
+    public function registerEstimate()
     {
-        $estimateManager = new EstimateManager();
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
+        $productsManager = new ProductsManager();
+
         $tasksNumber = 1;
-        var_dump($_POST);
 
         if ($_POST) {
-            $idEstimate = $_GET['id'];
+            $idEstimate = $_POST['idEstimate'];
             try {
                 $count = floor(count($_POST) / 4);
                 for ($i = 0; $i < $count; $i++) {
@@ -65,7 +68,7 @@ class estimateController
                         'taskNumber' => $_POST['taskNumber' . $i][0],
                         'descriptionTask' => $_POST["description" . $i][0],
                         /* 'quantity' => $_POST["quantity" . $i],
-    'unitPrice' => $_POST["unitPrice" . $i] */
+                        'unitPrice' => $_POST["unitPrice" . $i] */
                     ]);
                     $idTask = $taskManager->addTask($newTask);
                     $taskManager->addTaskRef($idEstimate, $idTask);
@@ -86,6 +89,69 @@ class estimateController
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }
+        }
+    }
+
+    public function searchEstimate()
+    {
+        $estimateManager = new EstimateManager();
+        $estimateList = $estimateManager->showEstimate();
+        require_once APP_PATH . '/views/searchEstimate.php';
+    }
+
+    public function modifyEstimate()
+    {
+        $estimateManager = new EstimateManager();
+        $productsManager = new ProductsManager();
+        $productList = $productsManager->showProducts();
+        $typesManager = new TypesManager();
+        $typesList = $typesManager->showTypes();
+        $taskManager = new TaskManager();
+        $productByTaskManager = new productByTaskManager();
+        $tasksList = $taskManager->showTasksById($_GET['id']);
+        $tasksNumber = count($tasksList);
+        require_once APP_PATH . '/views/modifyEstimate.php';
+    }
+
+    public function updateEstimate()
+    {
+        if ($_POST) {
+            try {
+                foreach ($tasksList as $tasksid) {
+                    $idTasks[] = $tasksid['id'];
+                }
+                $taskManager->deleteTasks($idTasks);
+            } catch (Exception $e) {
+                $error = $e->getMessage();
+            }
+            $idEstimate = $_GET['id'];
+            /* try {
+        $count = count($_POST) / 4;
+        for ($i = 0; $i < $count; $i++) {        
+            $newTask = new Task([
+                'description' => $_POST["description" . $i][0],
+                /* 'quantity' => $_POST["quantity" . $i], 
+                /* 'unitPrice' => $_POST["unitPrice" . $i] 
+            ]);
+            $idTask = $taskManager->addTask($newTask);
+            $j = 0;
+            foreach ($_POST['product' . $i] as $value) {
+                $product = $productsManager->getProductsByName($_POST['product' . $i][$j]);
+                $newProducts = new Products([
+                    'id' => $product->getId()
+                ]);
+                $newProductByTask = new ProductByTask([
+                    'quantityProduct' => $_POST['quantity' .$i][$j],
+                    'unitPriceProduct' => $_POST['unitPrice' .$i][$j],
+                ]);
+                $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
+                $j++;   
+
+            }
+        } 
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }*/
         }
     }
 }

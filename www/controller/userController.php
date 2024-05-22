@@ -1,8 +1,9 @@
 <?php
 require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/userManager.php";
+require_once APP_PATH . "/models/roleManager.php";
 
-class userController
+class UserController
 {
 
     public function formConnectUser()
@@ -51,7 +52,6 @@ class userController
     {
         $userManager = new userManager();
         $user = $userManager->getSelfUser($_SESSION['id']);
-        var_dump($_POST);
 
         if ($_POST) {
             $updateProfile = [];
@@ -86,7 +86,6 @@ class userController
     {
         $userManager = new userManager();
         $user = $userManager->getSelfUser($_SESSION['id']);
-        var_dump($_POST);
         if ($_POST) {
             if (isset($_POST['password'])) {
                 if ($_POST['password'] == $_POST['passwordVerify']) {
@@ -98,6 +97,32 @@ class userController
             try {
                 $userManager->modifyPasswordUser($_SESSION['id'], $_POST['oldPassword'], $newPassword);
                 $this->profile();
+            } catch (Exception $e) {
+                $error = $e->getMessage();
+            }
+        }
+    }
+
+    public function usersAccountPage()
+    {
+        $userManager = new userManager();
+        $users = $userManager->getAllUsers();
+        $roleManager = new roleManager();
+        $roleList = $roleManager->getAllRoles();
+        require_once APP_PATH . '/views/usersAccount.php';
+    }
+
+    public function addUser()
+    {
+        if ($_POST) {
+            $userManager = new userManager();
+            $firstName = $_POST['firstName'];
+            $name = $_POST['name'];
+            $email = $_POST['mail'];
+            $password = $_POST['password'];
+            $role = $_POST['role'];
+            try {
+                $userManager->addUser($firstName, $name, $email, $password, $role);
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }

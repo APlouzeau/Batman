@@ -15,7 +15,9 @@
     } */
 ?>
 <div class="container">
-    <form method="post">
+    <form method="post" action="<?= BASE_URL . 'registerEstimate'; ?>">
+        <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
+        <input type="hidden" name="idEstimate" value="<?= $estimate->getId(); ?>">
         <div class="blockList">
             <input type="hidden" id="tasksNumber" value="1">
             <div class="py-2 block0" id="block0">

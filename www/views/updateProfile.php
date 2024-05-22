@@ -1,14 +1,4 @@
-<?php
-
-$userController = new userController();
-
-?>
-
 <title>Profil</title>
-
-<?php
-require_once APP_PATH . "/views/header.php";
-?>
 
 <div class="container d-flex flex-column align-items-center">
     <div>
