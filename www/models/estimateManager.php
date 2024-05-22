@@ -25,10 +25,10 @@ class EstimateManager extends PDOServer
         return $estimate;
     }
 
-    public function showEstimate()
+    public function showEstimateToModify()
     {
         $estimates = [];
-        $req = $this->db->query("SELECT * FROM estimate ORDER BY date");
+        $req = $this->db->query("SELECT * FROM estimate WHERE registered = 'non' ORDER BY date");
         $datas = $req->fetchAll();
         foreach ($datas as $data) {
             $estimate = new Estimate($data);
@@ -43,5 +43,11 @@ class EstimateManager extends PDOServer
         $data = $req->fetch();
         $estimate = new Estimate($data);
         return $estimate;
+    }
+
+    public function registerEstimate($idEstimate)
+    {
+        $req = $this->db->query("UPDATE estimate SET registered = 'oui' WHERE id = $idEstimate");
+        $req->execute();
     }
 }
