@@ -12,40 +12,13 @@ require_once APP_PATH . "/models/customersManager.php";
 require_once APP_PATH . "/models/estimateManager.php";
 require_once APP_PATH . "/models/estimateModel.php";
 
-$customersManager = new CustomersManager();
 
-if ($_POST) {
-    $nameCustomer = $_POST["nameCustomer"];
-    $adress = $_POST["adress"];
-    $mailGeneric = $_POST["mailGeneric"];
-    $siren = $_POST["siren"];
-    $nameContact = $_POST["nameContact"];
-    $mailContact = $_POST["mailContact"];
-    $adressContact = $_POST["adressContact"];
-    try {
-        $newCustomer = new Customers([
-            "nameCustomer" => $nameCustomer,
-            "adress" => $adress,
-            "mailGeneric" => $mailGeneric,
-            "siren" => $siren,
-            "nameContact" => $nameContact,
-            "mailContact" => $mailContact,
-            "adressContact" => $adressContact,
-        ]);
-        $customersManager->addCustomer($newCustomer);
-        $customersId = $customersManager->getCustomersbyName($nameCustomer);
-        $getId = $customersId->getId();
-        header("location:newEstimate.php?id=$getId");
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-    }
-}
 
 ?>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 50em" id="divButtonsEstimate">
     <div class="" id="buttonsEstimate">
         <button type="button" class="btn btn-success newEstimate" id="newEstimate">Nouveau</button>
-        <a href="views/searchEstimate.php" type="button" class="btn btn-warning modifyEstimate" id="modifyEstimate">Modifier</a>
+        <a href="<?= BASE_URL . 'searchEstimate'; ?>" type="button" class="btn btn-warning modifyEstimate" id="modifyEstimate">Modifier</a>
     </div>
     <div class="" id="buttonsCustomer" hidden=true>
         <button type="button" class="btn btn-success newCustomer" id="newCustomer">Nouveau Client</button>
@@ -53,7 +26,7 @@ if ($_POST) {
         <button type="button" class="btn btn-danger newCustomer" id="buttonsBackEstimate" hidden=true>Retour</button>
     </div>
     <div class="container" id="formEstimate" hidden=true>
-        <form method="post">
+        <form method="post" action="<?= BASE_URL . 'addCustomer'; ?>">
             <ul class="list-group">
                 <li class="list-group-item">
 
@@ -85,7 +58,7 @@ if ($_POST) {
 
             </ul>
             <input type="submit" class="btn btn-success" value="Ajouter" id="addLine" />
-                <button type="button" class="btn btn-danger newCustomer" id="buttonsBackNewCustomer" hidden=true>Retour</button>
+            <button type="button" class="btn btn-danger newCustomer" id="buttonsBackNewCustomer" hidden=true>Retour</button>
         </form>
     </div>
 </div>

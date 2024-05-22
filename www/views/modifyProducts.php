@@ -1,53 +1,4 @@
-<?php
-
-require_once APP_PATH . "/./head.php";
-?>
-
-<title>Modifier rouleau</title>
-
-<?php
-require_once APP_PATH . "/./header.php";
-require_once APP_PATH . "/../controller/productsManager.php";
-require_once APP_PATH . "/../controller/typesManager.php";
-
-
-$productsManager = new ProductsManager();
-$product = $productsManager->getProductsById($_GET["id"]);
-$typesManager = new TypesManager();
-$typesList = $typesManager->showTypes();
-
-if ($_POST) {
-    $id = $product->getId();
-    $name = $_POST["name"];
-    $type = $_POST["type"];
-    $length = $_POST["length"];
-    $recovery = $_POST["recovery"];
-    $summary = $_POST["summary"];
-    $description = $_POST["description"];
-    $price = $_POST["price"];
-    try {
-        $updateProduct = new Products([
-            "id" => $id,
-            "name" => $name,
-            "type" => $type,
-            "length" => $length,
-            "recovery" => $recovery,
-            "summary" => $summary,
-            "description" => $description,
-            "price" => $price,
-        ]);
-        $productsManager->updateProducts($updateProduct, $id);
-        header("Location:products.php");
-        echo "La modification a réussi.";
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-    }
-}
-
-
-?>
-
-<form method="post" class="container">
+<form method="post" class="container" action="<?= BASE_URL . 'modify?id=' . $product->getId(); ?>">
     <label class="form-label" for="name">Nom / Ref</label>
     <input type="name" name="name" id="name" class="form-control" min=1 max=255 value="<?= $product->getName() ?>">
     <label class="form-label" for="type">Type</label>
@@ -63,12 +14,12 @@ if ($_POST) {
         <input type="number" name="recovery" id="recovery" class="form-control" placeholder="Le recouvrement longitudinal en mm" value="<?= $product->getRecovery() ?>"></input>
         <label class="form-label" for="summary">Résumé</label>
         <input type="text" name="summary" id="summary" class="form-control" placeholder="Résumé succint concernant le rouleau" value="<?= $product->getSummary() ?>"></input>
-        <label class="form-label" for="description">Description</label>
-        <input type="text" name="description" id="description" class="form-control" placeholder="Description/destination du rouleau" value="<?= $product->getDescriptionProduct() ?>"></input>
+        <label class="form-label" for="descriptionProduct">Description</label>
+        <input type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du rouleau" value="<?= $product->getDescriptionProduct() ?>"></input>
         <label class="form-label" for="price">Prix</label>
         <input type="text" name="price" id="price" class="form-control" placeholder="Prix au m²" value="<?= $product->getPrice() ?>"></input>
         <input type="submit" value="Modifier" class="btn btn-success mt-3">
 </form>
 
 <?php
-require_once APP_PATH . "/../views/footer.php";
+require_once APP_PATH . "/views/footer.php";

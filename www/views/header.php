@@ -15,6 +15,7 @@
                 <div class="50px d-flex flex-row-reverse">
                     <a href="<?= BASE_URL . 'logout'; ?>" type="button" class="btn btn-danger align-item-center">Deconnexion</a>
                     <a href="<?= BASE_URL . 'profile'; ?>" type="button" class="btn btn-success">Compte</a>
+                    <a href="<?= BASE_URL . 'usersAccount'; ?>" type="button" class="btn btn-success">Gestion utilisateurs</a>
                 </div>
             <?php } ?>
             <ul class="nav justify-content-around bg-primary">
@@ -38,7 +39,7 @@
                             Ressources
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="views/products.php">Produits</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL . 'products'; ?>">Produits</a></li>
                             <li><a class="dropdown-item" href="#">Terrasses</a></li>
                             <li>
                                 <hr class="dropdown-divider">
