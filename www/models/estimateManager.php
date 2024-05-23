@@ -12,6 +12,7 @@ class EstimateManager extends PDOServer
         $req->bindValue(":idCustomer", $estimate->getIdCustomer(), PDO::PARAM_STR);
         $req->execute();
         $temp = $this->db->lastInsertId();
+        var_dump($temp);
         return $temp;
     }
 
@@ -28,7 +29,7 @@ class EstimateManager extends PDOServer
     public function showEstimateToModify()
     {
         $estimates = [];
-        $req = $this->db->query("SELECT * FROM estimate WHERE registered = 'non' ORDER BY date");
+        $req = $this->db->query("SELECT * FROM estimate WHERE imput IS NULL ORDER BY date");
         $datas = $req->fetchAll();
         foreach ($datas as $data) {
             $estimate = new Estimate($data);
@@ -39,15 +40,40 @@ class EstimateManager extends PDOServer
 
     public function showEstimateById($id)
     {
-        $req = $this->db->query("SELECT * FROM estimate WHERE id = $id");
+        echo "showEstimateById appelée";
+        $req = $this->db->prepare("SELECT * FROM estimate WHERE id = :id");
+        $req->bindValue(":id", $id, PDO::PARAM_INT);
+        $req->execute();
         $data = $req->fetch();
+        var_dump($data);
         $estimate = new Estimate($data);
         return $estimate;
     }
 
-    public function registerEstimate($idEstimate)
+    public function registerEstimate($idEstimate, string $driver)
     {
-        $req = $this->db->query("UPDATE estimate SET registered = 'oui' WHERE id = $idEstimate");
+        $prefix = date("ym");
+        $req = $this->db->prepare("SELECT * FROM estimate WHERE imput LIKE :prefix");
+        $req->bindValue(":prefix", $prefix . '%', PDO::PARAM_STR);
         $req->execute();
+        $data = $req->fetchAll();
+        $imput = sprintf(strval($prefix) . "%'.03d\n", strval(count($data)) + 1);
+        $req = $this->db->prepare("UPDATE estimate SET driver = :driver, imput = :imput WHERE id = :idEstimate");
+        $req->bindValue(":driver", $driver, PDO::PARAM_INT);
+        $req->bindValue(":imput", $imput, PDO::PARAM_STR);
+        $req->bindValue(":idEstimate", $idEstimate, PDO::PARAM_INT);
+        $req->execute();
+    }
+
+    public function showEstimateRegistered()
+    {
+        $estimates = [];
+        $req = $this->db->query("SELECT * FROM estimate WHERE imput IS NOT NULL ORDER BY date");
+        $datas = $req->fetchAll();
+        foreach ($datas as $data) {
+            $estimate = new Estimate($data);
+            $estimates[] = $estimate;
+        }
+        return $estimates;
     }
 }

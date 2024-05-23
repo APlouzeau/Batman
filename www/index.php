@@ -8,6 +8,8 @@ require_once APP_PATH . "/controller/estimateController.php";
 require_once APP_PATH . "/controller/customerController.php";
 require_once APP_PATH . "/controller/homeController.php";
 require_once APP_PATH . "/controller/productController.php";
+require_once APP_PATH . "/controller/projectsController.php";
+require_once APP_PATH . "/controller/testController.php";
 ?>
 
 <title>Accueil</title>
@@ -17,6 +19,9 @@ require_once APP_PATH . "/views/header.php";
 
 $router = new Router();
 // $method, $path, $controller, $action
+
+//route test
+$router->addRoute('GET', BASE_URL . 'test', 'testController', 'test');
 
 //routes connection
 $router->addRoute('GET', BASE_URL, 'UserController', 'formConnectUser');
@@ -31,7 +36,6 @@ $router->addRoute('GET', BASE_URL . 'newEstimate', 'EstimateController', 'newEst
 $router->addRoute('POST', BASE_URL . 'createEstimate', 'EstimateController', 'newEstimate');
 $router->addRoute('GET', BASE_URL . 'searchEstimate', 'EstimateController', 'searchEstimateToModify');
 $router->addRoute('GET', BASE_URL . 'modifyEstimate', 'EstimateController', 'modifyEstimate');
-$router->addRoute('POST', BASE_URL . 'saveEstimate', 'EstimateController', 'saveEstimate');
 
 //routes profile
 $router->addRoute('GET', BASE_URL . 'profile', 'UserController', 'profile');
@@ -53,7 +57,11 @@ $router->addRoute('POST', BASE_URL . 'create', 'ProductController', 'createProdu
 //routes compta
 $router->addRoute('GET', BASE_URL . 'accounting', 'EstimateController', 'accountingPage');
 $router->addRoute('GET', BASE_URL . 'estimateToRegister', 'EstimateController', 'estimateToRegister');
-$router->addRoute('POST', BASE_URL . 'registerEstimate', 'EstimateController', 'registerEstimate');
+$router->addRoute('GET', BASE_URL . 'estimateRegistered', 'EstimateController', 'estimateRegistered');
+$router->addRoute('POST', BASE_URL . 'registerdriver', 'estimateController', 'registerEstimate');
+
+//routes projects
+$router->addRoute('GET', BASE_URL . 'projects', 'ProjectsController', 'projectsPage');
 
 
 $method = $_SERVER['REQUEST_METHOD'];

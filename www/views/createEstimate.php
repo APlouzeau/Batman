@@ -15,7 +15,7 @@
     } */
 ?>
 <div class="container">
-    <form method="post" action="<?= BASE_URL . 'saveEstimate'; ?>">
+    <form method="post" action="<?= BASE_URL . 'createEstimate'; ?>">
         <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId(); ?>">
         <div class="blockList">
