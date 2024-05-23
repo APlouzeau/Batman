@@ -32,7 +32,7 @@
             <label class="form-label" for="role">Type</label>
             <select class="form-select" type="type" name="role" aria-label="Default select example">
                 <?php foreach ($roleList as $role) { ?>
-                    <option class="" value="<?= $role->getRole() ?>"><?= $role->getRole() ?></option>
+                    <option class="" value="<?= $role->getId() ?>"><?= $role->getRole() ?></option>
                 <?php
                 }
                 ?>

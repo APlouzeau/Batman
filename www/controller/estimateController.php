@@ -6,10 +6,10 @@ require_once APP_PATH . "/models/typesManager.php";
 require_once APP_PATH . "/models/productsManager.php";
 require_once APP_PATH . "/models/taskManager.php";
 require_once APP_PATH . "/models/productByTaskManager.php";
+require_once APP_PATH . "/models/userManager.php";
 
 class EstimateController
 {
-
     public function estimate()
     {
         require_once APP_PATH . "/views/estimate.php";
@@ -27,8 +27,9 @@ class EstimateController
     }
     public function newEstimate()
     {
+        echo "newEstimate";
         $estimateManager = new EstimateManager();
-
+        var_dump($_POST);
         if ($_POST) {
             $nameEstimate = $_POST["nameEstimate"];
             $idCustomer = $_POST["id"];
@@ -37,7 +38,9 @@ class EstimateController
                     "nameEstimate" => $nameEstimate,
                     "idCustomer" => $idCustomer,
                 ]);
+                var_dump($newEstimate);
                 $idEstimate = $estimateManager->createEstimate($newEstimate);
+                var_dump($idEstimate);
                 $estimate = $estimateManager->showEstimateById($idEstimate);
                 var_dump($estimate);
                 $typesManager = new TypesManager();
@@ -164,15 +167,23 @@ class EstimateController
     {
         $estimateManager = new EstimateManager();
         $estimateList = $estimateManager->showEstimateToModify();
+        $userManager = new UserManager();
+        $driverList = $userManager->getDrivers();
         require_once APP_PATH . "/views/estimateToRegister.php";
     }
 
     public function registerEstimate()
     {
-        var_dump($_POST);
-        var_dump($_GET);
         $estimateManager = new EstimateManager();
-        $estimateManager->registerEstimate($_POST["id"]);
+        $estimateManager->registerEstimate($_POST["id"], $_POST["driver"]);
         $this->accountingPage();
+    }
+
+    public function estimateRegistered()
+    {
+        $estimateManager = new EstimateManager();
+        $estimateList = $estimateManager->showEstimateRegistered();
+        var_dump($estimateList);
+        require_once APP_PATH . "/views/estimateRegistered.php";
     }
 }
