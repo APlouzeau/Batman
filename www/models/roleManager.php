@@ -6,7 +6,7 @@ class roleManager extends PDOServer
 
     public function getAllRoles()
     {
-        $req = $this->db->query("SELECT role FROM role ORDER BY id");
+        $req = $this->db->query("SELECT * FROM role ORDER BY id");
         $datas = $req->fetchAll();
         foreach ($datas as $data) {
             $roles[] = new role($data);

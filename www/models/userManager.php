@@ -2,7 +2,7 @@
 
 require_once APP_PATH . "/models/userModel.php";
 
-class userManager extends PDOServer
+class UserManager extends PDOServer
 {
     public function connectUser(string $email, string $password)
     {
@@ -79,7 +79,7 @@ class userManager extends PDOServer
         }
     }
 
-    public function addUser(string $name, string $firstName, string $mail, string $password, int $role)
+    public function addUser(string $name, string $firstName, string $mail, string $password, string $role)
     {
         $req = $this->db->prepare('INSERT INTO users (name, firstName, mail, password, role) VALUES (:name, :firstName, :mail, :password, :role)');
         $req->bindValue(':name', $name);
@@ -88,5 +88,16 @@ class userManager extends PDOServer
         $req->bindValue(':password', password_hash($password, PASSWORD_BCRYPT));
         $req->bindValue(':role', $role);
         $req->execute();
+    }
+
+    public function getDrivers()
+    {
+        $req = $this->db->query('SELECT * FROM users WHERE role = 2 OR role = 4 OR role = 5');
+        $drivers = [];
+        $datas = $req->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($datas as $data) {
+            $drivers[] = new Users($data);
+        }
+        return $drivers;
     }
 }

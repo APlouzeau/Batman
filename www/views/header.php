@@ -32,7 +32,7 @@
                         <a class="nav-link  text-light" href="#">Résultats</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#">Chantiers</a>
+                        <a class="nav-link text-light" href="<?= BASE_URL . 'projects'; ?>">Chantiers</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -7,6 +7,8 @@ class Estimate
     private string $idCustomer;
     private $date;
     private int $idTasks;
+    private int $driver;
+    private int $imput;
 
     public function __construct(array $data)
     {
@@ -16,9 +18,11 @@ class Estimate
     public function hydrate(array $data)
     {
         foreach ($data as $key => $value) {
-            $method = "set" . ucfirst($key);
-            if (method_exists($this, $method)) {
-                $this->$method($value);
+            if ($value != null) {
+                $method = "set" . ucfirst($key);
+                if (method_exists($this, $method)) {
+                    $this->$method($value);
+                }
             }
         }
     }
@@ -111,15 +115,29 @@ class Estimate
         return $this->idCustomer;
     }
 
-    /**
-     * Set the value of idCustomer
-     *
-     * @return  self
-     */
-    public function setIdCustomer($idCustomer)
+    public function setIdCustomer(string $value)
     {
-        $this->idCustomer = $idCustomer;
+        $this->idCustomer = $value;
+    }
 
-        return $this;
+
+    public function getDriver()
+    {
+        return $this->driver;
+    }
+
+    public function setDriver($driver)
+    {
+        $this->driver = $driver;
+    }
+
+    public function getImput()
+    {
+        return $this->imput;
+    }
+
+    public function setImput($imput)
+    {
+        $this->imput = $imput;
     }
 }
