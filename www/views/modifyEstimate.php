@@ -1,12 +1,11 @@
 <title>Edition devis</title>
-<?php
 
-?>
 <div class="container">
     <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
     <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
+    <input type="hidden" id="rowCount" value="<?= $rowCount ?>">
     <form method="post" action="<?= BASE_URL . 'modifyEstimate'; ?>">
-        <input type="hidden" id="toto" name="toto" value="update">
+        <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
         <div class="blockList">
             <?php
@@ -16,7 +15,7 @@
                     <input type="hidden" class="blocNb" name="taskNumber<?= $taskDetails['taskNumber'] ?>" value="<?= $taskDetails['taskNumber'] ?>">
                     <label for="description" class="fs-5 fw-bold">Description</label>
                     <textarea rows="2" class="form-control description" name="description<?= $taskDetails['taskNumber'] ?>"><?= $taskDetails['descriptionTask'] ?></textarea>
-                    <table class="text-center table table-striped">
+                    <table class="text-center table table<?= $taskDetails['taskNumber'] ?> table-striped">
                         <thead>
                             <tr>
                                 <th>Type</th>
@@ -33,7 +32,8 @@
                             foreach ($productsByTask as $productByTask) {
                                 $testproduct = $productsManager->getProductsById($productByTask['idProduct']);
                             ?>
-                                <tr class="row<?= $taskDetails['taskNumber'] ?>">
+                                <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>" id="<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>">
+                                    <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['row'] ?>">
                                     <td>
                                         <select class="form-select type" id="type" aria-label="Default select example">
                                             <?php foreach ($typesList as $type) { ?>
@@ -65,7 +65,10 @@
                                         <input class="form-control unitPrice" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" required>
                                     </td>
                                     <td>
-                                        <div type="number" step="any" data-type="currency" class="resultPrice1"></div>
+                                        <div type="number" step="any" data-type="currency" class="resultPrice"><?= $productByTask['quantityProduct'] * $productByTask['unitPriceProduct'] ?></div>
+                                    </td>
+                                    <td>
+                                        <div class="remove">X</div>
                                     </td>
                                 </tr>
                             <?php
@@ -73,7 +76,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <input type="button" class="btn btn-success addLineBlock<?= $taskDetails['taskNumber'] ?>" value="Ajouter ligne" id="addLineBlock<?= $taskDetails['taskNumber'] ?>" onclick="addLine('.row', <?= $taskDetails['taskNumber'] ?>)" />
+                    <input type=" button" class="btn btn-success addLineBlock<?= $taskDetails['taskNumber'] ?>" value="Ajouter ligne" id="addLineBlock<?= $taskDetails['taskNumber'] ?>" onclick="addLine('.row', <?= $taskDetails['taskNumber'] ?>)" />
                     <hr class="border border-primary border-1 opacity-100">
                 </div>
             <?php

@@ -1,3 +1,16 @@
 .poste {
     background-color: red;
 }
+
+.remove {
+    color: red;
+    display: inline-block;
+    content: "\00d7";
+    width : 20px;
+    opacity : 0.3;
+}
+
+.remove:hover {
+    opacity: 1;
+    cursor: pointer;
+}

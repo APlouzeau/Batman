@@ -16,6 +16,7 @@
 
         <tbody class="task">
             <tr class="row">
+                <input type="hidden" class="rowNb" name="" value="">
                 <td>
                     <select class="form-select type" id="type" aria-label="Default select example">
                         <?php foreach ($typesList as $type) { ?>
@@ -41,7 +42,10 @@
                     <input class="form-control unitPrice" type="number" step="0.01" value="">
                 </td>
                 <td>
-                    <div class="resultPrice"></div>
+                    <div class="resultPrice" value=""></div>
+                </td>
+                <td>
+                    <div class="remove">X</div>
                 </td>
             </tr>
         </tbody>
