@@ -1,7 +1,7 @@
 <?php
 
-require_once APP_PATH . "/models/productByTaskModel.php";
-require_once APP_PATH . "/models/PDOServer.php";
+require_once APP_PATH . "/models/entities/productByTaskModel.php";
+require_once APP_PATH . "/models/entities/PDOServer.php";
 class productByTaskManager extends PDOServer
 {
     public function addProductByTask(ProductByTask $productByTask)

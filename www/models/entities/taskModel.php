@@ -3,6 +3,7 @@
 class Task
 {
     private $id;
+    private $idEstimate;
     private $taskNumber;
     private $descriptionTask;
     private $quantity;
@@ -35,7 +36,7 @@ class Task
         return $this;
     }
 
-   public function getDescriptionTask()
+    public function getDescriptionTask()
     {
         return $this->descriptionTask;
     }
@@ -68,7 +69,7 @@ class Task
 
     /**
      * Get the value of taskNumber
-     */ 
+     */
     public function getTaskNumber()
     {
         return $this->taskNumber;
@@ -78,11 +79,22 @@ class Task
      * Set the value of taskNumber
      *
      * @return  self
-     */ 
+     */
     public function setTaskNumber($taskNumber)
     {
         $this->taskNumber = $taskNumber;
 
         return $this;
+    }
+
+
+    public function getIdEstimate()
+    {
+        return $this->idEstimate;
+    }
+
+    public function setIdEstimate($value)
+    {
+        $this->idEstimate = $value;
     }
 }

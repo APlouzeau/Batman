@@ -1,7 +1,7 @@
 <?php
 
-require_once APP_PATH . "/models/typesModel.php";
-require_once APP_PATH . "/models/PDOServer.php";
+require_once APP_PATH . "/models/entities/typesModel.php";
+require_once APP_PATH . "/models/entities/PDOServer.php";
 class TypesManager extends PDOServer
 {
 

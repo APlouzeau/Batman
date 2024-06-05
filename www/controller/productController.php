@@ -1,6 +1,4 @@
 <?php
-
-require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/estimateManager.php";
 require_once APP_PATH . "/models/typesManager.php";
 require_once APP_PATH . "/models/productsManager.php";
@@ -8,14 +6,6 @@ require_once APP_PATH . "/models/productsManager.php";
 class ProductController
 {
 
-    public function products()
-    {
-        $productsManager = new ProductsManager();
-        $rollList = $productsManager->showProducts();
-        $typesManager = new TypesManager();
-        $typesList = $typesManager->showTypes();
-        require_once APP_PATH . '/views/products.php';
-    }
     public function createProduct()
     {
         $productsManager = new ProductsManager();
@@ -46,13 +36,20 @@ class ProductController
         }
     }
 
+    public function products()
+    {
+        $productsManager = new ProductsManager();
+        $rollList = $productsManager->showProducts();
+        $typesManager = new TypesManager();
+        $typesList = $typesManager->showTypes();
+        require_once APP_PATH . '/views/products.php';
+    }
     public function details()
     {
         $productsManager = new ProductsManager();
         $roll = $productsManager->getProductsById($_GET["id"]);
         require_once APP_PATH . '/views/detailsProducts.php';
     }
-
 
     public function modifyProductPage()
     {

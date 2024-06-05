@@ -1,9 +1,10 @@
 <?php
 
-class PDOServer {
+class PDOServer
+{
     public PDO $db;
 
-    public function __construct() 
+    public function __construct()
     {
         $dbName = "batman";
         $port = "3306";

@@ -1,5 +1,4 @@
 <?php
-require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/userManager.php";
 require_once APP_PATH . "/models/roleManager.php";
 
@@ -24,8 +23,8 @@ class UserController
                 try {
                     $userManager->connectUser($email, $password);
                     header('location: ' . BASE_URL);
-                } catch (PDOException $e) {
-                    echo $e->getMessage();
+                } catch (Exception $e) {
+                    $e->getMessage();
                 }
             }
         }
@@ -55,6 +54,7 @@ class UserController
 
         if ($_POST) {
             $updateProfile = [];
+            $updateProfile['id'] = $user->getId();
             if (empty($_POST['firstName'])) {
                 $updateProfile['firstName'] = $user->getFirstName();
             } else {
@@ -72,8 +72,13 @@ class UserController
             } else {
                 $updateProfile['mail'] = $_POST['mail'];
             }
-            $userManager->updateUser($updateProfile);
-            $this->profile();
+            try {
+                //code...
+                $userManager->updateUser($updateProfile);
+                $this->profile();
+            } catch (\Throwable $e) {
+                echo $e->getMessage();
+            }
         }
     }
 
