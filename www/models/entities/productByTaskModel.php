@@ -7,6 +7,7 @@ class ProductByTask
     private $idTask;
     private $quantityProduct;
     private $unitPriceProduct;
+    private int $row;
 
     public function __construct(array $data)
     {
@@ -105,7 +106,7 @@ class ProductByTask
 
     /**
      * Get the value of iProductByTask
-     */ 
+     */
     public function getIdProductByTask()
     {
         return $this->idProductByTask;
@@ -115,11 +116,21 @@ class ProductByTask
      * Set the value of iProductByTask
      *
      * @return  self
-     */ 
+     */
     public function setIdProductByTask($idProductByTask)
     {
         $this->idProductByTask = $idProductByTask;
 
         return $this;
+    }
+
+    public function getRow()
+    {
+        return $this->row;
+    }
+
+    public function setRow(int $row)
+    {
+        $this->row = $row;
     }
 }

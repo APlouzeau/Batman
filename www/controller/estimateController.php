@@ -78,6 +78,7 @@ class EstimateController
                         $newProductByTask = new ProductByTask([
                             'quantityProduct' => $_POST['quantity' . $i][$j],
                             'unitPriceProduct' => $_POST['unitPrice' . $i][$j],
+                            'row' => $_POST['row' . $i][$j],
                         ]);
                         $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
                         $j++;
@@ -116,20 +117,24 @@ class EstimateController
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
         $tasksList = $taskManager->showTasksById($estimate->getId());
+        $rowCount = 0;
+        foreach ($tasksList as $taskDetails) {
+            $productsByTask = $taskManager->getProductsByTask($taskDetails['id']);
+            foreach ($productsByTask as $productByTask) {
+                $rowCount++;
+            }
+        }
         require_once APP_PATH . '/views/modifyEstimate.php';
     }
 
     public function updateEstimate()
     {
-        echo 'appel de updateEstimate';
-        if (isset($_POST['toto']) && $_POST['toto'] == 'update') {
-            var_dump($_POST);
+        if (isset($_POST['controlUpdate']) && $_POST['controlUpdate'] == 'update') {
             $taskManager = new TaskManager();
             $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
             if ($_POST) {
                 if (!empty($tasksList)) {
                     try {
-                        echo 'début de la boucle';
                         foreach ($tasksList as $tasksId) {
                             $idTasks[] = $tasksId['id'];
                         }
@@ -138,36 +143,7 @@ class EstimateController
                         $error = $e->getMessage();
                     }
                 }
-                echo 'appel de saveestimate';
                 $this->saveEstimate();
-
-                /*             try {
-                $count = count($_POST) / 4;
-                for ($i = 0; $i < $count; $i++) {
-                    $newTask = new Task([
-                        'description' => $_POST["description" . $i][0],
-                        'quantity' => $_POST["quantity" . $i],
-                        'unitPrice' => $_POST["unitPrice" . $i]
-                    ]);
-                    $idTask = $taskManager->addTask($newTask);
-                    var_dump($idTask);
-                    $j = 0;
-                    foreach ($_POST['product' . $i] as $value) {
-                        $product = $productsManager->getProductsByName($_POST['product' . $i][$j]);
-                        $newProducts = new Products([
-                            'id' => $product->getId()
-                        ]);
-                        $newProductByTask = new ProductByTask([
-                            'quantityProduct' => $_POST['quantity' . $i][$j],
-                            'unitPriceProduct' => $_POST['unitPrice' . $i][$j],
-                        ]);
-                        $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
-                        $j++;
-                    }
-                }
-            } catch (Exception $e) {
-                $error = $e->getMessage();
-            } */
             }
         } else {
             $this->modifyEstimate();

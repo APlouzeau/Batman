@@ -1,19 +1,5 @@
 <title>Edition devis</title>
 
-<?php
-
-
-/* $j = 0;
-    foreach ($_POST['product' . $i] as $key => $value) {
-    $newProductByTask = new ProductByTask([
-    'idProductByTask' => '2',
-    'idProduct' => '3',
-    'idTask' => '4',
-    'quantityProduct' => $_POST["quantity" . $i][$j],
-    'unitPriceProduct' => $_POST["unitPrice" . $i][$j]
-    ]);
-    } */
-?>
 <div class="container">
     <form method="post" action="<?= BASE_URL . 'saveEstimate'; ?>">
         <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
@@ -37,6 +23,7 @@
 
                     <tbody>
                         <tr class="row0">
+                            <input type="hidden" class="rowNb" name="row0">
                             <td>
                                 <select class="form-select type" id="type" aria-label="Default select example">
                                     <?php foreach ($typesList as $type) { ?>
