@@ -1,19 +1,3 @@
-<?php
-require_once APP_PATH . "/views/head.php";
-?>
-
-<title>Accueil</title>
-
-<?php
-require_once APP_PATH . "/views/header.php";
-require_once APP_PATH . "/models/estimateManager.php";
-require_once APP_PATH . "/models/customersManager.php";
-require_once APP_PATH . "/models/estimateModel.php";
-
-
-
-
-?>
 <div class="container justify-content-center">
 
     <form method="post" class="" style="min-height: 50em" action="<?= BASE_URL . 'createEstimate'; ?>">

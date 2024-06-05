@@ -2,7 +2,7 @@
 define("APP_PATH", __DIR__);
 define("BASE_URL", "/");
 require_once APP_PATH . "/views/head.php";
-require_once APP_PATH . "/models/router.php";
+require_once APP_PATH . "/models/entities/router.php";
 require_once APP_PATH . "/controller/userController.php";
 require_once APP_PATH . "/controller/estimateController.php";
 require_once APP_PATH . "/controller/customerController.php";
@@ -10,11 +10,6 @@ require_once APP_PATH . "/controller/homeController.php";
 require_once APP_PATH . "/controller/productController.php";
 require_once APP_PATH . "/controller/projectsController.php";
 require_once APP_PATH . "/controller/testController.php";
-?>
-
-<title>Accueil</title>
-
-<?php
 require_once APP_PATH . "/views/header.php";
 
 $router = new Router();
@@ -25,7 +20,11 @@ $router->addRoute('GET', BASE_URL . 'test', 'testController', 'test');
 
 //routes connection
 $router->addRoute('GET', BASE_URL, 'UserController', 'formConnectUser');
-$router->addRoute('POST', BASE_URL, 'UserController', 'connectUserController');
+try {
+    $router->addRoute('POST', BASE_URL, 'UserController', 'connectUserController');
+} catch (Exception $e) {
+    $e->getMessage();
+}
 $router->addRoute('GET', BASE_URL . 'logout', 'UserController', 'disconnect');
 
 // routes estimate
@@ -36,6 +35,8 @@ $router->addRoute('GET', BASE_URL . 'newEstimate', 'EstimateController', 'newEst
 $router->addRoute('POST', BASE_URL . 'createEstimate', 'EstimateController', 'newEstimate');
 $router->addRoute('GET', BASE_URL . 'searchEstimate', 'EstimateController', 'searchEstimateToModify');
 $router->addRoute('GET', BASE_URL . 'modifyEstimate', 'EstimateController', 'modifyEstimate');
+$router->addRoute('POST', BASE_URL . 'modifyEstimate', 'EstimateController', 'updateEstimate');
+$router->addRoute('POST', BASE_URL . 'saveEstimate', 'EstimateController', 'saveEstimate');
 
 //routes profile
 $router->addRoute('GET', BASE_URL . 'profile', 'UserController', 'profile');
@@ -69,12 +70,12 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 
 $handler = $router->getHandler($method, $uri);
-echo '$handler';
-var_dump($handler);
-echo '$method';
+/* echo '$method';
 var_dump($method);
 echo '$uri';
 var_dump($uri);
+echo '$handler';
+var_dump($handler); */
 $controller = new $handler['controller']();
 $action = $handler['action'];
 $controller->$action();

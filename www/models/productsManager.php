@@ -1,13 +1,14 @@
 <?php
 
-require_once APP_PATH . "/models/productsModel.php";
-require_once APP_PATH . "/models/PDOServer.php";
+
 class ProductsManager extends PDOServer
 {
 
     public function addProducts(Products $product)
     {
-        $req = $this->db->prepare("INSERT INTO products (name, type, length, recovery, summary, descriptionProduct, price) VALUES (:name, :type, :length, :recovery, :summary, :descriptionProduct, :price)");
+        $req = $this->db->prepare("
+                                    INSERT INTO products (name, type, length, recovery, summary, descriptionProduct, price) 
+                                    VALUES (:name, :type, :length, :recovery, :summary, :descriptionProduct, :price)");
         $req->bindValue(":name", $product->getName(), PDO::PARAM_STR);
         $req->bindValue(":type", $product->getType(), PDO::PARAM_STR);
         $req->bindValue(":length", $product->getLength(), PDO::PARAM_STR);
@@ -22,6 +23,7 @@ class ProductsManager extends PDOServer
     {
         $products = [];
         $req = $this->db->query("SELECT * FROM products ORDER BY name");
+        $req->execute();
         $datas = $req->fetchAll();
         foreach ($datas as $data) {
             $product = new Products($data);

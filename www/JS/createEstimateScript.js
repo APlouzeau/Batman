@@ -1,6 +1,6 @@
 let line = 1;
-let block = document.getElementById('tasksNumber').value;
-
+let blockList = document.querySelector('#taskQuantity').value;
+let block = blockList;
 
 let resultQuantity = document.querySelector('.quantity');
 resultQuantity.addEventListener('change', () => {
@@ -43,6 +43,7 @@ function calcPrice(element) {
 let addBlockEvent = document.querySelector('.addBlock');
 addBlockEvent.addEventListener("click", () => {
     addBlock('.block');
+
 })
 
 function select(id) {
@@ -65,41 +66,40 @@ function select(id) {
     }
 }
 
-function addLine(lineModel, block) {
+function addLine(lineModel, blockNb) {
     const node = document.querySelector(lineModel);
     const clone = node.cloneNode(true);
-    cloneLineParams(clone, block);
-    clone.classList.remove('rowModel'); 
-    document.querySelector('.row' + block).appendChild(clone);
+    cloneLineParams(clone, blockNb);
+    clone.classList.remove('row'); 
+    clone.classList.add('row' + blockNb);
+    console.log('.task' + blockNb); 
+    document.querySelector('.task' + blockNb).appendChild(clone);
 }
 
 function addBlock(blockModel) {
     const node = document.querySelector(blockModel);
     const clone = node.cloneNode(true);
-    clone.classList.add('block' + block);
     clone.classList.remove('block');
-    clone.removeAttribute('id');
-    clone.setAttribute('id', 'block' + block);
+    clone.classList.add('block' + block);
+    clone.setAttribute('name', 'lineNb' + block);
     clone.removeAttribute('hidden');
-    const tasksNumber = clone.querySelector('.tasksNumber');
-    tasksNumber.setAttribute('name', 'taskNumber' + block + '[]');
+    const tasksNumber = clone.querySelector('.blocNb');
+    tasksNumber.setAttribute('name', 'taskNumber' + block);
     tasksNumber.setAttribute('value', block)
     const newDescription = clone.querySelector('.description');
-    newDescription.setAttribute('name', 'description' + block + '[]');
-    const newTable = clone.querySelector('table');
-    newTable.classList.remove('task');
-    newTable.removeAttribute('id');
-    newTable.classList.add('task' + block);
+    newDescription.setAttribute('name', 'description' + block);
+    newDescription.required = true;
     const classTbody = clone.querySelector('tbody');
-    classTbody.classList.add('row' + block);
+    classTbody.classList.remove('task');
+    classTbody.classList.add('task' + block);
     cloneLineParams(clone, block);
+    const rowClone = clone.querySelector('.row');
+    rowClone.classList.remove('row');
+    rowClone.classList.add('row' + block);
     const newAddLineButton = clone.querySelector('.addLineBlock');
-    newAddLineButton.classList.remove("addLineBlock");
-    newAddLineButton.classList.add('addLineBlock' + block);
-    const newTableClass = block;
-    newAddLineButton.addEventListener("click", () => {
-        addLine('.rowModel', newTableClass);
-    })
+    newAddLineButton.classList.remove('.addLineBlock');
+    newAddLineButton.setAttribute('onclick', 'addLine(\'.row\', ' + block +')');
+    console.log('.row, ' + block);
     const newRow = '#row' + block;
     const selectProductLine1 = clone.querySelector('.product');
     selectProductLine1.addEventListener('change', () => {
@@ -120,8 +120,8 @@ function cloneLineParams(clone, block) {
     productClone.setAttribute('name', 'product' + block + '[]');
     const quantityClone = clone.querySelector('.quantity');
     quantityClone.setAttribute('name', 'quantity' + block + '[]'); 
-    quantityClone.setAttribute('required', true);   
+    quantityClone.required = true;   
     const unitPriceClone = clone.querySelector('.unitPrice');
     unitPriceClone.setAttribute('name', 'unitPrice' + block + '[]');
-    unitPriceClone.setAttribute('required', true);
+    unitPriceClone.required = true;
 }

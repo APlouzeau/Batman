@@ -59,11 +59,9 @@ Copy files from website on the server
 Move to folder of configuration
 
     cd /etc/apache2/sites-available
-
 Copy existing file
 
     sudo cp 000-default.conf batman.conf
-
 Modify file
 
     sudo nano batman.conf
@@ -84,13 +82,14 @@ Add website to the server
     sudo a2ensite sopeyo.conf
 
 ## 4/ Database :
+Download phpmyadmin in zip format
 
-open command prompt in the folder where you want to save your database
+repeat Step 3 like to configure a website (careful to change servername !)
 
-    mysqldump -u batman -p –add-drop-database –databases batman > dump_batman.sql 
+Connect to phpmyadmin 
 
-Copy this file on the server
+Create a new user for your database, and a new database
 
-Open command prompt on server in folder with the dump file
+In the SQL tab, paste your SQL queries (dump file in annexe)
 
-    mysql -u batman -p batman < dump_batman.sql
+Verify any setting in PHP files to connect to the database (PDO)

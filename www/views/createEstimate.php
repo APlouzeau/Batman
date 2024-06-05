@@ -15,11 +15,11 @@
     } */
 ?>
 <div class="container">
-    <form method="post" action="<?= BASE_URL . 'createEstimate'; ?>">
+    <form method="post" action="<?= BASE_URL . 'saveEstimate'; ?>">
         <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId(); ?>">
+        <input type="hidden" id="taskQuantity" value="1">
         <div class="blockList">
-            <input type="hidden" id="tasksNumber" value="1">
             <div class="py-2 block0" id="block0">
                 <input type="hidden" name="taskNumber0[]" value="0">
                 <label for="description" class="fs-5 fw-bold">Description</label>
@@ -35,8 +35,8 @@
                         </tr>
                     </thead>
 
-                    <tbody class="row0">
-                        <tr>
+                    <tbody>
+                        <tr class="row0">
                             <td>
                                 <select class="form-select type" id="type" aria-label="Default select example">
                                     <?php foreach ($typesList as $type) { ?>

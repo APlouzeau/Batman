@@ -1,15 +1,16 @@
 <?php
 
-require_once APP_PATH . "/models/taskModel.php";
-require_once APP_PATH . "/models/PDOServer.php";
-require_once APP_PATH . "/models/productsModel.php";
+require_once APP_PATH . "/models/entities/taskModel.php";
+require_once APP_PATH . "/models/entities/productsModel.php";
+require_once APP_PATH . "/models/entities/PDOServer.php";
 
 class TaskManager extends PDOServer
 {
 
     public function addTask(Task $task)
     {
-        $req = $this->db->prepare("INSERT INTO tasks (taskNumber, descriptionTask, quantity, unitPrice) VALUES (:taskNumber, :descriptionTask, :quantity, :unitPrice)");
+        $req = $this->db->prepare("INSERT INTO tasks (idEstimate, taskNumber, descriptionTask, quantity, unitPrice) VALUES (:idEstimate, :taskNumber, :descriptionTask, :quantity, :unitPrice)");
+        $req->bindValue(":idEstimate", $task->getIdEstimate(), PDO::PARAM_INT);
         $req->bindValue(":taskNumber", $task->getTaskNumber(), PDO::PARAM_INT);
         $req->bindValue(":descriptionTask", $task->getDescriptionTask(), PDO::PARAM_STR);
         $req->bindValue(":quantity", $task->getQuantity(), PDO::PARAM_INT);
@@ -25,17 +26,7 @@ class TaskManager extends PDOServer
         $req->bindValue("idProduct", $products->getId(), PDO::PARAM_INT);
         $req->bindValue("idTask", $idTask, PDO::PARAM_INT);
         $req->bindValue("quantityProduct", $productByTask->getQuantityProduct(), PDO::PARAM_INT);
-        $req->bindValue("unitPriceProduct", $productByTask->getUnitPriceProduct(), PDO::PARAM_INT);
-        $req->execute();
-    }
-
-    public function addTaskRef($idEstimate, $idTask)
-    {
-        $this->db->query("INSERT INTO taskref (idEstimate, idTask) VALUES ($idEstimate, $idTask)");
-    }
-    public function addTest()
-    {
-        $req = $this->db->query("INSERT INTO tasks (descriptionTask, quantity, unitPrice) VALUES ('les saucissons', 5, 10) ");
+        $req->bindValue("unitPriceProduct", $productByTask->getUnitPriceProduct(), PDO::PARAM_STR);
         $req->execute();
     }
 
@@ -62,10 +53,9 @@ class TaskManager extends PDOServer
 
     public function showTasksById($idEstimate)
     {
-        $req = $this->db->query("SELECT * FROM tasks 
-                                INNER JOIN taskref ON taskref.idTask = tasks.id 
-                                WHERE taskref.idEstimate = $idEstimate                        
-                                ");
+        $req = $this->db->prepare("SELECT * FROM tasks WHERE idEstimate = :idEstimate");
+        $req->bindValue(":idEstimate", $idEstimate, PDO::PARAM_INT);
+        $req->execute();
         $datas = $req->fetchAll();
         return $datas;
     }

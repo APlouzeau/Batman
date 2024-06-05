@@ -1,6 +1,7 @@
 <?php
 
-require_once APP_PATH . "/models/roleModel.php";
+require_once APP_PATH . "/models/entities/roleModel.php";
+require_once APP_PATH . "/models/entities/PDOServer.php";
 class roleManager extends PDOServer
 {
 

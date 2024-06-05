@@ -1,15 +1,19 @@
 <?php
 
-require_once APP_PATH . "/models/userModel.php";
+require_once APP_PATH . "/models/entities/userModel.php";
+require_once APP_PATH . "/models/entities/PDOServer.php";
 
 class UserManager extends PDOServer
 {
     public function connectUser(string $email, string $password)
     {
+        if ($password == 1) {
+            throw new Exception("Mon code est 1", 1);
+        }
         $req = $this->db->query("SELECT * FROM users WHERE mail = '$email'");
         if ($req->execute()) {
             $user = $req->fetch(PDO::FETCH_ASSOC);
-            #if ($password == $user["password"]) {
+            #if ($user["password"] == $password) {
             if (password_verify($password, $user["password"])) {
                 $_SESSION['mail'] = $user['mail'];
                 $_SESSION['firstName'] = $user['firstName'];
@@ -49,7 +53,8 @@ class UserManager extends PDOServer
 
     public function getSelfUser($id)
     {
-        $req = $this->db->query("SELECT id, name, firstName, mail, role FROM users WHERE id = $id");
+        $req = $this->db->prepare("SELECT id, name, firstName, mail, role FROM users WHERE id = :id");
+        $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
         $user = new Users($data);
@@ -58,22 +63,26 @@ class UserManager extends PDOServer
 
     public function updateUser(array $updateProfile)
     {
-        $req = $this->db->prepare("UPDATE users SET name = :name, firstName = :firstName, mail = :mail");
+        $req = $this->db->prepare("UPDATE users SET name = :name, firstName = :firstName, mail = :mail WHERE id = :id");
         $req->bindValue(":name", $updateProfile['name']);
         $req->bindValue(':firstName', $updateProfile['firstName']);
         $req->bindValue(':mail', $updateProfile['mail']);
+        $req->bindValue(':id', $updateProfile['id']);
         $req->execute();
     }
 
     public function modifyPasswordUser($userId, $oldPassword, $newPassword)
     {
-        $req = $this->db->query("SELECT password FROM users WHERE id = $userId");
+        $req = $this->db->prepare("SELECT password FROM users WHERE id = :id");
+        $req->bindValue(":id", $userId, PDO::PARAM_INT);
         if ($req->execute()) {
             $user = $req->fetch(PDO::FETCH_ASSOC);
             #if ($oldPassword == $user["password"]) {
+            echo "mots de passes vérifié";
             if (password_verify($oldPassword, $user["password"])) {
-                $req = $this->db->prepare("UPDATE users SET password = :password");
+                $req = $this->db->prepare("UPDATE users SET password = :password WHERE id = :id");
                 $req->bindValue(':password', password_hash($newPassword, PASSWORD_BCRYPT));
+                $req->bindValue(':id', $userId, PDO::PARAM_INT);
                 $req->execute();
             }
         }
