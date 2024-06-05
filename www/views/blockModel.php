@@ -1,12 +1,12 @@
-<div class="py-2 block" id="block" hidden>
-    <input type="hidden" class ="tasksNumber">
+<div class="py-2 block" hidden>
+    <input type="hidden" class="blocNb">
     <label for="description" class="fs-5 fw-bold">Description</label>
-    <textarea rows="2" class="form-control description" class="description" ></textarea>
+    <textarea rows="2" class="form-control description"></textarea>
 
-    <table id="task" class="text-center table table-striped task">
+    <table class="text-center table table-striped">
         <thead>
             <tr>
-                <th>Poste</th>
+                <th>Type</th>
                 <th>Produit</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
@@ -14,8 +14,8 @@
             </tr>
         </thead>
 
-        <tbody>
-            <tr class="rowModel">
+        <tbody class="task">
+            <tr class="row">
                 <td>
                     <select class="form-select type" id="type" aria-label="Default select example">
                         <?php foreach ($typesList as $type) { ?>
@@ -38,7 +38,7 @@
                     <input class="form-control quantity" type="number">
                 </td>
                 <td>
-                    <input class="form-control unitPrice" type="number" step="any" value="">
+                    <input class="form-control unitPrice" type="number" step="0.01" value="">
                 </td>
                 <td>
                     <div class="resultPrice"></div>

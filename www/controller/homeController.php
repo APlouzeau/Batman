@@ -1,10 +1,11 @@
 <?php
-require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/customersManager.php";
 
-class homeController {
+class homeController
+{
 
-    public function index() {
+    public function index()
+    {
         require_once APP_PATH . "/index.php";
-}  
+    }
 }

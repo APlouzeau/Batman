@@ -1,5 +1,4 @@
 <?php
-require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/customersManager.php";
 require_once APP_PATH . "/controller/estimateController.php";
 

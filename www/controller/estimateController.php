@@ -1,6 +1,5 @@
 <?php
 
-require_once APP_PATH . "/models/PDOServer.php";
 require_once APP_PATH . "/models/estimateManager.php";
 require_once APP_PATH . "/models/typesManager.php";
 require_once APP_PATH . "/models/productsManager.php";
@@ -27,9 +26,7 @@ class EstimateController
     }
     public function newEstimate()
     {
-        echo "newEstimate";
         $estimateManager = new EstimateManager();
-        var_dump($_POST);
         if ($_POST) {
             $nameEstimate = $_POST["nameEstimate"];
             $idCustomer = $_POST["id"];
@@ -38,11 +35,8 @@ class EstimateController
                     "nameEstimate" => $nameEstimate,
                     "idCustomer" => $idCustomer,
                 ]);
-                var_dump($newEstimate);
                 $idEstimate = $estimateManager->createEstimate($newEstimate);
-                var_dump($idEstimate);
                 $estimate = $estimateManager->showEstimateById($idEstimate);
-                var_dump($estimate);
                 $typesManager = new TypesManager();
                 $typesList = $typesManager->showTypes();
                 $productsManager = new ProductsManager();
@@ -59,22 +53,22 @@ class EstimateController
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
         $productsManager = new ProductsManager();
-
-        $tasksNumber = 1;
-
         if ($_POST) {
-            $idEstimate = $_POST['idEstimate'];
             try {
-                $count = floor(count($_POST) / 4);
-                for ($i = 0; $i < $count; $i++) {
+                $result = 0;
+                $search = 'description';
+                foreach ($_POST as $key => $value) {
+                    if (substr_count($key, $search) == 1) {
+                        $result++;
+                    }
+                }
+                for ($i = 0; $i < $result; $i++) {
                     $newTask = new Task([
-                        'taskNumber' => $_POST['taskNumber' . $i][0],
-                        'descriptionTask' => $_POST["description" . $i][0],
-                        /* 'quantity' => $_POST["quantity" . $i],
-                        'unitPrice' => $_POST["unitPrice" . $i] */
+                        'idEstimate' => $_POST['idEstimate'],
+                        'taskNumber' => $_POST['taskNumber' . $i],
+                        'descriptionTask' => $_POST["description" . $i],
                     ]);
                     $idTask = $taskManager->addTask($newTask);
-                    $taskManager->addTaskRef($idEstimate, $idTask);
                     $j = 0;
                     foreach ($_POST['product' . $i] as $value) {
                         $product = $productsManager->getProductsByName($_POST['product' . $i][$j]);
@@ -88,7 +82,8 @@ class EstimateController
                         $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
                         $j++;
                     }
-                } /* header("Location:modifyEstimate.php?id=$estimateId"); */
+                }
+                $this->modifyEstimate();
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }
@@ -98,63 +93,84 @@ class EstimateController
     public function searchEstimateToModify()
     {
         $estimateManager = new EstimateManager();
-        $estimateList = $estimateManager->showEstimateToModify();
+        try {
+            $estimateList = $estimateManager->showEstimateToModify();
+        } catch (Exception $e) {
+            error_log('Erreur : ' . $e->getMessage());
+        }
         require_once APP_PATH . '/views/searchEstimate.php';
     }
 
     public function modifyEstimate()
     {
         $estimateManager = new EstimateManager();
+        if ($_POST) {
+            $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
+        } else {
+            $estimate = $estimateManager->showEstimateById($_GET['idEstimate']);
+        };
         $productsManager = new ProductsManager();
         $productList = $productsManager->showProducts();
         $typesManager = new TypesManager();
         $typesList = $typesManager->showTypes();
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
-        $tasksList = $taskManager->showTasksById($_GET['id']);
-        $tasksNumber = count($tasksList);
+        $tasksList = $taskManager->showTasksById($estimate->getId());
         require_once APP_PATH . '/views/modifyEstimate.php';
     }
 
     public function updateEstimate()
     {
-        if ($_POST) {
-            try {
-                foreach ($tasksList as $tasksid) {
-                    $idTasks[] = $tasksid['id'];
+        echo 'appel de updateEstimate';
+        if (isset($_POST['toto']) && $_POST['toto'] == 'update') {
+            var_dump($_POST);
+            $taskManager = new TaskManager();
+            $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
+            if ($_POST) {
+                if (!empty($tasksList)) {
+                    try {
+                        echo 'début de la boucle';
+                        foreach ($tasksList as $tasksId) {
+                            $idTasks[] = $tasksId['id'];
+                        }
+                        $taskManager->deleteTasks($idTasks);
+                    } catch (Exception $e) {
+                        $error = $e->getMessage();
+                    }
                 }
-                $taskManager->deleteTasks($idTasks);
+                echo 'appel de saveestimate';
+                $this->saveEstimate();
+
+                /*             try {
+                $count = count($_POST) / 4;
+                for ($i = 0; $i < $count; $i++) {
+                    $newTask = new Task([
+                        'description' => $_POST["description" . $i][0],
+                        'quantity' => $_POST["quantity" . $i],
+                        'unitPrice' => $_POST["unitPrice" . $i]
+                    ]);
+                    $idTask = $taskManager->addTask($newTask);
+                    var_dump($idTask);
+                    $j = 0;
+                    foreach ($_POST['product' . $i] as $value) {
+                        $product = $productsManager->getProductsByName($_POST['product' . $i][$j]);
+                        $newProducts = new Products([
+                            'id' => $product->getId()
+                        ]);
+                        $newProductByTask = new ProductByTask([
+                            'quantityProduct' => $_POST['quantity' . $i][$j],
+                            'unitPriceProduct' => $_POST['unitPrice' . $i][$j],
+                        ]);
+                        $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
+                        $j++;
+                    }
+                }
             } catch (Exception $e) {
                 $error = $e->getMessage();
+            } */
             }
-            $idEstimate = $_GET['id'];
-            /* try {
-        $count = count($_POST) / 4;
-        for ($i = 0; $i < $count; $i++) {        
-            $newTask = new Task([
-                'description' => $_POST["description" . $i][0],
-                /* 'quantity' => $_POST["quantity" . $i], 
-                /* 'unitPrice' => $_POST["unitPrice" . $i] 
-            ]);
-            $idTask = $taskManager->addTask($newTask);
-            $j = 0;
-            foreach ($_POST['product' . $i] as $value) {
-                $product = $productsManager->getProductsByName($_POST['product' . $i][$j]);
-                $newProducts = new Products([
-                    'id' => $product->getId()
-                ]);
-                $newProductByTask = new ProductByTask([
-                    'quantityProduct' => $_POST['quantity' .$i][$j],
-                    'unitPriceProduct' => $_POST['unitPrice' .$i][$j],
-                ]);
-                $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
-                $j++;   
-
-            }
-        } 
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-    }*/
+        } else {
+            $this->modifyEstimate();
         }
     }
 
@@ -183,7 +199,6 @@ class EstimateController
     {
         $estimateManager = new EstimateManager();
         $estimateList = $estimateManager->showEstimateRegistered();
-        var_dump($estimateList);
         require_once APP_PATH . "/views/estimateRegistered.php";
     }
 }

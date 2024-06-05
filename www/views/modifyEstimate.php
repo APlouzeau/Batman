@@ -1,16 +1,22 @@
 <title>Edition devis</title>
+<?php
 
+?>
 <div class="container">
-    <form method="post">
+    <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
+    <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
+    <form method="post" action="<?= BASE_URL . 'modifyEstimate'; ?>">
+        <input type="hidden" id="toto" name="toto" value="update">
+        <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
         <div class="blockList">
-            <input type="hidden" id="tasksNumber" value="<?php echo $tasksNumber; ?>">
             <?php
             foreach ($tasksList as $taskDetails) {
             ?>
-                <div class="py-2 block<?= $taskDetails['taskNumber'] ?>" name="lineNb1">
+                <div class="py-2 block<?= $taskDetails['taskNumber'] ?>" name="lineNb<?= $taskDetails['taskNumber'] ?>">
+                    <input type="hidden" class="blocNb" name="taskNumber<?= $taskDetails['taskNumber'] ?>" value="<?= $taskDetails['taskNumber'] ?>">
                     <label for="description" class="fs-5 fw-bold">Description</label>
-                    <textarea rows="2" class="form-control" name="description0[]" required><?= $taskDetails['descriptionTask'] ?></textarea>
-                    <table class="text-center table table-striped task1">
+                    <textarea rows="2" class="form-control description" name="description<?= $taskDetails['taskNumber'] ?>"><?= $taskDetails['descriptionTask'] ?></textarea>
+                    <table class="text-center table table-striped">
                         <thead>
                             <tr>
                                 <th>Type</th>
@@ -21,13 +27,13 @@
                             </tr>
                         </thead>
 
-                        <tbody class="row<?= $taskDetails['taskNumber'] ?>">
+                        <tbody class="task<?= $taskDetails['taskNumber'] ?>">
                             <?php
-                            $productsByTask = $taskManager->getProductsByTask($taskDetails['idTask']); //les infos des produits, sans leur identité, mais leur id
+                            $productsByTask = $taskManager->getProductsByTask($taskDetails['id']); //les infos des produits, sans leur identité, mais leur id
                             foreach ($productsByTask as $productByTask) {
                                 $testproduct = $productsManager->getProductsById($productByTask['idProduct']);
                             ?>
-                                <tr>
+                                <tr class="row<?= $taskDetails['taskNumber'] ?>">
                                     <td>
                                         <select class="form-select type" id="type" aria-label="Default select example">
                                             <?php foreach ($typesList as $type) { ?>
@@ -41,7 +47,7 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-select product" id="product" aria-label="Default select example" name="product0[]">
+                                        <select class="form-select product" id="product" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]">
                                             <?php foreach ($productList as $type => $product) { ?>
                                                 <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>" <?php
                                                                                                                                 if ($product->getName() == $testproduct->getName()) {
@@ -53,10 +59,10 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="form-control quantity" id="quantity" name="quantity0[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" required>
+                                        <input class="form-control quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" required>
                                     </td>
                                     <td>
-                                        <input class="form-control unitPrice" name="unitPrice0[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" required>
+                                        <input class="form-control unitPrice" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" required>
                                     </td>
                                     <td>
                                         <div type="number" step="any" data-type="currency" class="resultPrice1"></div>
@@ -67,7 +73,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <input type="button" class="btn btn-success addLineBlock<?= $taskDetails['taskNumber'] ?>" value="Ajouter ligne" id="addLineBlock<?= $taskDetails['taskNumber'] ?>" onclick="addLine('.rowModel', <?= $taskDetails['taskNumber'] ?>)" />
+                    <input type="button" class="btn btn-success addLineBlock<?= $taskDetails['taskNumber'] ?>" value="Ajouter ligne" id="addLineBlock<?= $taskDetails['taskNumber'] ?>" onclick="addLine('.row', <?= $taskDetails['taskNumber'] ?>)" />
                     <hr class="border border-primary border-1 opacity-100">
                 </div>
             <?php
@@ -85,5 +91,5 @@
 </div>
 <script src="JS/createEstimateScript.js"></script>
 <?php
-require_once APP_PATH . "/../views/footer.php";
+require_once APP_PATH . "/views/footer.php";
 ?>

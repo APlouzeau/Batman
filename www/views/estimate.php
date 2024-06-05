@@ -1,20 +1,5 @@
-<?php
-require_once APP_PATH . "/views/head.php";
-?>
+<title>Devis</title>
 
-<title>Client</title>
-
-<?php
-require_once APP_PATH . "/views/header.php";
-require_once APP_PATH . "/models/productsManager.php";
-require_once APP_PATH . "/models/typesManager.php";
-require_once APP_PATH . "/models/customersManager.php";
-require_once APP_PATH . "/models/estimateManager.php";
-require_once APP_PATH . "/models/estimateModel.php";
-
-
-
-?>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 50em" id="divButtonsEstimate">
     <div class="" id="buttonsEstimate">
         <button type="button" class="btn btn-success newEstimate" id="newEstimate">Nouveau</button>

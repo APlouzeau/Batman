@@ -1,7 +1,7 @@
 <?php
 
-require_once APP_PATH . "/models/customersModel.php";
-require_once APP_PATH . "/models/PDOServer.php";
+require_once APP_PATH . "/models/entities/customersModel.php";
+require_once APP_PATH . "/models/entities/PDOServer.php";
 
 class CustomersManager extends PDOServer
 {
