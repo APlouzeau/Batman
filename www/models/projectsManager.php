@@ -24,4 +24,13 @@ class ProjectsManager extends PDOServer
         $req->bindValue(':row', $productByTask->getRow(), PDO::PARAM_INT);
         $req->execute();
     }
+
+    public function expense(ProductByTask $productByTask)
+    {
+        $req = $this->db->prepare('UPDATE productByTask SET expense = :expense WHERE idTask = :idTask AND row = :row');
+        $req->bindValue(':expense', $productByTask->getExpense(), PDO::PARAM_INT);
+        $req->bindValue(':idTask', $productByTask->getIdTask(), PDO::PARAM_INT);
+        $req->bindValue(':row', $productByTask->getRow(), PDO::PARAM_INT);
+        $req->execute();
+    }
 }
