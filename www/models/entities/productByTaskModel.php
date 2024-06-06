@@ -9,6 +9,7 @@ class ProductByTask
     private $unitPriceProduct;
     private int $row;
     private int $situation;
+    private int $expense;
 
     public function __construct(array $data)
     {
@@ -143,5 +144,15 @@ class ProductByTask
     public function setSituation(int $situation)
     {
         $this->situation = $situation;
+    }
+
+    public function getExpense(): int
+    {
+        return $this->expense;
+    }
+
+    public function setExpense($expense)
+    {
+        $this->expense = $expense;
     }
 }

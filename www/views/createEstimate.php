@@ -10,50 +10,52 @@
                 <input type="hidden" name="taskNumber0[]" value="0">
                 <label for="description" class="fs-5 fw-bold">Description</label>
                 <textarea rows="2" class="form-control" name="description0[]" required></textarea>
-                <table class="text-center table table-striped task1">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Produit</th>
-                            <th>Quantité</th>
-                            <th>Prix unitaire</th>
-                            <th>Montant total</th>
-                        </tr>
-                    </thead>
+                <div class="table-responsive">
+                    <table class="text-center table table-striped align-middle task1">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                                <th>Prix unitaire</th>
+                                <th>Montant total</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <tr class="row0">
-                            <input type="hidden" class="rowNb" name="row0">
-                            <td>
-                                <select class="form-select type" id="type" aria-label="Default select example">
-                                    <?php foreach ($typesList as $type) { ?>
-                                        <option class="" value="<?= $type->getName() ?>"><?= $type->getName() ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-select product" id="product" aria-label="Default select example" name="product0[]">
-                                    <?php foreach ($productList as $type => $product) { ?>
-                                        <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                            <td>
-                                <input class="form-control quantity" id="quantity" name="quantity0[]" type="number" required>
-                            </td>
-                            <td>
-                                <input class="form-control unitPrice" name="unitPrice0[]" type="number" step="any" id="unitPrice" value="" required>
-                            </td>
-                            <td>
-                                <div type="number" step="any" data-type="currency" class="resultPrice1"></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <tbody>
+                            <tr class="row0">
+                                <input type="hidden" class="rowNb" name="row0">
+                                <td>
+                                    <select class="form-select type" id="type" aria-label="Default select example">
+                                        <?php foreach ($typesList as $type) { ?>
+                                            <option class="" value="<?= $type->getName() ?>"><?= $type->getName() ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select product" id="product" aria-label="Default select example" name="product0[]">
+                                        <?php foreach ($productList as $type => $product) { ?>
+                                            <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="form-control quantity" id="quantity" name="quantity0[]" type="number" required>
+                                </td>
+                                <td>
+                                    <input class="form-control unitPrice" name="unitPrice0[]" type="number" step="any" id="unitPrice" value="" required>
+                                </td>
+                                <td>
+                                    <div type="number" step="any" data-type="currency" class="resultPrice1"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <input type="button" class="btn btn-success addLineBlock1" value="Ajouter ligne" id="addLineBlock1" onclick="addLine('.rowModel', 0)" />
                 <hr class="border border-primary border-1 opacity-100">
             </div>
