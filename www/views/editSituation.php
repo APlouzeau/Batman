@@ -60,24 +60,24 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input class="form-control quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" disabled>
+                                        <input class="form-control text-center quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" disabled>
                                     </td>
                                     <td>
                                         <div class="currency-wrap">
                                             <span class="currency-code">€</span>
-                                            <input class="form-control unitPrice text-currency" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" disabled>
+                                            <input class="form-control text-center unitPrice text-currency" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" disabled>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="currency-wrap">
                                             <span class="currency-code">€</span>
-                                            <div type="number" step="any" data-type="currency" class="resultPrice text-currency"><?= $productByTask['quantityProduct'] * $productByTask['unitPriceProduct'] ?></div>
+                                            <input type="number" step="any" data-type="currency" class="resultPrice text-center form-control text-currency" value="<?= $productByTask['quantityProduct'] * $productByTask['unitPriceProduct'] ?>" disabled></input>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="currency-wrap">
                                             <span class="currency-code">%</span>
-                                            <input type="number" class="form-control text-currency" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['situation'] ?>">
+                                            <input type="number" class="form-control text-center text-currency" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['situation'] ?>">
                                         </div>
                                     </td>
                                 </tr>
