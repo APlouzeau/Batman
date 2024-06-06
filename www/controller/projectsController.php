@@ -48,7 +48,6 @@ class ProjectsController
                             'situation' => $_POST['situation' . $i][$j],
                             'row' => $_POST['row' . $i][$j]
                         ]);
-                        var_dump($newSituationByProduct);
                         $projectManager->saveSituation($newSituationByProduct);
                         $j++;
                     }
@@ -73,10 +72,36 @@ class ProjectsController
         require_once APP_PATH . "/views/order.php";
     }
 
-    public function expense()
+    public function saveOrder()
     {
         if ($_POST) {
-            var_dump($_POST);
+            $result = 0;
+            $search = 'taskId';
+            foreach ($_POST as $key => $value) {
+                if (substr_count($key, $search) == 1) {
+                    $result++;
+                }
+            }
+            try {
+                $projectManager = new ProjectsManager();
+                for ($i = 0; $i < $result; $i++) {
+                    $j = 0;
+                    foreach ($_POST['expense' . $i] as $value) {
+                        $row = (is_numeric($_POST['row' . $i][$j]) ? (int)$_POST['row' . $i][$j] : 0);
+                        $expense = (is_numeric($_POST['expense' . $i][$j]) ? (int)$_POST['expense' . $i][$j] : 0);
+                        $newProductByTask = new ProductByTask([
+                            'idTask' => $_POST['taskId' . $i],
+                            'row' => $row,
+                            'expense' => $expense,
+                        ]);
+                        $j++;
+                        $projectManager->expense($newProductByTask);
+                    }
+                }
+            } catch (Exception $e) {
+                $e->getMessage();
+            }
+            $this->projectsPage();
         }
     }
 }

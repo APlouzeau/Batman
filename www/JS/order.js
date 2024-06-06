@@ -17,13 +17,15 @@ for (let i = 0; i < arrayClassQuantity.length; i++) {
 };
 
 function calcPrice(element) {
-    let quantity = element.querySelector('.quantity');
+    const quantity = element.querySelector('.quantity');
     let quantityValue = quantity.value;
-    let getPrice = element.querySelector('.unitPrice');
+    const getPrice = element.querySelector('.unitPrice');
     let priceNumber = getPrice.value;
     let price = quantityValue * priceNumber;
-    let resultPrice = element.querySelector('.order');
+    const resultPrice = element.querySelector('.order');
     resultPrice.innerText = price;
+    const classOrder = element.querySelector('.orderInput');
+    classOrder.value = price;
     return price;
 }
 

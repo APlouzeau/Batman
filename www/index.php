@@ -66,6 +66,7 @@ $router->addRoute('GET', BASE_URL . 'projects', 'ProjectsController', 'projectsP
 $router->addRoute('GET', BASE_URL . 'editSituationPage', 'ProjectsController', 'editSituationPage');
 $router->addRoute('POST', BASE_URL . 'saveSituation', 'ProjectsController', 'saveSituation');
 $router->addRoute('GET', BASE_URL . 'orderPage', 'ProjectsController', 'orderPage');
+$router->addRoute('POST', BASE_URL . 'saveOrder', 'ProjectsController', 'saveOrder');
 
 
 $method = $_SERVER['REQUEST_METHOD'];
