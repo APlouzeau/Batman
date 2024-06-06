@@ -151,7 +151,7 @@ class ProductByTask
         return $this->expense;
     }
 
-    public function setExpense(int $expense)
+    public function setExpense($expense)
     {
         $this->expense = $expense;
     }

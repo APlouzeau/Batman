@@ -6,7 +6,7 @@
 <div class="container d-flex justify-content-center align-items-center flex-wrap">
     <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
     <!--     <input type="hidden" id="rowCount" value="<?= $rowCount ?>"> -->
-    <form method="post" action="<?= BASE_URL . 'order'; ?>">
+    <form method="post" action="<?= BASE_URL . 'saveOrder'; ?>">
         <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
         <div class="blockList">
@@ -87,6 +87,7 @@
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
                                                 <div type="number" data-type="currency" class="form-control order text-center text-currency" id="order<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>">0</div>
+                                                <input type="hidden" class="orderInput" name="expense<?= $taskDetails['taskNumber'] ?>[]" value="">
                                         </td>
                                     </tr>
                                 <?php
@@ -103,7 +104,7 @@
                 ?>
                 </div>
                 <div class="container text-end">
-                    <input type="submit" value="Enregistrer situation" class="btn btn-primary"></input>
+                    <input type="submit" value="Enregistrer dépense" class="btn btn-primary"></input>
     </form>
 
     <h5 class="resultPriceTotal"></h5>
