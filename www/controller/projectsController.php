@@ -58,4 +58,25 @@ class ProjectsController
             }
         }
     }
+
+    public function orderPage()
+    {
+        $estimateManager = new EstimateManager();
+        $estimate = $estimateManager->showEstimateById($_GET['id']);
+        $taskManager = new TaskManager();
+        $tasksList = $taskManager->showTasksById($_GET['id']);
+        $productsManager = new ProductsManager();
+        $productList = $productsManager->showProducts();
+        $typesManager = new TypesManager();
+        $typesList = $typesManager->showTypes();
+        $productByTaskManager = new productByTaskManager();
+        require_once APP_PATH . "/views/order.php";
+    }
+
+    public function expense()
+    {
+        if ($_POST) {
+            var_dump($_POST);
+        }
+    }
 }

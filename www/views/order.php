@@ -1,10 +1,12 @@
+<title>Commande</title>
+
 <title>Situation</title>
 
 <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
 <div class="container d-flex justify-content-center align-items-center flex-wrap">
     <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
     <!--     <input type="hidden" id="rowCount" value="<?= $rowCount ?>"> -->
-    <form method="post" action="<?= BASE_URL . 'saveSituation'; ?>">
+    <form method="post" action="<?= BASE_URL . 'order'; ?>">
         <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
         <div class="blockList">
@@ -21,10 +23,11 @@
                                 <tr>
                                     <th>Type</th>
                                     <th>Produit</th>
+                                    <th>Montant dépensé</th>
+                                    <th>Montant vendu</th>
                                     <th>Quantité</th>
                                     <th>Prix unitaire</th>
-                                    <th>Montant total</th>
-                                    <th>Avancement</th>
+                                    <th>Montant de commande</th>
                                 </tr>
                             </thead>
                             <tbody class="task<?= $taskDetails['taskNumber'] ?>">
@@ -36,7 +39,7 @@
                                     <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>" id="<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>">
                                         <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['row'] ?>">
                                         <td>
-                                            <select class="form-select type" id="type" aria-label="Default select example" disabled>
+                                            <select class="form-select type" aria-label="Default select example" disabled>
                                                 <?php foreach ($typesList as $type) { ?>
                                                     <option class="" value="<?= $type->getName() ?>" <?php
                                                                                                         if ($type->getName() == $testproduct->getType()) {
@@ -48,7 +51,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select product" id="product" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]" disabled>
+                                            <select class="form-select product" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]" disabled>
                                                 <?php foreach ($productList as $type => $product) { ?>
                                                     <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>" <?php
                                                                                                                                     if ($product->getName() == $testproduct->getName()) {
@@ -60,12 +63,9 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control text-center quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" disabled>
-                                        </td>
-                                        <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
-                                                <input class="form-control text-center unitPrice text-currency" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" disabled>
+                                                <input type="number" step="any" data-type="currency" class="alreadyBuy text-center form-control text-currency" value="<?= $productByTask['expense'] ?>" disabled></input>
                                             </div>
                                         </td>
                                         <td>
@@ -75,10 +75,18 @@
                                             </div>
                                         </td>
                                         <td>
+                                            <input class="form-control text-center quantity" id="quantity<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" placeholder="<?= $productByTask['quantityProduct'] ?>">
+                                        </td>
+                                        <td>
                                             <div class="currency-wrap">
-                                                <span class="currency-code">%</span>
-                                                <input type="number" class="form-control text-center text-currency" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['situation'] ?>">
+                                                <span class="currency-code">€</span>
+                                                <input class="form-control text-center unitPrice text-currency" id="unitPrice<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" placeholder="<?= $productByTask['unitPriceProduct'] ?>">
                                             </div>
+                                        </td>
+                                        <td>
+                                            <div class="currency-wrap">
+                                                <span class="currency-code">€</span>
+                                                <div type="number" data-type="currency" class="form-control order text-center text-currency" id="order<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>">0</div>
                                         </td>
                                     </tr>
                                 <?php
@@ -100,7 +108,7 @@
 
     <h5 class="resultPriceTotal"></h5>
     </input>
-    <script src="JS/createEstimateScript.js"></script>
+    <script src="JS/order.js"></script>
     <?php
     require_once APP_PATH . "/views/footer.php";
     ?>
