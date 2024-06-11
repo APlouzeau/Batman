@@ -12,7 +12,6 @@ class ProjectsManager extends PDOServer
         foreach ($datas as $data) {
             $projects[] = $data;
         }
-        var_dump($projects);
         return $projects;
     }
 
