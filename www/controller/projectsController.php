@@ -104,4 +104,52 @@ class ProjectsController
             $this->projectsPage();
         }
     }
+
+    public function resultsPage()
+    {
+        $estimateManager = new EstimateManager();
+        $estimate = $estimateManager->showEstimateById($_GET['id']);
+        $tasksManager = new TaskManager();
+        $tasksList = $tasksManager->showTasksById($_GET['id']);
+        $productsManager = new ProductsManager();
+        $projectsManager = new ProjectsManager();
+        $productsResultList = $projectsManager->getTotalProductByProject($_GET['id']);
+        $marges = $projectsManager->getRemainingBudgetPerSituation($_GET['id']);
+        require_once APP_PATH . "/views/results.php";
+    }
+
+    public function totalBudget(ProductByTask $productByTask)
+    {
+        return $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct();
+    }
+
+    public function projectedExpense(ProductByTask $productByTask)
+    {
+        return $this->totalBudget($productByTask) * $productByTask->getSituation() / 100;
+    }
+
+    public function remainingBudget(ProductByTask $productByTask)
+    {
+        return $this->totalBudget($productByTask) - $this->projectedExpense($productByTask);
+    }
+
+    public function margin()
+    {
+        $projectsManager = new ProjectsManager();
+        $test =  $projectsManager->getRemainingBudgetPerSituation($_GET('id'));
+    }
+
+    public function projectedBudget(ProductByTask $productByTask)
+    {
+        return $this->totalBudget($productByTask) * $productByTask->getSituation() / 100;
+    }
+
+    public function getMarge(ProductByTask $productByTask, array $marges)
+    {
+        foreach ($marges as $marge) {
+            if ($productByTask->getIdProduct() == $marge->getIdProduct()) {
+                return $marge->getExpense();
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 </head>
 
-<body>
+<body class="w-100">
     <header>
         <h1 class="text-center"><a styles="none" href="<?= BASE_URL ?>">B@TMAN</a></h1>
         <?php
@@ -22,9 +22,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  text-light" href="<?= BASE_URL . 'accounting'; ?>">Comptabilité</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link  text-light" href="#">Résultats</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="<?= BASE_URL . 'projects'; ?>">Chantiers</a>

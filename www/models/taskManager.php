@@ -65,7 +65,12 @@ class TaskManager extends PDOServer
     {
         $req = $this->db->query("SELECT * FROM productByTask WHERE idTask = $idTask");
         $datas = $req->fetchAll();
-        return $datas;
+        $productsByTask = [];
+        foreach ($datas as $data) {
+            $productByTask = new ProductByTask($data);
+            $productsByTask[] = $productByTask;
+        }
+        return $productsByTask;
     }
 
     public function deleteTasks(array $idTasks)
