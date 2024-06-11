@@ -9,7 +9,7 @@ class ProductByTask
     private $unitPriceProduct;
     private int $row;
     private int $situation;
-    private int $expense;
+    private float $expense;
 
     public function __construct(array $data)
     {
@@ -146,7 +146,7 @@ class ProductByTask
         $this->situation = $situation;
     }
 
-    public function getExpense(): int
+    public function getExpense(): float
     {
         return $this->expense;
     }
