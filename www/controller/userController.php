@@ -110,11 +110,16 @@ class UserController
 
     public function usersAccountPage()
     {
-        $userManager = new userManager();
-        $users = $userManager->getAllUsers();
-        $roleManager = new roleManager();
-        $roleList = $roleManager->getAllRoles();
-        require_once APP_PATH . '/views/usersAccount.php';
+        if ($_SESSION['role'] == 'Administrateur') {
+
+            $userManager = new userManager();
+            $users = $userManager->getAllUsers();
+            $roleManager = new roleManager();
+            $roleList = $roleManager->getAllRoles();
+            require_once APP_PATH . '/views/usersAccount.php';
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
+        }
     }
 
     public function addUser()
