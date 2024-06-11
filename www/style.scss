@@ -1,0 +1,31 @@
+.poste {
+    background-color: red;
+}
+
+.remove {
+    color: red;
+    display: inline-block;
+    content: "\00d7";
+    width : 20px;
+    opacity : 0.3;
+}
+
+.remove:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.currency-wrap {
+    position: relative;
+}
+
+.currency-code {
+position: absolute;
+right: 6px;
+top: 6px;
+}
+
+.text-currency {
+    border:solid 1px #ccc;
+    border-radius:5px;
+}
