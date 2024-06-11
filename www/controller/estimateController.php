@@ -16,18 +16,23 @@ class EstimateController
 
     public function newEstimatePage()
     {
-        $customersManager = new CustomersManager();
-        $selectedCustomer = $customersManager->getCustomerById($_GET["id"]);
-        $nameCustomer = $selectedCustomer->getNameCustomer();
-        $contactCustomer = $selectedCustomer->getNameContact();
-        $mailContact = $selectedCustomer->getMailContact();
-        $adressContact = $selectedCustomer->getAdressContact();
-        require_once APP_PATH . "/views/newEstimate.php";
+        if ($_SESSION['role'] != 'Assistant') {
+            $customersManager = new CustomersManager();
+            $selectedCustomer = $customersManager->getCustomerById($_GET["id"]);
+            $nameCustomer = $selectedCustomer->getNameCustomer();
+            $contactCustomer = $selectedCustomer->getNameContact();
+            $mailContact = $selectedCustomer->getMailContact();
+            $adressContact = $selectedCustomer->getAdressContact();
+            require_once APP_PATH . "/views/newEstimate.php";
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
+        }
     }
     public function newEstimate()
     {
+
         $estimateManager = new EstimateManager();
-        if ($_POST) {
+        if ($_POST && $_SESSION['role'] != 'Assistant') {
             $nameEstimate = $_POST["nameEstimate"];
             $idCustomer = $_POST["id"];
             try {
@@ -45,6 +50,8 @@ class EstimateController
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
     }
 
@@ -53,7 +60,7 @@ class EstimateController
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
         $productsManager = new ProductsManager();
-        if ($_POST) {
+        if ($_POST && $_SESSION['role'] != 'Assistant') {
             try {
                 $result = 0;
                 $search = 'description';
@@ -88,93 +95,122 @@ class EstimateController
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
     }
 
     public function searchEstimateToModify()
     {
-        $estimateManager = new EstimateManager();
-        try {
-            $estimateList = $estimateManager->showEstimateToModify();
-        } catch (Exception $e) {
-            error_log('Erreur : ' . $e->getMessage());
+        if ($_SESSION['role'] != 'Assistant') {
+            $estimateManager = new EstimateManager();
+            try {
+                $estimateList = $estimateManager->showEstimateToModify();
+            } catch (Exception $e) {
+                error_log('Erreur : ' . $e->getMessage());
+            }
+            require_once APP_PATH . '/views/searchEstimate.php';
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
-        require_once APP_PATH . '/views/searchEstimate.php';
     }
 
     public function modifyEstimate()
     {
         $estimateManager = new EstimateManager();
-        if ($_POST) {
-            $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
-        } else {
-            $estimate = $estimateManager->showEstimateById($_GET['idEstimate']);
-        };
-        $productsManager = new ProductsManager();
-        $productList = $productsManager->showProducts();
-        $typesManager = new TypesManager();
-        $typesList = $typesManager->showTypes();
-        $taskManager = new TaskManager();
-        $productByTaskManager = new productByTaskManager();
-        $tasksList = $taskManager->showTasksById($estimate->getId());
-        $rowCount = 0;
-        foreach ($tasksList as $taskDetails) {
-            $productsByTask = $taskManager->getProductsByTask($taskDetails['id']);
-            foreach ($productsByTask as $productByTask) {
-                $rowCount++;
+
+        if ($_SESSION['role'] != 'Assistant') {
+            if ($_POST) {
+                $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
+            } else {
+                $estimate = $estimateManager->showEstimateById($_GET['idEstimate']);
+            };
+            $productsManager = new ProductsManager();
+            $productList = $productsManager->showProducts();
+            $typesManager = new TypesManager();
+            $typesList = $typesManager->showTypes();
+            $taskManager = new TaskManager();
+            $productByTaskManager = new productByTaskManager();
+            $tasksList = $taskManager->showTasksById($estimate->getId());
+            $rowCount = 0;
+            foreach ($tasksList as $taskDetails) {
+                $productsByTask = $taskManager->getProductsByTask($taskDetails['id']);
+                foreach ($productsByTask as $productByTask) {
+                    $rowCount++;
+                }
             }
+            require_once APP_PATH . '/views/modifyEstimate.php';
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
-        require_once APP_PATH . '/views/modifyEstimate.php';
     }
 
     public function updateEstimate()
     {
-        if (isset($_POST['controlUpdate']) && $_POST['controlUpdate'] == 'update') {
-            $taskManager = new TaskManager();
-            $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
-            if ($_POST) {
-                if (!empty($tasksList)) {
-                    try {
-                        foreach ($tasksList as $tasksId) {
-                            $idTasks[] = $tasksId['id'];
+        if ($_SESSION['role'] != 'Assistant') {
+            if (isset($_POST['controlUpdate']) && $_POST['controlUpdate'] == 'update') {
+                $taskManager = new TaskManager();
+                $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
+                if ($_POST) {
+                    if (!empty($tasksList)) {
+                        try {
+                            foreach ($tasksList as $tasksId) {
+                                $idTasks[] = $tasksId['id'];
+                            }
+                            $taskManager->deleteTasks($idTasks);
+                        } catch (Exception $e) {
+                            $error = $e->getMessage();
                         }
-                        $taskManager->deleteTasks($idTasks);
-                    } catch (Exception $e) {
-                        $error = $e->getMessage();
                     }
+                    $this->saveEstimate();
                 }
-                $this->saveEstimate();
+            } else {
+                $this->modifyEstimate();
             }
         } else {
-            $this->modifyEstimate();
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
     }
 
     public function accountingPage()
     {
-        require_once APP_PATH . "/views/accounting.php";
+        if ($_SESSION['role'] == 'Comptable') {
+            require_once APP_PATH . "/views/accounting.php";
+        }
     }
 
     public function estimateToRegister()
     {
-        $estimateManager = new EstimateManager();
-        $estimateList = $estimateManager->showEstimateToModify();
-        $userManager = new UserManager();
-        $driverList = $userManager->getDrivers();
-        require_once APP_PATH . "/views/estimateToRegister.php";
+        if ($_SESSION['role'] == 'Comptable') {
+            $estimateManager = new EstimateManager();
+            $estimateList = $estimateManager->showEstimateToModify();
+            $userManager = new UserManager();
+            $driverList = $userManager->getDrivers();
+            require_once APP_PATH . "/views/estimateToRegister.php";
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
+        }
     }
 
     public function registerEstimate()
     {
-        $estimateManager = new EstimateManager();
-        $estimateManager->registerEstimate($_POST["id"], $_POST["driver"]);
-        $this->accountingPage();
+        if ($_SESSION['role'] == 'Comptable') {
+            $estimateManager = new EstimateManager();
+            $estimateManager->registerEstimate($_POST["id"], $_POST["driver"]);
+            $this->accountingPage();
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
+        }
     }
 
     public function estimateRegistered()
     {
-        $estimateManager = new EstimateManager();
-        $estimateList = $estimateManager->showEstimateRegistered();
-        require_once APP_PATH . "/views/estimateRegistered.php";
+        if ($_SESSION['role'] == 'Comptable') {
+            $estimateManager = new EstimateManager();
+            $estimateList = $estimateManager->showEstimateRegistered();
+            require_once APP_PATH . "/views/estimateRegistered.php";
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
+        }
     }
 }

@@ -31,10 +31,10 @@
                                 <?php
                                 $productsByTask = $taskManager->getProductsByTask($taskDetails['id']); //les infos des produits, sans leur identité, mais leur id
                                 foreach ($productsByTask as $productByTask) {
-                                    $testproduct = $productsManager->getProductsById($productByTask['idProduct']);
+                                    $testproduct = $productsManager->getProductsById($productByTask->getIdProduct());
                                 ?>
-                                    <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>" id="<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>">
-                                        <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['row'] ?>">
+                                    <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" id="<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>">
+                                        <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getRow() ?>">
                                         <td>
                                             <select class="form-select type" id="type" aria-label="Default select example" disabled>
                                                 <?php foreach ($typesList as $type) { ?>
@@ -60,24 +60,24 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control text-center quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" disabled>
+                                            <input class="form-control text-center quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask->getQuantityProduct() ?>" disabled>
                                         </td>
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
-                                                <input class="form-control text-center unitPrice text-currency" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" disabled>
+                                                <input class="form-control text-center unitPrice text-currency" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" disabled>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
-                                                <input type="number" step="any" data-type="currency" class="resultPrice text-center form-control text-currency" value="<?= $productByTask['quantityProduct'] * $productByTask['unitPriceProduct'] ?>" disabled></input>
+                                                <input type="number" step="any" data-type="currency" class="resultPrice text-center form-control text-currency" value="<?= $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct() ?>" disabled></input>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">%</span>
-                                                <input type="number" class="form-control text-center text-currency" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['situation'] ?>">
+                                                <input type="number" class="form-control text-center text-currency" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getSituation() ?>">
                                             </div>
                                         </td>
                                     </tr>

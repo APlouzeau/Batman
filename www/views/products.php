@@ -36,13 +36,17 @@
                 <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title"><?= $product->getName() ?></h5>
                     <p class="card-text"><?= $product->getSummary() ?></p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Prix : <?= $product->getPrice() ?> €/m²</li>
-                    </ul>
-                    <div class="">
+                    <p class="list-group-item">Prix : <?= $product->getPrice() ?> €/m²</p>
+                    <div class="text-center">
                         <a href="<?= BASE_URL . 'details?id=' . $product->getId(); ?>" class="btn btn-primary">Détails</a>
-                        <a href="<?= BASE_URL . 'modify?id=' . $product->getId(); ?>" class="btn btn-warning">Modifier</a>
-                        <a href="<?= BASE_URL . 'delete?id=' . $product->getId(); ?>" class="btn btn-danger">Supprimer</a>
+                        <?php
+                        if ($_SESSION['role'] == 'Administrateur') {
+                        ?>
+                            <a href="<?= BASE_URL . 'modify?id=' . $product->getId(); ?>" class="btn btn-warning">Modifier</a>
+                            <a href="<?= BASE_URL . 'delete?id=' . $product->getId(); ?>" class="btn btn-danger">Supprimer</a>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>

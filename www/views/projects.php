@@ -1,8 +1,12 @@
 <div class="container d-flex align-items-center" style="min-height: 50em">
     <div class=" col-9 col-md-5 col-lg-4 col-xl-3 m-auto">
         <div class="buttonSelection align-items-center">
-            <button type="button" class="btn btn-success situationButton">Situation</button>
-            <button type="button" class="btn btn-success orderButton">Commande</button>
+            <?php if ($_SESSION['role'] != 'Assistant') {
+            ?>
+                <button type="button" class="btn btn-success situationButton">Situation</button>
+                <button type="button" class="btn btn-success orderButton">Commande</button>
+            <?php
+            } ?>
             <button type="button" class="btn btn-success resultsButton">Résultats</button>
         </div>
         <form method="get" action="<?= BASE_URL . 'editSituationPage'; ?>" class="situation text-center" hidden>

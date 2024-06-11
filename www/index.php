@@ -74,12 +74,6 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 
 $handler = $router->getHandler($method, $uri);
-/* echo '$method';
-var_dump($method);
-echo '$uri';
-var_dump($uri);
-echo '$handler';
-var_dump($handler); */
 $controller = new $handler['controller']();
 $action = $handler['action'];
 $controller->$action();

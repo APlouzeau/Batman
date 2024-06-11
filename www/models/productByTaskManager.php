@@ -20,7 +20,6 @@ class productByTaskManager extends PDOServer
         $req->bindValue(":idTask", $idTask, PDO::PARAM_INT);
         $req->bindValue(":row", $row, PDO::PARAM_INT);
         $situation = $req->fetch();
-        var_dump($situation);
         return $situation;
     }
 }
