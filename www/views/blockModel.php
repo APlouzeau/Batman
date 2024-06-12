@@ -29,7 +29,7 @@
                     <td>
                         <select class="form-select product" style="min-width: 95px;" aria-label="Default select example">
                             <?php foreach ($productList as $type => $product) { ?>
-                                <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                <option class="<?= $product->getType() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                             <?php
                             }
                             ?>

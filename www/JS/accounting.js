@@ -1,0 +1,1 @@
+document.getElementById("navAccountant").classList.add('bg-info');
