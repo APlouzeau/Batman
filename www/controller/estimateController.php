@@ -57,6 +57,7 @@ class EstimateController
 
     public function saveEstimate()
     {
+        var_dump($_POST);
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
         $productsManager = new ProductsManager();
@@ -75,7 +76,6 @@ class EstimateController
                         'taskNumber' => $_POST['taskNumber' . $i],
                         'descriptionTask' => $_POST["description" . $i],
                     ]);
-                    var_dump($newTask);
                     $idTask = $taskManager->addTask($newTask);
                     $j = 0;
                     foreach ($_POST['product' . $i] as $value) {
@@ -86,7 +86,7 @@ class EstimateController
                         $newProductByTask = new ProductByTask([
                             'quantityProduct' => $_POST['quantity' . $i][$j],
                             'unitPriceProduct' => $_POST['unitPrice' . $i][$j],
-                            'row' => $_POST['row' . $i][$j],
+                            'row' => $_POST['row' . $i][$j]
                         ]);
                         $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
                         $j++;

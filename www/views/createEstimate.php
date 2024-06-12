@@ -25,8 +25,8 @@
                         </thead>
 
                         <tbody class="task0">
-                            <tr class="row01" style="min-width: 95px" id="01">
-                                <input type="hidden" class="rowNb" name="row0" value="0">
+                            <tr class=" rowId row01" style="min-width: 95px" id="01">
+                                <input type="hidden" class="rowNb" name="row0[]" value="1">
                                 <td>
                                     <select class="form-select type" id="type" aria-label="Default select example">
                                         <?php foreach ($typesList as $type) { ?>
@@ -39,20 +39,20 @@
                                 <td>
                                     <select class="form-select product" aria-label="Default select example" name="product0[]">
                                         <?php foreach ($productList as $type => $product) { ?>
-                                            <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                            <option class="<?= $product->getType() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
                                 </td>
                                 <td>
-                                    <input class="form-control quantity" style="min-width: 40px" name="quantity0[]" type="number" required>
+                                    <input class="form-control quantity" style="min-width: 40px" name="quantity0[]" type="number" onkeydown="return event.keyCode !== 69" required>
                                 </td>
                                 <td>
-                                    <input class="form-control unitPrice" style="min-width: 40px" name="unitPrice0[]" type="number" step="any" id="unitPrice" value="" required>
+                                    <input class="form-control unitPrice" style="min-width: 40px" name="unitPrice0[]" type="number" onkeydown="return event.keyCode !== 69" step="any" id="unitPrice" value="" required>
                                 </td>
                                 <td>
-                                    <div type="number" step="any" data-type="currency" class="resultPrice0"></div>
+                                    <div type="number" step="any" data-type="currency" class="resultPrice" onkeydown="return event.keyCode !== 69"></div>
                                 </td>
                                 <td>
                                     <div class="remove">X</div>

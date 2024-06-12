@@ -1,3 +1,5 @@
+<title>Chantiers</title>
+
 <h3 class="text-center text-uppercase mt-5">Chantiers</h3>
 <div class="container d-flex align-items-center justify-content-center" style="min-height: 50em">
     <div class="buttonSelection ">
