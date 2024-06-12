@@ -1,12 +1,4 @@
-/* const arrayClassProducts = document.getElementsByClassName('product');
-const arrayProductsId = [];
-
-for (let i = 0; i < arrayClassProducts.length; i++) {
-    if (arrayClassProducts[i]['id'] != '') {
-        arrayProductsId.push(arrayClassProducts[i]['id']);
-    };
-};
- */
+document.getElementById("navProjects").classList.add('bg-info');
 
 const marges = document.querySelectorAll('.margin');
 function changeColor (marges) {

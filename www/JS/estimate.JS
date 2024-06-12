@@ -1,3 +1,5 @@
+document.getElementById("navEstimate").classList.add('bg-info');
+
 document.getElementById("newEstimate").addEventListener(
 'click', () => {
     document.getElementById("buttonsEstimate").hidden = true;
@@ -34,3 +36,4 @@ document.getElementById("buttonsBackEstimate").addEventListener(
     },
     false,
     )
+

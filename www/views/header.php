@@ -25,23 +25,23 @@
             if ($_SESSION) {
                 if ($_SESSION['role'] != 'Comptable' || $_SESSION['role'] != 'Assistant') {
             ?>
-                    <li class="nav-item">
+                    <li class="nav-item" id="navEstimate">
                         <a class="nav-link text-light" aria-current="page" href="<?= BASE_URL . 'estimate'; ?>">Devis</a>
                     </li>
                 <?php
                 }
                 if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
                 ?>
-                    <li class="nav-item">
+                    <li class="nav-item" id="navAccountant">
                         <a class="nav-link  text-light" href="<?= BASE_URL . 'accounting'; ?>">Comptabilité</a>
                     </li>
                 <?php
                 }
                 ?>
-                <li class="nav-item">
+                <li class="nav-item" id="navProjects">
                     <a class="nav-link text-light" href="<?= BASE_URL . 'projects'; ?>">Chantiers</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" id="navRessources">
                     <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Ressources
                     </a>

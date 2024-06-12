@@ -1,3 +1,5 @@
+document.getElementById("navProjects").classList.add('bg-info');
+
 const arrayClassQuantity = document.getElementsByClassName('quantity');
 let arrayClassQuantityId = [];
 const arrayClassUnitPrice = document.getElementsByClassName('unitPrice');
