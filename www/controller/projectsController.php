@@ -32,7 +32,6 @@ class ProjectsController
     public function saveSituation()
     {
         if ($_POST && $_SESSION['role'] != 'Assistant') {
-            var_dump($_POST);
             $result = 0;
             $search = 'taskId';
             foreach ($_POST as $key => $value) {
@@ -40,7 +39,6 @@ class ProjectsController
                     $result++;
                 }
             }
-            var_dump($result);
             try {
                 $projectManager = new ProjectsManager();
                 for ($i = 0; $i < $result; $i++) {
@@ -65,7 +63,7 @@ class ProjectsController
 
     public function orderPage()
     {
-        if ($_POST && $_SESSION['role'] != 'Assistant') {
+        if ($_GET && $_SESSION['role'] != 'Assistant') {
             $estimateManager = new EstimateManager();
             $estimate = $estimateManager->showEstimateById($_GET['id']);
             $taskManager = new TaskManager();

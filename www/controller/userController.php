@@ -124,18 +124,28 @@ class UserController
 
     public function addUser()
     {
-        if ($_POST) {
-            $userManager = new userManager();
-            $firstName = $_POST['firstName'];
-            $name = $_POST['name'];
-            $email = $_POST['mail'];
-            $password = $_POST['password'];
-            $role = $_POST['role'];
-            try {
-                $userManager->addUser($firstName, $name, $email, $password, $role);
-            } catch (Exception $e) {
-                $error = $e->getMessage();
+        if ($_SESSION['role'] == 'Administrateur') {
+            if (!empty($_POST['mail']) && !empty($_POST['password'])) {
+                if (filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+                    $userManager = new userManager();
+                    $email = $_POST['mail'];
+                    $firstName = $_POST['firstName'];
+                    $password = $_POST['password'];
+                    $role = $_POST['role'];
+                    $name = $_POST['name'];
+                    try {
+                        $userManager->addUser($firstName, $name, $email, $password, $role);
+                    } catch (Exception $e) {
+                        $error = $e->getMessage();
+                    }
+                } else {
+                    echo "L'adresse mail n'est pas valide";
+                }
+            } else {
+                echo "Adresse mail et mot de passe obligatoire.";
             }
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
     }
 }

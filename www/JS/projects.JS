@@ -1,3 +1,5 @@
+document.getElementById("navProjects").classList.add('bg-info');
+
 document.querySelector('.situationButton').addEventListener(
 'click', () => {
     document.querySelector('.situationButton').hidden = true;

@@ -3,7 +3,6 @@
 <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
 <div class="container d-flex justify-content-center align-items-center flex-wrap">
     <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
-    <!--     <input type="hidden" id="rowCount" value="<?= $rowCount ?>"> -->
     <form method="post" action="<?= BASE_URL . 'saveSituation'; ?>">
         <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
@@ -100,7 +99,7 @@
 
     <h5 class="resultPriceTotal"></h5>
     </input>
-    <script src="JS/createEstimateScript.js"></script>
+    <script src="JS/projects.js"></script>
     <?php
     require_once APP_PATH . "/views/footer.php";
     ?>
