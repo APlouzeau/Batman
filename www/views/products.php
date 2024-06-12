@@ -53,6 +53,6 @@
         <?php endforeach ?>
     </section>
 </div>
-
+<script src="../JS//products.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";

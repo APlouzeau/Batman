@@ -24,10 +24,10 @@
             <input type="text" name="name" class="form-control">
 
             <label for="mail">Adresse mail</label>
-            <input type="email" name="mail" class="form-control">
+            <input type="email" name="mail" class="form-control" required>
 
             <label for="password">Mot de passe</label>
-            <input type="password" name="password" class="form-control">
+            <input type="password" name="password" class="form-control" required>
 
             <label class="form-label" for="role">Type</label>
             <select class="form-select" type="type" name="role" aria-label="Default select example">

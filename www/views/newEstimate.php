@@ -1,6 +1,6 @@
+<h3 class="text-center text-uppercase mt-5">Création de nouveau devis</h3>
 <div class="container justify-content-center">
-
-    <form method="post" class="" style="min-height: 50em" action="<?= BASE_URL . 'createEstimate'; ?>">
+    <form method="get" class="" style="min-height: 50em" action="<?= BASE_URL . 'createEstimate'; ?>">
         <input type="hidden" name="id" value="<?= $selectedCustomer->getId() ?>">
         <ul class="list-group ">
             <li class="list-group-item">

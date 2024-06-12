@@ -1,3 +1,5 @@
+document.getElementById("navEstimate").classList.add('bg-info');
+
 let line = 1;
 let blockList = document.querySelector('#taskQuantity').value;
 let block = blockList;
@@ -95,6 +97,7 @@ function addLine(lineModel, blockNb) {
     resultPriceQuantity.addEventListener('input', () => {
         calcPrice(document.querySelector(newRow));
     });  
+    console.log(blockNb)
     document.querySelector('.task' + blockNb).appendChild(clone);
 }
 

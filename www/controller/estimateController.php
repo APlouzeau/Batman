@@ -32,9 +32,9 @@ class EstimateController
     {
 
         $estimateManager = new EstimateManager();
-        if ($_POST && $_SESSION['role'] != 'Assistant') {
-            $nameEstimate = $_POST["nameEstimate"];
-            $idCustomer = $_POST["id"];
+        if ($_GET && $_SESSION['role'] != 'Assistant') {
+            $nameEstimate = $_GET["nameEstimate"];
+            $idCustomer = $_GET["id"];
             try {
                 $newEstimate = new Estimate([
                     "nameEstimate" => $nameEstimate,
@@ -75,6 +75,7 @@ class EstimateController
                         'taskNumber' => $_POST['taskNumber' . $i],
                         'descriptionTask' => $_POST["description" . $i],
                     ]);
+                    var_dump($newTask);
                     $idTask = $taskManager->addTask($newTask);
                     $j = 0;
                     foreach ($_POST['product' . $i] as $value) {
@@ -174,8 +175,10 @@ class EstimateController
 
     public function accountingPage()
     {
-        if ($_SESSION['role'] == 'Comptable') {
+        if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
             require_once APP_PATH . "/views/accounting.php";
+        } else {
+            echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
     }
 

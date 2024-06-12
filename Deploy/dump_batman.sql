@@ -78,7 +78,7 @@ CREATE TABLE `estimate` (
   KEY `driver` (`driver`) USING BTREE,
   CONSTRAINT `customer` FOREIGN KEY (`idCustomer`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `estimate_ibfk_1` FOREIGN KEY (`driver`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=185 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=190 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE `estimate` (
 
 LOCK TABLES `estimate` WRITE;
 /*!40000 ALTER TABLE `estimate` DISABLE KEYS */;
-INSERT INTO `estimate` VALUES (182,'Exemple Projet','2024-05-29',23,NULL,NULL),(183,'Deuxieme exemple Dossier projet','2024-05-31',25,NULL,NULL),(184,'Exemple illustration dossier projet.','2024-05-31',25,NULL,NULL);
+INSERT INTO `estimate` VALUES (186,'Test JS','2024-06-05',23,10,2406002),(187,'test responsive','2024-06-06',23,NULL,NULL),(188,'responsive 2','2024-06-06',23,NULL,NULL),(189,'fzefz','2024-06-06',23,NULL,NULL);
 /*!40000 ALTER TABLE `estimate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,16 +100,19 @@ DROP TABLE IF EXISTS `productbytask`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `productbytask` (
   `idProductByTask` int(11) NOT NULL AUTO_INCREMENT,
+  `row` int(11) NOT NULL,
   `idProduct` int(11) NOT NULL,
   `idTask` int(11) NOT NULL,
   `quantityProduct` int(11) NOT NULL,
   `unitPriceProduct` decimal(10,2) NOT NULL,
+  `situation` int(11) NOT NULL DEFAULT 0,
+  `expense` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`idProductByTask`),
   KEY `productRef` (`idProduct`),
   KEY `idTask` (`idTask`),
   CONSTRAINT `productRef` FOREIGN KEY (`idProduct`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `productbytask_ibfk_1` FOREIGN KEY (`idTask`) REFERENCES `tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=558 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1535 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +121,7 @@ CREATE TABLE `productbytask` (
 
 LOCK TABLES `productbytask` WRITE;
 /*!40000 ALTER TABLE `productbytask` DISABLE KEYS */;
-INSERT INTO `productbytask` VALUES (382,38,288,100,6.00),(383,43,288,50,45.00),(384,43,289,45,45.00),(549,38,366,10,6.56),(550,38,366,10,6.56),(551,38,366,20,20.00),(552,38,366,10,10.00),(553,38,366,20,10.00),(554,38,367,20,10.00),(555,37,368,100,2.43),(556,37,369,100,2.43),(557,38,369,100,6.56);
+INSERT INTO `productbytask` VALUES (1529,1,38,788,50,6.56,10,328.00),(1530,2,43,788,100,45.00,100,4400.00),(1531,1,37,789,100,2.49,0,0.00),(1532,2,43,789,50,45.00,0,500.00),(1534,1,43,791,76,3.26,10,500.00);
 /*!40000 ALTER TABLE `productbytask` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +200,7 @@ CREATE TABLE `tasks` (
   PRIMARY KEY (`id`),
   KEY `idEstimate` (`idEstimate`) USING BTREE,
   CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`idEstimate`) REFERENCES `estimate` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=370 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=792 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +209,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (288,182,0,'Test changement de tache et de prix                                                            ',NULL,NULL),(289,182,1,'Tache 2',NULL,NULL),(366,183,0,'tache 1',NULL,NULL),(367,183,1,'tache 2',NULL,NULL),(368,184,0,'pare-vapeur',NULL,NULL),(369,184,1,'2eme couche',NULL,NULL);
+INSERT INTO `tasks` VALUES (788,186,0,'Tache 1',NULL,NULL),(789,186,1,'Tache 2',NULL,NULL),(790,189,1,'Une tache',76,3.41),(791,189,1,'Une tache',76,3.41);
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,4 +276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-03 10:50:26
+-- Dump completed on 2024-06-11 16:20:40

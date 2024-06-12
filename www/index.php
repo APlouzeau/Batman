@@ -32,7 +32,7 @@ $router->addRoute('POST', BASE_URL . 'addCustomer', 'customerController', 'addCu
 $router->addRoute('GET', BASE_URL . 'searchCustomer', 'customerController', 'searchCustomer');
 $router->addRoute('GET', BASE_URL . 'estimate', 'EstimateController', 'estimate');
 $router->addRoute('GET', BASE_URL . 'newEstimate', 'EstimateController', 'newEstimatePage');
-$router->addRoute('POST', BASE_URL . 'createEstimate', 'EstimateController', 'newEstimate');
+$router->addRoute('GET', BASE_URL . 'createEstimate', 'EstimateController', 'newEstimate');
 $router->addRoute('GET', BASE_URL . 'searchEstimate', 'EstimateController', 'searchEstimateToModify');
 $router->addRoute('GET', BASE_URL . 'modifyEstimate', 'EstimateController', 'modifyEstimate');
 $router->addRoute('POST', BASE_URL . 'modifyEstimate', 'EstimateController', 'updateEstimate');
