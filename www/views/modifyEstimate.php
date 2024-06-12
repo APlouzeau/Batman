@@ -31,10 +31,10 @@
                                 <?php
                                 $productsByTask = $taskManager->getProductsByTask($taskDetails['id']); //les infos des produits, sans leur identité, mais leur id
                                 foreach ($productsByTask as $productByTask) {
-                                    $testproduct = $productsManager->getProductsById($productByTask['idProduct']);
+                                    $testproduct = $productsManager->getProductsById($productByTask->getIdProduct());
                                 ?>
-                                    <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask['row'] ?>" style="min-width: 95px" id=" <?= $taskDetails['taskNumber'] . $productByTask['row'] ?>">
-                                        <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask['row'] ?>">
+                                    <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" style="min-width: 95px" id=" <?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>">
+                                        <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getRow() ?>">
                                         <td>
                                             <select class="form-select type" id="type" aria-label="Default select example">
                                                 <?php foreach ($typesList as $type) { ?>
@@ -49,24 +49,28 @@
                                         </td>
                                         <td>
                                             <select class="form-select product" style="min-width: 95px;" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]">
-                                                <?php foreach ($productList as $type => $product) { ?>
-                                                    <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>" <?php
-                                                                                                                                    if ($product->getName() == $testproduct->getName()) {
-                                                                                                                                        echo 'selected';
-                                                                                                                                    } ?>><?= $product->getName() ?></option>
+                                                <?php
+                                                foreach ($productList as $type => $product) {
+                                                ?>
+                                                    <option class="<?= $product->getType() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>" <?php
+                                                                                                                                                                                if ($product->getName() == $testproduct->getName()) {
+                                                                                                                                                                                    echo 'selected';
+                                                                                                                                                                                } ?>><?= $product->getName() ?>
+                                                    </option>
+
                                                 <?php
                                                 }
                                                 ?>
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control quantity" style="min-width: 40px" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask['quantityProduct'] ?>" required>
+                                            <input class="form-control quantity" style="min-width: 40px" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" value="<?= $productByTask->getQuantityProduct() ?>" required>
                                         </td>
                                         <td>
-                                            <input class="form-control unitPrice" style="min-width: 40px" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask['unitPriceProduct'] ?>" required>
+                                            <input class="form-control unitPrice" style="min-width: 40px" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" required>
                                         </td>
                                         <td>
-                                            <div type="number" step="any" style="min-width: 40px;" data-type="currency" class="resultPrice"><?= $productByTask['quantityProduct'] * $productByTask['unitPriceProduct'] ?></div>
+                                            <div type="number" onkeydown="return event.keyCode !== 69" step="any" style="min-width: 40px;" data-type="currency" class="resultPrice"><?= $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct() ?></div>
                                         </td>
                                         <td>
                                             <div class="remove">X</div>

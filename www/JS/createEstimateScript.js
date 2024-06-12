@@ -11,41 +11,45 @@ for (let i = 0; i < arrayClass.length; i++) {
     arrayId.push(arrayClass[i]['id']);
 };
 arrayId.forEach(element => {
-    let rowSelected = document.querySelector('.row' + element);
-    let resultQuantity = rowSelected.querySelector('.quantity');
+    const rowSelected = document.querySelector('.row' + element);
+    const resultQuantity = rowSelected.querySelector('.quantity');
     resultQuantity.addEventListener('input', () => {
         calcPrice(rowSelected);
     });
-    let resultUnitPrice = rowSelected.querySelector('.unitPrice');
+    const resultUnitPrice = rowSelected.querySelector('.unitPrice');
     resultUnitPrice.addEventListener('input', () => {
         calcPrice(rowSelected);
     })    
-    let removeLine = rowSelected.querySelector('.remove');
+    const removeLine = rowSelected.querySelector('.remove');
     removeLine.addEventListener('click', () => {
         remove(rowSelected);
     })
+    const showUnitPriceSelector = rowSelected.querySelector('.product');
+    showUnitPriceSelector.addEventListener('change', () => {
+        showUnitPrice(rowSelected);
+    })
 });
 
-function calcPrice(element) {
-    let quantity = element.querySelector('.quantity');
+function calcPrice(rowSelected) {
+    let quantity = rowSelected.querySelector('.quantity');
     let quantityValue = quantity.value;
-    let getPrice = element.querySelector('.unitPrice');
+    let getPrice = rowSelected.querySelector('.unitPrice');
     let priceNumber = getPrice.value;
     let price = quantityValue * priceNumber;
-    let resultPrice = element.querySelector('.resultPrice');
+    let resultPrice = rowSelected.querySelector('.resultPrice');
     resultPrice.innerText = price;
 }
 
+function showUnitPrice(rowSelected) {
+    let searchUnitPrice = rowSelected.querySelector('.product');
+    let showUnitPrice = rowSelected.querySelector('.unitPrice');
+    let price = searchUnitPrice.options[searchUnitPrice.selectedIndex].dataset.getprice;
+    showUnitPrice.setAttribute('value', price);
+}
 
 function remove(rowSelected) {
     rowSelected.remove();
 }
-
-function showUnitPrice(element) {
-    let showUnitPrice = element.querySelector('.unitPrice');
-    let searchUnitPrice = element.querySelector('.product');
-    showUnitPrice.setAttribute('value', searchUnitPrice.value);
-};
 
 // Ok pour ligne ajoutées
 let addBlockEvent = document.querySelector('.addBlock');
@@ -97,7 +101,10 @@ function addLine(lineModel, blockNb) {
     resultPriceQuantity.addEventListener('input', () => {
         calcPrice(document.querySelector(newRow));
     });  
-    console.log(blockNb)
+    const showUnitPriceSelector = clone.querySelector('.product');
+    showUnitPriceSelector.addEventListener('change', () => {
+        showUnitPrice(document.querySelector(newRow));
+    });
     document.querySelector('.task' + blockNb).appendChild(clone);
 }
 
@@ -130,7 +137,6 @@ function addBlock(blockModel) {
     newAddLineButton.classList.remove('.addLineBlock');
     newAddLineButton.setAttribute('onclick', 'addLine(\'.row\', ' + block +')');
     const newRow = '.row' + block + 1;
-    console.log(newRow);
     const selectProductLine1 = clone.querySelector('.product');
     selectProductLine1.addEventListener('input', () => {
         showUnitPrice(clone.querySelector(newRow));
@@ -139,12 +145,6 @@ function addBlock(blockModel) {
     document.querySelector('.blockList').appendChild(clone);
     block++;
 }
-    
-let showUnitPriceEvent = document.querySelector('.product');
-showUnitPriceEvent.addEventListener('input' , () => {
-    let shownUnitPrice = document.querySelector('.unitPrice');
-    shownUnitPrice.setAttribute('value', showUnitPriceEvent.value);
-})
 
 function cloneLineParams(clone, block) {
     const productClone = clone.querySelector('.product');
