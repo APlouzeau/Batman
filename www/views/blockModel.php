@@ -29,20 +29,29 @@
                     <td>
                         <select class="form-select product" style="min-width: 95px;" aria-label="Default select example">
                             <?php foreach ($productList as $type => $product) { ?>
-                                <option class="<?= $product->getType() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                <option class="<?= $product->getType() ?>" data-getUnit="<?= $product->getUnit() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                             <?php
                             }
                             ?>
                         </select>
                     </td>
                     <td>
-                        <input class="form-control quantity" style="min-width: 40px;" type="number">
+                        <div class="currency-wrap">
+                            <span class="currency-code unit"></span>
+                            <input class="form-control quantity text-center" style="min-width: 40px;" type="number">
+                        </div>
                     </td>
                     <td>
-                        <input class="form-control unitPrice" style="min-width: 40px;" type="number" step="0.01" value="">
+                        <div class="currency-wrap">
+                            <span class="currency-code">€</span>
+                            <input class="form-control unitPrice text-center" style="min-width: 40px;" type="number" step="0.01" value="">
+                        </div>
                     </td>
                     <td>
-                        <div class="resultPrice" style="min-width: 40px;" value=""></div>
+                        <div class="currency-wrap">
+                            <span class="currency-code">€</span>
+                            <div class="resultPrice text-center" style="min-width: 40px;" step="0.01" value=""></div>
+                        </div>
                     </td>
                     <td>
                         <div class="remove">X</div>

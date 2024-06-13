@@ -27,8 +27,20 @@ arrayId.forEach(element => {
     const showUnitPriceSelector = rowSelected.querySelector('.product');
     showUnitPriceSelector.addEventListener('change', () => {
         showUnitPrice(rowSelected);
+        showUnit(rowSelected);
+        calcPrice(rowSelected);
     })
 });
+
+function showUnit(rowSelected) {
+    const searchUnit = rowSelected.querySelector('.product');
+    const showUnit = rowSelected.querySelector('.unit');
+    const saveUnit = rowSelected.querySelector('.unitName');
+    const unit = searchUnit.options[searchUnit.selectedIndex].dataset.getunit;
+    showUnit.innerText = unit;
+    saveUnit.setAttribute('value', unit);
+
+}
 
 function calcPrice(rowSelected) {
     let quantity = rowSelected.querySelector('.quantity');
@@ -36,6 +48,7 @@ function calcPrice(rowSelected) {
     let getPrice = rowSelected.querySelector('.unitPrice');
     let priceNumber = getPrice.value;
     let price = quantityValue * priceNumber;
+    price = price.toFixed(2);
     let resultPrice = rowSelected.querySelector('.resultPrice');
     resultPrice.innerText = price;
 }
@@ -104,7 +117,10 @@ function addLine(lineModel, blockNb) {
     const showUnitPriceSelector = clone.querySelector('.product');
     showUnitPriceSelector.addEventListener('change', () => {
         showUnitPrice(document.querySelector(newRow));
+        showUnit(document.querySelector(newRow));
+        calcPrice(document.querySelector(newRow));
     });
+
     document.querySelector('.task' + blockNb).appendChild(clone);
 }
 
@@ -138,8 +154,10 @@ function addBlock(blockModel) {
     newAddLineButton.setAttribute('onclick', 'addLine(\'.row\', ' + block +')');
     const newRow = '.row' + block + 1;
     const selectProductLine1 = clone.querySelector('.product');
-    selectProductLine1.addEventListener('input', () => {
+    selectProductLine1.addEventListener('change', () => {
         showUnitPrice(clone.querySelector(newRow));
+        calcPrice(document.querySelector(newRow));
+        showUnit(clone.querySelector(newRow));
     })
     addCalcPriceFunction(clone, newRow);
     document.querySelector('.blockList').appendChild(clone);
