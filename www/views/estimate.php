@@ -29,7 +29,7 @@
                     <input class="form-control" type="mail" name="mailGeneric" id="mailGeneric" placeholder="Adresse mail générique" required>
 
                     <label class="form-label" for="siren">SIREN / SIRET</label>
-                    <input class="form-control" type="number" name="siren" id="siren" required>
+                    <input class="form-control" type="number" name="siren" minlength="14" maxlength="14" id="siren" required>
                 </li>
 
                 <li class="list-group-item">

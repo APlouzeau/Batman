@@ -39,7 +39,7 @@
                                 <td>
                                     <select class="form-select product" aria-label="Default select example" name="product0[]">
                                         <?php foreach ($productList as $type => $product) { ?>
-                                            <option class="<?= $product->getType() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                            <option class="<?= $product->getType() ?>" data-getUnit="<?= $product->getUnit() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                                         <?php
                                         }
                                         ?>

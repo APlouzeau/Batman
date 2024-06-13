@@ -33,7 +33,7 @@
                                 foreach ($productsByTask as $productByTask) {
                                     $testproduct = $productsManager->getProductsById($productByTask->getIdProduct());
                                 ?>
-                                    <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" style="min-width: 95px" id=" <?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>">
+                                    <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" style="min-width: 95px" id="<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>">
                                         <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getRow() ?>">
                                         <td>
                                             <select class="form-select type" id="type" aria-label="Default select example">
@@ -52,10 +52,10 @@
                                                 <?php
                                                 foreach ($productList as $type => $product) {
                                                 ?>
-                                                    <option class="<?= $product->getType() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>" <?php
-                                                                                                                                                                                if ($product->getName() == $testproduct->getName()) {
-                                                                                                                                                                                    echo 'selected';
-                                                                                                                                                                                } ?>><?= $product->getName() ?>
+                                                    <option class="<?= $product->getType() ?>" data-getUnit="<?= $product->getUnit() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>" <?php
+                                                                                                                                                                                                                        if ($product->getName() == $testproduct->getName()) {
+                                                                                                                                                                                                                            echo 'selected';
+                                                                                                                                                                                                                        } ?>><?= $product->getName() ?>
                                                     </option>
 
                                                 <?php
@@ -64,13 +64,23 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control quantity" style="min-width: 40px" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" value="<?= $productByTask->getQuantityProduct() ?>" required>
+                                            <div class="currency-wrap">
+                                                <span class="currency-code unit"><?= $productByTask->getUnit() ?></span>
+                                                <input type="hidden" class="unitName" name="unit<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getUnit() ?>">
+                                                <input class="form-control quantity text-center" style="min-width: 40px" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" value="<?= $productByTask->getQuantityProduct() ?>" required>
+                                            </div>
                                         </td>
                                         <td>
-                                            <input class="form-control unitPrice" style="min-width: 40px" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" required>
+                                            <div class="currency-wrap">
+                                                <span class="currency-code">€</span>
+                                                <input class="form-control unitPrice text-center" style="min-width: 40px" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" required>
+                                            </div>
                                         </td>
                                         <td>
-                                            <div type="number" onkeydown="return event.keyCode !== 69" step="any" style="min-width: 40px;" data-type="currency" class="resultPrice"><?= $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct() ?></div>
+                                            <div class="currency-wrap">
+                                                <span class="currency-code">€</span>
+                                                <div type="number" onkeydown="return event.keyCode !== 69" step="any" style="min-width: 40px;" data-type="currency" class="resultPrice text-center"><?= $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct() ?></div>
+                                            </div>
                                         </td>
                                         <td>
                                             <div class="remove">X</div>
