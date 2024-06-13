@@ -57,7 +57,6 @@ class EstimateController
 
     public function saveEstimate()
     {
-        var_dump($_POST);
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
         $productsManager = new ProductsManager();
