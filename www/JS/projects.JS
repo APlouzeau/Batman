@@ -57,3 +57,14 @@ document.querySelector('.returnOrder').addEventListener(
 },
 false,
 );
+
+document.querySelector('.returnResults').addEventListener(
+    'click', () => {
+        document.querySelector('.situationButton').hidden = false;
+        document.querySelector('.orderButton').hidden = false;
+        document.querySelector('.resultsButton').hidden = false;
+        document.querySelector('.results').hidden = true;
+        document.querySelector('.order').hidden = true;
+},
+false,
+);

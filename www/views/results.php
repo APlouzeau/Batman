@@ -1,7 +1,7 @@
 <title>Résultats</title>
-<h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
+<h3 class="text-center text-uppercase pt-3"><?= $estimate->getNameEstimate(); ?></h3>
 
-<div class="container">
+<div class="container pb-5">
     <?php
     foreach ($tasksList as $taskDetails) {
         $productsByTask = $tasksManager->getProductsByTask($taskDetails['id']);
@@ -99,6 +99,7 @@
                 <li class="w-100 col list-group-item margin"><?= $this->getMarge($productResult, $marges) ?> €</li>
             </ul>
         </div>
+
 
     <?php
     }
