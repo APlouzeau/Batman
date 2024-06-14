@@ -64,7 +64,8 @@
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
-                                                <input type="number" step="any" data-type="currency" style="min-width: 40px;" class="alreadyBuy text-center form-control text-currency" value="<?= $productByTask->getExpense() ?>" disabled></input>
+                                                <input type="number" step="any" data-type="currency" style="min-width: 40px;" class="alreadyBuy text-center form-control text-currency" name="alreadyBuy<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getExpense() ?>" disabled></input>
+                                                <input type="hidden" step="any" data-type="currency" style="min-width: 40px;" class="alreadyBuy text-center form-control text-currency" name="alreadyBuy<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getExpense() ?>"></input>
                                             </div>
                                         </td>
                                         <td>

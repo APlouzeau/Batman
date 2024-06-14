@@ -81,6 +81,7 @@ class ProjectsController
 
     public function saveOrder()
     {
+        var_dump($_POST);
         if ($_POST && $_SESSION['role'] != 'Assistant') {
             $result = 0;
             $search = 'taskId';
@@ -95,7 +96,9 @@ class ProjectsController
                     $j = 0;
                     foreach ($_POST['expense' . $i] as $value) {
                         $row = (is_numeric($_POST['row' . $i][$j]) ? (int)$_POST['row' . $i][$j] : 0);
-                        $expense = (is_numeric($_POST['expense' . $i][$j]) ? (int)$_POST['expense' . $i][$j] : 0);
+                        $newExpense = (is_numeric($_POST['expense' . $i][$j]) ? (int)$_POST['expense' . $i][$j] : 0);
+                        $oldExpense = (is_numeric($_POST['alreadyBuy' . $i][$j]) ? (int)$_POST['alreadyBuy' . $i][$j] : 0);
+                        $expense = $newExpense + $oldExpense;
                         $newProductByTask = new ProductByTask([
                             'idTask' => $_POST['taskId' . $i],
                             'row' => $row,
