@@ -30,7 +30,26 @@ arrayId.forEach(element => {
         showUnit(rowSelected);
         calcPrice(rowSelected);
     })
+    const showProductsFromTypeSelected = rowSelected.querySelector('.type');
+    showProductsFromTypeSelected.addEventListener('change', () => {
+        showProductsFromType(rowSelected);
+    })
 });
+
+function showProductsFromType(rowSelected) {
+    const arrayType = rowSelected.querySelectorAll('[data-gettype]');
+    const typeSelector = rowSelected.querySelector('.type');
+    const showSelectFromType = rowSelected.querySelector('.product');
+    const type = typeSelector.options[typeSelector.selectedIndex].dataset.settype;
+    arrayType.forEach(element => {
+        if (element.dataset.gettype == type) {
+            element.removeAttribute('hidden');
+        } else {
+            element.setAttribute('hidden', true);
+        }        
+    });
+
+}
 
 function showUnit(rowSelected) {
     const searchUnit = rowSelected.querySelector('.product');
@@ -95,6 +114,8 @@ function addLine(lineModel, blockNb) {
     const table = document.querySelector('.table' + blockNb);
     const row = table.rows.length;
     const clone = node.cloneNode(true);
+    const unitName = clone.querySelector('.unitName');
+    unitName.setAttribute('name', 'unit' + blockNb + '[]');
     const rowNb = clone.querySelector('.rowNb');
     rowNb.setAttribute('name', 'row' + blockNb + '[]');
     rowNb.setAttribute('value', row);
@@ -120,7 +141,10 @@ function addLine(lineModel, blockNb) {
         showUnit(document.querySelector(newRow));
         calcPrice(document.querySelector(newRow));
     });
-
+    const showProductsFromTypeSelected = clone.querySelector('.type');
+    showProductsFromTypeSelected.addEventListener('change', () => {
+        showProductsFromType(document.querySelector(newRow));
+    });
     document.querySelector('.task' + blockNb).appendChild(clone);
 }
 
@@ -152,13 +176,19 @@ function addBlock(blockModel) {
     const newAddLineButton = clone.querySelector('.addLineBlock');
     newAddLineButton.classList.remove('.addLineBlock');
     newAddLineButton.setAttribute('onclick', 'addLine(\'.row\', ' + block +')');
+    const unitName = clone.querySelector('.unitName');
+    unitName.setAttribute('name', 'unit' + block + '[]');
     const newRow = '.row' + block + 1;
     const selectProductLine1 = clone.querySelector('.product');
     selectProductLine1.addEventListener('change', () => {
         showUnitPrice(clone.querySelector(newRow));
         calcPrice(document.querySelector(newRow));
         showUnit(clone.querySelector(newRow));
-    })
+    });
+    const showProductsFromTypeSelected = clone.querySelector('.type');
+    showProductsFromTypeSelected.addEventListener('change', () => {
+        showProductsFromType(clone.querySelector(newRow));
+    });
     addCalcPriceFunction(clone, newRow);
     document.querySelector('.blockList').appendChild(clone);
     block++;

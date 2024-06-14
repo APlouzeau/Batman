@@ -30,7 +30,6 @@ class EstimateController
     }
     public function newEstimate()
     {
-
         $estimateManager = new EstimateManager();
         if ($_GET && $_SESSION['role'] != 'Assistant') {
             $nameEstimate = $_GET["nameEstimate"];
