@@ -10,6 +10,7 @@ class Products
     private string $summary;
     private string $descriptionProduct;
     private float $price;
+    private ?string $unit;
 
     public function __construct(array $data)
     {
@@ -178,5 +179,15 @@ class Products
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?string $unit)
+    {
+        $this->unit = $unit;
     }
 }

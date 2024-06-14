@@ -30,7 +30,6 @@ class EstimateController
     }
     public function newEstimate()
     {
-
         $estimateManager = new EstimateManager();
         if ($_GET && $_SESSION['role'] != 'Assistant') {
             $nameEstimate = $_GET["nameEstimate"];
@@ -46,7 +45,10 @@ class EstimateController
                 $typesList = $typesManager->showTypes();
                 $productsManager = new ProductsManager();
                 $productList = $productsManager->showProducts();
-                require_once APP_PATH . "/views/createEstimate.php";
+                $taskManager = new TaskManager();
+                $tasksList = $taskManager->showTasksById($estimate->getId());
+                $rowCount = 0;
+                require_once APP_PATH . "/views/modifyEstimate.php";
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }
@@ -57,7 +59,6 @@ class EstimateController
 
     public function saveEstimate()
     {
-        var_dump($_POST);
         $taskManager = new TaskManager();
         $productByTaskManager = new productByTaskManager();
         $productsManager = new ProductsManager();
@@ -86,7 +87,8 @@ class EstimateController
                         $newProductByTask = new ProductByTask([
                             'quantityProduct' => $_POST['quantity' . $i][$j],
                             'unitPriceProduct' => $_POST['unitPrice' . $i][$j],
-                            'row' => $_POST['row' . $i][$j]
+                            'row' => $_POST['row' . $i][$j],
+                            'unit' => $_POST['unit' . $i][$j],
                         ]);
                         $taskManager->addProductByTask($idTask, $newProductByTask, $newProducts);
                         $j++;
@@ -119,7 +121,6 @@ class EstimateController
     public function modifyEstimate()
     {
         $estimateManager = new EstimateManager();
-
         if ($_SESSION['role'] != 'Assistant') {
             if ($_POST) {
                 $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
@@ -184,7 +185,7 @@ class EstimateController
 
     public function estimateToRegister()
     {
-        if ($_SESSION['role'] == 'Comptable') {
+        if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
             $estimateManager = new EstimateManager();
             $estimateList = $estimateManager->showEstimateToModify();
             $userManager = new UserManager();
@@ -197,7 +198,7 @@ class EstimateController
 
     public function registerEstimate()
     {
-        if ($_SESSION['role'] == 'Comptable') {
+        if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
             $estimateManager = new EstimateManager();
             $estimateManager->registerEstimate($_POST["id"], $_POST["driver"]);
             $this->accountingPage();
@@ -208,7 +209,7 @@ class EstimateController
 
     public function estimateRegistered()
     {
-        if ($_SESSION['role'] == 'Comptable') {
+        if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
             $estimateManager = new EstimateManager();
             $estimateList = $estimateManager->showEstimateRegistered();
             require_once APP_PATH . "/views/estimateRegistered.php";

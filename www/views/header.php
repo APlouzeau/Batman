@@ -41,18 +41,8 @@
                 <li class="nav-item" id="navProjects">
                     <a class="nav-link text-light" href="<?= BASE_URL . 'projects'; ?>">Chantiers</a>
                 </li>
-                <li class="nav-item dropdown" id="navRessources">
-                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ressources
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?= BASE_URL . 'products'; ?>">Produits</a></li>
-                        <li><a class="dropdown-item" href="#">Terrasses</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">DTU</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link text-light" id="navRessources" href="<?= BASE_URL . 'products'; ?>">Produits</a>
                 </li>
         </ul>
     <?php

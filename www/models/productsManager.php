@@ -7,8 +7,8 @@ class ProductsManager extends PDOServer
     public function addProducts(Products $product)
     {
         $req = $this->db->prepare("
-                                    INSERT INTO products (name, type, length, recovery, summary, descriptionProduct, price) 
-                                    VALUES (:name, :type, :length, :recovery, :summary, :descriptionProduct, :price)");
+                                    INSERT INTO products (name, type, length, recovery, summary, descriptionProduct, price, unit) 
+                                    VALUES (:name, :type, :length, :recovery, :summary, :descriptionProduct, :price, :unit)");
         $req->bindValue(":name", $product->getName(), PDO::PARAM_STR);
         $req->bindValue(":type", $product->getType(), PDO::PARAM_STR);
         $req->bindValue(":length", $product->getLength(), PDO::PARAM_STR);
@@ -16,6 +16,7 @@ class ProductsManager extends PDOServer
         $req->bindValue(":summary", $product->getSummary(), PDO::PARAM_STR);
         $req->bindValue(":descriptionProduct", $product->getDescriptionProduct(), PDO::PARAM_STR);
         $req->bindValue(":price", $product->getPrice(), PDO::PARAM_STR);
+        $req->bindValue(":unit", $product->getUnit(), PDO::PARAM_STR);
         $req->execute();
     }
 
@@ -34,7 +35,7 @@ class ProductsManager extends PDOServer
 
     public function updateProducts(Products $product, $id)
     {
-        $req = $this->db->prepare("UPDATE products SET name = :name, type = :type, summary = :summary, descriptionProduct = :descriptionProduct, length = :length, recovery = :recovery, price = :price WHERE id = :id");
+        $req = $this->db->prepare("UPDATE products SET name = :name, type = :type, summary = :summary, descriptionProduct = :descriptionProduct, length = :length, recovery = :recovery, price = :price, unit =:unit WHERE id = :id");
         $req->bindValue(":id", $id, PDO::PARAM_INT);
         $req->bindValue(":name", $product->getName(), PDO::PARAM_STR);
         $req->bindValue(":type", $product->getType(), PDO::PARAM_STR);
@@ -43,6 +44,7 @@ class ProductsManager extends PDOServer
         $req->bindValue(":summary", $product->getSummary(), PDO::PARAM_STR);
         $req->bindValue(":descriptionProduct", $product->getDescriptionProduct(), PDO::PARAM_STR);
         $req->bindValue(":price", $product->getPrice(), PDO::PARAM_STR);
+        $req->bindValue(":unit", $product->getUnit(), PDO::PARAM_STR);
         $req->execute();
     }
 

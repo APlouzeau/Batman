@@ -20,28 +20,28 @@
 
                     <h5>Nouveau client</h5>
                     <label class="form-label" for="nameCustomer">Nom / Entité</label>
-                    <input class="form-control" type="text" name="nameCustomer" id="nameCustomer">
+                    <input class="form-control" type="text" name="nameCustomer" id="nameCustomer" required>
 
                     <label class="form-label" for="adress">Adresse</label>
-                    <input class="form-control" type="text" name="adress" id="adress">
+                    <input class="form-control" type="text" name="adress" id="adress" required>
 
                     <label class="form-label" for="mailGeneric">Mail</label>
-                    <input class="form-control" type="mail" name="mailGeneric" id="mailGeneric" placeholder="Adresse mail générique">
+                    <input class="form-control" type="mail" name="mailGeneric" id="mailGeneric" placeholder="Adresse mail générique" required>
 
                     <label class="form-label" for="siren">SIREN / SIRET</label>
-                    <input class="form-control" type="number" name="siren" id="siren">
+                    <input class="form-control" type="number" name="siren" minlength="14" maxlength="14" id="siren" required>
                 </li>
 
                 <li class="list-group-item">
                     <h6>Contact</h6>
                     <label class="form-label" for="nameContact">Nom</label>
-                    <input class="form-control" type="text" name="nameContact" id="nameContact" placeholder="Nom de la personne à contacter">
+                    <input class="form-control" type="text" name="nameContact" id="nameContact" placeholder="Nom de la personne à contacter" required>
 
                     <label class="form-label" for="mailContact">Mail</label>
-                    <input class="form-control" type="mail" name="mailContact" id="mailContact">
+                    <input class="form-control" type="mail" name="mailContact" id="mailContact" required>
 
                     <label class="form-label" for="adressContact">Adresse</label>
-                    <input class="form-control" type="text" name="adressContact" id="adressContact">
+                    <input class="form-control" type="text" name="adressContact" id="adressContact" required>
                 </li>
 
             </ul>

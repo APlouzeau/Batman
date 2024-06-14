@@ -1,6 +1,6 @@
 <title>Produits</title>
 
-<h3 class="text-center text-uppercase mt-5">Produits</h3>
+<h3 class="text-center text-uppercase mt-5" data-bs-toggle="popover" title="Popover Header" data-bs-content="Some content inside the popover">Produits</h3>
 <input class="role" type="hidden" name="role" value="<?= $_SESSION['role'] ?>">
 <div class="container d-flex align-items-center justify-content-center" hidden>
     <div class="buttonProducts" hidden>
@@ -8,7 +8,6 @@
         <button type="button" class="btn btn-success showCatalog">Catalogue</button>
     </div>
 </div>
-
 
 <div class="container catalog mt-5" hidden>
     <section class="d-flex flex-wrap justify-content-center">
@@ -38,36 +37,70 @@
     </section>
 </div>
 
-<div class="formAddProducts" hidden>
+<div class="formAddProducts">
     <form method="post" class="container mt-5" style="min-height:50em" action="<?= BASE_URL . 'create'; ?>">
-        <div class="col-7 col-md-6 col-lg-5 col-xl-4 m-auto">
+        <div class="d-flex flex-column col-7 col-md-6 col-lg-5 col-xl-4 m-auto p-3">
             <label class="form-label" for="name">Nom / Ref</label>
-            <input type="name" name="name" id="name" class="form-control" min=1 max=100 placeholder="Référence du rouleau">
+            <div class="d-flex">
+                <input type="name" name="name" id="name" class="form-control" min=1 max=100 placeholder="Référence du produit">
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Indiquer ici le nom du produit, tel qu'il apparaitra en titre dans sa vignette de catalogue."></i>
+            </div>
+
             <label class="form-label" for="type">Type</label>
-            <select class="form-select" type="type" name="type" id="type" aria-label="Default select example">
-                <?php foreach ($typesList as $type) { ?>
-                    <option class="" value="<?= $type->getID() ?>"><?= $type->getName() ?></option>
-                <?php
-                }
-                ?>
-            </select>
+            <div class="d-flex">
+
+                <select class="form-select" type="type" name="type" id="type" aria-label="Default select example">
+                    <?php foreach ($typesList as $type) { ?>
+                        <option class="" value="<?= $type->getID() ?>"><?= $type->getName() ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Indiquer ici la catégorie du produit. Cela servira à regrouper les dépenses par familles de produits, afin d'analyser les résultats."></i>
+            </div>
+
             <label class="form-label" for="length">Longueur</label>
-            <input type="number" name="length" id="length" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Longueur du rouleau en m">
+            <div class="d-flex">
+                <input type="number" name="length" id="length" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Longueur du produit">
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Indiquer ici la taille du produit, si celui-ci en a une. Ceci peut par exemple servir à calculer le nombre de rouleau à commander"></i>
+            </div>
+
             <label class="form-label" for="recovery">Recouvrement</label>
-            <input type="number" name="recovery" id="recovery" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Le recouvrement longitudinal en mm"></input>
+            <div class="d-flex">
+                <input type="number" name="recovery" id="recovery" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Le recouvrement longitudinal en mm"></input>
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="La largeur de superposition des produits l'un sur l'autre aide à calculer les pertes."></i>
+            </div>
+
             <label class="form-label" for="summary">Résumé</label>
-            <textarea type="text" name="summary" id="summary" class="form-control" placeholder="Résumé succint concernant le rouleau"></textarea>
+            <div class="d-flex">
+                <textarea type="text" name="summary" id="summary" class="form-control" placeholder="Résumé succint concernant le rouleau"></textarea>
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Le résumé sera affiché dans les vignettes du produits dans le catalogue."></i>
+            </div>
+
             <label class="form-label" for="descriptionProduct">Description</label>
-            <textarea type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du rouleau"></textarea>
+            <div class="d-flex">
+                <textarea type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du rouleau"></textarea>
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="La description complète sera affichée sur la page dédiée au produit. Essayez d'être le plus précis possible."></i>
+            </div>
+
             <label class="form-label" for="price">Prix</label>
-            <input type="number" name="price" id="price" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Prix au m²"></input>
-            <input type="submit" value="Créer" class="btn btn-success mt-3">
+            <div class="d-flex">
+                <input type="number" name="price" id="price" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Prix au m²"></input>
+                <select class="form-select" type="unit" name="unit">
+                    <option value="m2">m²</option>
+                    <option value="ml">ml</option>
+                    <option value="uni">uni</option>
+                    <option value="Kg">Kg</option>
+                </select>
+                <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Le prix d'achat du produit, en fonction de l'unité de prix normale conseillée pour ledit produit."></i>
+            </div>
+            <input type="submit" value="Créer" class="btn btn-success mt-3" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right">
         </div>
     </form>
 </div>
 
 </div>
-
+<script src="../JS/bootstrap.bundle.min.js"></script>
 <script src="../JS/products.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";

@@ -10,6 +10,7 @@ class ProductByTask
     private int $row;
     private int $situation;
     private ?float $expense;
+    private string $unit;
 
     public function __construct(array $data)
     {
@@ -154,5 +155,15 @@ class ProductByTask
     public function setExpense($expense)
     {
         $this->expense = $expense;
+    }
+
+    public function getUnit(): string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(string $unit)
+    {
+        $this->unit = $unit;
     }
 }
