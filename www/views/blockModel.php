@@ -19,8 +19,9 @@
                     <input type="hidden" class="rowNb" name="" value="">
                     <td>
                         <select class="form-select type" style="min-width: 95px;" id="type" aria-label="Default select example">
+                            <option class="active">SELECTION</option>
                             <?php foreach ($typesList as $type) { ?>
-                                <option class="" value="<?= $type->getName() ?>"><?= $type->getName() ?></option>
+                                <option class="" data-setType="<?= $type->getId() ?>" value="<?= $type->getName() ?>"><?= $type->getName() ?></option>
                             <?php
                             }
                             ?>
@@ -28,8 +29,9 @@
                     </td>
                     <td>
                         <select class="form-select product" style="min-width: 95px;" aria-label="Default select example">
+                            <option class="active">SELECTION</option>
                             <?php foreach ($productList as $type => $product) { ?>
-                                <option class="<?= $product->getType() ?>" data-getUnit="<?= $product->getUnit() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
+                                <option hidden class="<?= $product->getType() ?>" data-getType="<?= $product->getType() ?>" data-getUnit="<?= $product->getUnit() ?>" data-getPrice="<?= $product->getPrice() ?>" value="<?= $product->getName() ?>"><?= $product->getName() ?></option>
                             <?php
                             }
                             ?>
@@ -38,6 +40,7 @@
                     <td>
                         <div class="currency-wrap">
                             <span class="currency-code unit"></span>
+                            <input type="hidden" class="unitName" name="" value="">
                             <input class="form-control quantity text-center" style="min-width: 40px;" type="number">
                         </div>
                     </td>
