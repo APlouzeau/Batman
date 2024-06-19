@@ -17,7 +17,7 @@
     </form>
 </div>
 </div>
-<script src="../JS/searchCustomer.js"></script>
+<script src="../js/searchCustomer.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";
 

@@ -17,7 +17,16 @@
         <label class="form-label" for="descriptionProduct">Description</label>
         <input type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du rouleau" value="<?= $product->getDescriptionProduct() ?>"></input>
         <label class="form-label" for="price">Prix</label>
-        <input type="text" name="price" id="price" class="form-control" placeholder="Prix au m²" value="<?= $product->getPrice() ?>"></input>
+        <div class="d-flex">
+            <input type="number" name="price" id="price" class="form-control" step="0.01" onkeydown="return event.keyCode !== 69" placeholder="Prix"></input>
+            <select class="form-select" type="unit" name="unit">
+                <option value="m2">m²</option>
+                <option value="ml">ml</option>
+                <option value="uni">uni</option>
+                <option value="Kg">Kg</option>
+            </select>
+            <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Le prix d'achat du produit, en fonction de l'unité de prix normale conseillée pour ledit produit."></i>
+        </div>
         <input type="submit" value="Modifier" class="btn btn-success mt-3">
 </form>
 
