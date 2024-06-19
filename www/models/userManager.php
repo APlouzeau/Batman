@@ -32,11 +32,9 @@ class UserManager extends PDOServer
                 } else if ($user['role'] == 6) {
                     $_SESSION['role'] = 'Administrateur';
                 }
-            } else {
-                echo 'Identifiants invalides';
+                return $req->execute();
             }
         }
-        return $req->execute();
     }
 
     public function getAllUsers()
