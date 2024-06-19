@@ -11,4 +11,4 @@
         <p><?= $roll->getPrice() ?> €/m²</p>
     </div>
 </div>
-<script src="../JS//products.js"></script>
+<script src="../js//products.js"></script>

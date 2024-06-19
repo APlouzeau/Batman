@@ -5,7 +5,7 @@
     <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
     <form method="post" action="<?= BASE_URL . 'saveSituation'; ?>">
         <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
-        <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
+        <input type="hidden" name="id" value="<?= $estimate->getId() ?>">
         <div class="blockList">
             <?php
             foreach ($tasksList as $taskDetails) {

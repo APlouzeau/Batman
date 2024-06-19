@@ -6,4 +6,4 @@
         <a href="<?= BASE_URL . 'estimateRegistered'; ?>" type="button" class="btn btn-success modifyEstimate">Devis enregistrés</a>
     </div>
 </div>
-<script src="../JS//accounting.js"></script>
+<script src="../js//accounting.js"></script>

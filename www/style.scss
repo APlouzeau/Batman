@@ -2,7 +2,7 @@
     background-color: red;
 }
 
-.remove {
+.remove, .removeBlock {
     color: red;
     display: inline-block;
     content: "\00d7";
@@ -11,6 +11,10 @@
 }
 
 .remove:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.removeBlock:hover {
     opacity: 1;
     cursor: pointer;
 }

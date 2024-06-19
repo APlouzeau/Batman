@@ -8,7 +8,7 @@ class ProductController
     public function createProduct()
     {
         $productsManager = new ProductsManager();
-        if ($_POST && ($_SESSION['role'] != 'Assistant' || $_SESSION['role'] != 'Comptable')) {
+        if ($_POST && ($_SESSION['role'] != 'Assistant' && $_SESSION['role'] != 'Comptable')) {
             $name = $_POST["name"];
             $type = $_POST["type"];
             $length = $_POST["length"];
@@ -16,6 +16,7 @@ class ProductController
             $summary = $_POST["summary"];
             $descriptionProduct = $_POST["descriptionProduct"];
             $price = $_POST["price"];
+            $unit = $_POST['unit'];
             try {
                 $newProduct = new Products([
                     "name" => $name,
@@ -25,6 +26,7 @@ class ProductController
                     "summary" => $summary,
                     "descriptionProduct" => $descriptionProduct,
                     "price" => $price,
+                    "unit" => $unit,
                 ]);
                 $productsManager->addProducts($newProduct);
                 echo "L'ajout a réussi.";
@@ -54,7 +56,7 @@ class ProductController
 
     public function modifyProductPage()
     {
-        if ($_POST && $_SESSION['role'] != 'Administrateur') {
+        if ($_GET && $_SESSION['role'] == 'Administrateur') {
             $productsManager = new ProductsManager();
             $product = $productsManager->getProductsById($_GET["id"]);
             $typesManager = new TypesManager();
@@ -67,7 +69,7 @@ class ProductController
 
     public function modifyProduct()
     {
-        if ($_POST && $_SESSION['role'] != 'Administrateur') {
+        if ($_POST && $_SESSION['role'] == 'Administrateur') {
             $productsManager = new ProductsManager();
             $product = $productsManager->getProductsById($_GET["id"]);
             $typesManager = new TypesManager();
@@ -82,6 +84,7 @@ class ProductController
                 $summary = $_POST["summary"];
                 $descriptionProduct = $_POST["descriptionProduct"];
                 $price = $_POST["price"];
+                $unit = $_POST["unit"];
                 try {
                     $updateProduct = new Products([
                         "id" => $id,
@@ -92,6 +95,7 @@ class ProductController
                         "summary" => $summary,
                         "descriptionProduct" => $descriptionProduct,
                         "price" => $price,
+                        "unit" => $unit,
                     ]);
                     $productsManager->updateProducts($updateProduct, $id);
                     $this->products();
@@ -106,7 +110,7 @@ class ProductController
 
     public function deleteProduct()
     {
-        if ($_POST && $_SESSION['role'] != 'Administrateur') {
+        if ($_POST && $_SESSION['role'] == 'Administrateur') {
             $productsManager = new ProductsManager();
             $productsManager->deleteProducts($_GET["id"]);
             $this->products();

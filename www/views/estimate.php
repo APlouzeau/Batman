@@ -50,7 +50,7 @@
         </form>
     </div>
 </div>
-<script src="../JS/estimate.JS"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";
 ?>
+<script src="../js/estimate.js"></script>

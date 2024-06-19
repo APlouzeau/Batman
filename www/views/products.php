@@ -37,7 +37,7 @@
     </section>
 </div>
 
-<div class="formAddProducts">
+<div class="formAddProducts" hidden>
     <form method="post" class="container mt-5" style="min-height:50em" action="<?= BASE_URL . 'create'; ?>">
         <div class="d-flex flex-column col-7 col-md-6 col-lg-5 col-xl-4 m-auto p-3">
             <label class="form-label" for="name">Nom / Ref</label>
@@ -85,7 +85,7 @@
 
             <label class="form-label" for="price">Prix</label>
             <div class="d-flex">
-                <input type="number" name="price" id="price" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Prix au m²"></input>
+                <input type="number" name="price" id="price" class="form-control" step="0.01" onkeydown="return event.keyCode !== 69" placeholder="Prix"></input>
                 <select class="form-select" type="unit" name="unit">
                     <option value="m2">m²</option>
                     <option value="ml">ml</option>
@@ -100,7 +100,7 @@
 </div>
 
 </div>
-<script src="../JS/bootstrap.bundle.min.js"></script>
-<script src="../JS/products.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../js/products.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";

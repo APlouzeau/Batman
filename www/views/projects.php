@@ -57,4 +57,4 @@
         <button type="button" class="btn btn-danger returnResults" hidden>Retour</button>
     </form>
 </div>
-<script src="../JS/projects.js"></script>
+<script src="../js/projects.js"></script>
