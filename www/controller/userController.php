@@ -21,8 +21,13 @@ class UserController
                 $email = $_POST['mail'];
                 $password = $_POST['password'];
                 try {
-                    $userManager->connectUser($email, $password);
-                    header('location: ' . BASE_URL);
+                    $connect = $userManager->connectUser($email, $password);
+                    if ($connect == true) {
+                        header('location: ' . BASE_URL);
+                    } else {
+                        $this->formConnectUser();
+                        echo '<div class="error text-danger text-center mt-4">Identifiants invalides !</div>';
+                    }
                 } catch (Exception $e) {
                     $e->getMessage();
                 }
