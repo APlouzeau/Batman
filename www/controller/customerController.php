@@ -1,8 +1,9 @@
 <?php
 require_once APP_PATH . "/models/customersManager.php";
 require_once APP_PATH . "/controller/estimateController.php";
+require_once APP_PATH . "/controller/CommonFunctions.php";
 
-class CustomerController
+class CustomerController extends CommonFunctions
 {
 
     public function searchCustomer()
@@ -21,30 +22,35 @@ class CustomerController
     public function addCustomer()
     {
         $customersManager = new CustomersManager();
-
+        var_dump($_POST);
         if ($_POST) {
-            $nameCustomer = $_POST["nameCustomer"];
+            $inputNames = ['nameCustomer', 'adress', 'mailGeneric', 'siren', 'nameContact', 'mailContact', 'adressContact'];
+            $xss = $this->xss($inputNames);
+            if (gettype($xss) == 'array') {
+            }
+            /*                 $nameCustomer = $_POST["nameCustomer"];
             $adress = $_POST["adress"];
             $mailGeneric = $_POST["mailGeneric"];
             $siren = $_POST["siren"];
             $nameContact = $_POST["nameContact"];
             $mailContact = $_POST["mailContact"];
-            $adressContact = $_POST["adressContact"];
+            $adressContact = $_POST["adressContact"]; */
             try {
-                $newCustomer = new Customers([
-                    "nameCustomer" => $nameCustomer,
+                var_dump($xss);
+                $newCustomer = new Customers(
+                    $xss
+                    /*                     "nameCustomer" => $nameCustomer,
                     "adress" => $adress,
                     "mailGeneric" => $mailGeneric,
                     "siren" => $siren,
                     "nameContact" => $nameContact,
                     "mailContact" => $mailContact,
-                    "adressContact" => $adressContact,
-                ]);
-                $customersManager->addCustomer($newCustomer);
-                $customersId = $customersManager->getCustomersbyName($nameCustomer);
-                $getId = $customersId->getId();
+                    "adressContact" => $adressContact, */
+                );
+                var_dump($newCustomer);
+                $id = $customersManager->addCustomer($newCustomer);
                 $customersManager = new CustomersManager();
-                $selectedCustomer = $customersManager->getCustomerById($getId);
+                $selectedCustomer = $customersManager->getCustomerById($id);
                 $nameCustomer = $selectedCustomer->getNameCustomer();
                 $contactCustomer = $selectedCustomer->getNameContact();
                 $mailContact = $selectedCustomer->getMailContact();

@@ -8,15 +8,20 @@ class CustomersManager extends PDOServer
 
     public function addCustomer(Customers $customer)
     {
-        $req = $this->db->prepare("INSERT INTO customer (nameCustomer, adress, mailGeneric, siren, nameContact, mailContact, adressContact) VALUE (:nameCustomer, :adress, :mailGeneric, :siren, :nameContact, :mailContact, :adressContact)");
+        echo 'addCustomer appelée';
+        $req = $this->db->prepare("INSERT INTO customer (nameCustomer, adress, mailGeneric, siren, nameContact, mailContact, adressContact) VALUES (:nameCustomer, :adress, :mailGeneric, :siren, :nameContact, :mailContact, :adressContact)");
+        var_dump($customer);
         $req->bindValue(":nameCustomer", $customer->getNameCustomer(), PDO::PARAM_STR);
         $req->bindValue(":adress", $customer->getAdress(), PDO::PARAM_STR);
         $req->bindValue(":mailGeneric", $customer->getMailGeneric(), PDO::PARAM_STR);
-        $req->bindValue(":siren", $customer->getSiren(), PDO::PARAM_INT);
+        $req->bindValue(":siren", $customer->getSiren(), PDO::PARAM_STR);
         $req->bindValue(":nameContact", $customer->getNameContact(), PDO::PARAM_STR);
         $req->bindValue(":mailContact", $customer->getMailContact(), PDO::PARAM_STR);
         $req->bindValue(":adressContact", $customer->getAdressContact(), PDO::PARAM_STR);
+        var_dump($req);
         $req->execute();
+        $temp = $this->db->lastInsertId();
+        return $temp;
     }
 
     public function getAllCustomers()
