@@ -8,21 +8,23 @@ class ProjectsController
     {
         $projectsManager = new ProjectsManager;
         $projectList = $projectsManager->projectRegisteredList();
+        $titlePage = 'Chantiers';
         require_once APP_PATH . "/views/projects.php";
     }
 
     public function editSituationPage()
     {
-        if ($_SESSION['role'] != 'Assistant') {
+        if ($_SESSION['role'] != 'Assistant' && ($_POST['csrf_token'] == $_SESSION['csrf_token'])) {
             $estimateManager = new EstimateManager();
-            $estimate = $estimateManager->showEstimateById($_GET['id']);
             $taskManager = new TaskManager();
-            $tasksList = $taskManager->showTasksById($_GET['id']);
             $productsManager = new ProductsManager();
-            $productList = $productsManager->showProducts();
             $typesManager = new TypesManager();
-            $typesList = $typesManager->showTypes();
             $productByTaskManager = new productByTaskManager();
+            $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
+            $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
+            $productList = $productsManager->showProducts();
+            $typesList = $typesManager->showTypes();
+            $titlePage = 'Situations';
             require_once APP_PATH . "/views/editSituation.php";
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -31,7 +33,7 @@ class ProjectsController
 
     public function saveSituation()
     {
-        if ($_POST && $_SESSION['role'] != 'Assistant') {
+        if ($_POST && $_SESSION['role'] != 'Assistant' && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $result = 0;
             $search = 'taskId';
             foreach ($_POST as $key => $value) {
@@ -56,6 +58,7 @@ class ProjectsController
             } catch (\Throwable $th) {
                 //throw $th;
             }
+            $this->editSituationPage();
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
         }
@@ -63,26 +66,26 @@ class ProjectsController
 
     public function orderPage()
     {
-        if ($_GET && $_SESSION['role'] != 'Assistant') {
+        if ($_SESSION['role'] != 'Assistant' && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $estimateManager = new EstimateManager();
-            $estimate = $estimateManager->showEstimateById($_GET['id']);
             $taskManager = new TaskManager();
-            $tasksList = $taskManager->showTasksById($_GET['id']);
             $productsManager = new ProductsManager();
-            $productList = $productsManager->showProducts();
             $typesManager = new TypesManager();
-            $typesList = $typesManager->showTypes();
             $productByTaskManager = new productByTaskManager();
+            $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
+            $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
+            $productList = $productsManager->showProducts();
+            $typesList = $typesManager->showTypes();
+            $titlePage = 'Commandes';
             require_once APP_PATH . "/views/order.php";
         } else {
-            echo "Vous n'avez pas les droits pour acceder à cette page.";
+            echo "Vous n'avez pas les droits pour acceder à cette page orderPage.";
         }
     }
 
     public function saveOrder()
     {
-        var_dump($_POST);
-        if ($_POST && $_SESSION['role'] != 'Assistant') {
+        if ($_POST && $_SESSION['role'] != 'Assistant' && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $result = 0;
             $search = 'taskId';
             foreach ($_POST as $key => $value) {
@@ -111,22 +114,23 @@ class ProjectsController
             } catch (Exception $e) {
                 $e->getMessage();
             }
-            $this->projectsPage();
+            $this->orderPage();
         } else {
-            echo "Vous n'avez pas les droits pour acceder à cette page.";
+            echo "Vous n'avez pas les droits pour acceder à cette page là.";
         }
     }
 
     public function resultsPage()
     {
         $estimateManager = new EstimateManager();
-        $estimate = $estimateManager->showEstimateById($_GET['id']);
+        $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
         $tasksManager = new TaskManager();
-        $tasksList = $tasksManager->showTasksById($_GET['id']);
+        $tasksList = $tasksManager->showTasksById($_POST['idEstimate']);
         $productsManager = new ProductsManager();
         $projectsManager = new ProjectsManager();
-        $productsResultList = $projectsManager->getTotalProductByProject($_GET['id']);
-        $marges = $projectsManager->getRemainingBudgetPerSituation($_GET['id']);
+        $productsResultList = $projectsManager->getTotalProductByProject($_POST['idEstimate']);
+        $marges = $projectsManager->getRemainingBudgetPerSituation($_POST['idEstimate']);
+        $titlePage = 'Résultats';
         require_once APP_PATH . "/views/results.php";
     }
 
@@ -145,11 +149,6 @@ class ProjectsController
         return $this->totalBudget($productByTask) - $this->projectedExpense($productByTask);
     }
 
-    public function margin()
-    {
-        $projectsManager = new ProjectsManager();
-        $test =  $projectsManager->getRemainingBudgetPerSituation($_GET('id'));
-    }
 
     public function projectedBudget(ProductByTask $productByTask)
     {

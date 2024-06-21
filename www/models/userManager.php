@@ -5,20 +5,19 @@ require_once APP_PATH . "/models/entities/PDOServer.php";
 
 class UserManager extends PDOServer
 {
-    public function connectUser(string $email, string $password)
+    public function connectUser(Users $userConnect)
     {
-        if ($password == 1) {
-            throw new Exception("Mon code est 1", 1);
-        }
-        $req = $this->db->query("SELECT * FROM users WHERE mail = '$email'");
+        $req = $this->db->prepare("SELECT * FROM users WHERE mail = :email");
+        $req->bindValue(':email', $userConnect->getMail(), PDO::PARAM_STR);
         if ($req->execute()) {
             $user = $req->fetch(PDO::FETCH_ASSOC);
             #if ($user["password"] == $password) {
-            if (password_verify($password, $user["password"])) {
+            if (password_verify($userConnect->getPassword(), $user["password"])) {
                 $_SESSION['mail'] = $user['mail'];
                 $_SESSION['firstName'] = $user['firstName'];
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['id'] = $user['id'];
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 if ($user['role'] == 1) {
                     $_SESSION['role'] = 'Assistant';
                 } else if ($user['role'] == 2) {
@@ -32,12 +31,11 @@ class UserManager extends PDOServer
                 } else if ($user['role'] == 6) {
                     $_SESSION['role'] = 'Administrateur';
                 }
-            } else {
-                echo 'Identifiants invalides';
+                return $req->execute();
             }
         }
-        return $req->execute();
     }
+
 
     public function getAllUsers()
     {
@@ -78,7 +76,7 @@ class UserManager extends PDOServer
         if ($req->execute()) {
             $user = $req->fetch(PDO::FETCH_ASSOC);
             #if ($oldPassword == $user["password"]) {
-            echo "mots de passes vérifié";
+            #echo "mots de passes vérifié";
             if (password_verify($oldPassword, $user["password"])) {
                 $req = $this->db->prepare("UPDATE users SET password = :password WHERE id = :id");
                 $req->bindValue(':password', password_hash($newPassword, PASSWORD_BCRYPT));

@@ -1,11 +1,14 @@
-<title>Commande</title>
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 
-<title>Situation</title>
-
+<h2 class="text-center text-uppercase">Commandes</h2>
 <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
 <div class="container ">
     <input type="hidden" id="taskQuantity" value="<?= count($tasksList) ?>">
     <form method="post" action="<?= BASE_URL . 'saveOrder'; ?>">
+        <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
         <div class="blockList">
@@ -98,18 +101,20 @@
                     </div>
                     <hr class="border border-primary border-1 opacity-100">
                     </input>
-                <?php
+                </div>
+            <?php
             }
             require_once APP_PATH . "/views/blockModel.php";
-                ?>
-                </div>
-                <div class="container text-end">
-                    <input type="submit" value="Enregistrer dépense" class="btn btn-primary"></input>
+            ?>
+            <div class="container text-end">
+                <input type="submit" value="Enregistrer dépense" class="btn btn-primary">
+            </div>
+        </div>
     </form>
-
-    <h5 class="resultPriceTotal"></h5>
-    </input>
-    <script src="JS/order.js"></script>
-    <?php
-    require_once APP_PATH . "/views/footer.php";
-    ?>
+</div>
+<h5 class="resultPriceTotal"></h5>
+</input>
+<script src="js/order.js"></script>
+<?php
+require_once APP_PATH . "/views/footer.php";
+?>

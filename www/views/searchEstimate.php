@@ -1,4 +1,7 @@
-<title>Edition devis</title>
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 
 <div class="container">
     <h3 class="text-center text-uppercase">Devis</h3>
@@ -16,3 +19,6 @@
     </form>
 </div>
 <script src="JS/searchEstimateScript.js"></script>
+<?php
+require_once APP_PATH . "/views/footer.php";
+?>

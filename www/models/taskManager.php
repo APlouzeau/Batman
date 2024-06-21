@@ -64,7 +64,7 @@ class TaskManager extends PDOServer
 
     public function getProductsByTask($idTask)
     {
-        $req = $this->db->query("SELECT * FROM productByTask WHERE idTask = $idTask");
+        $req = $this->db->query("SELECT * FROM productbytask WHERE idTask = $idTask");
         $datas = $req->fetchAll();
         $productsByTask = [];
         foreach ($datas as $data) {

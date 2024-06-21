@@ -1,4 +1,7 @@
-<title>Comptes des utilisateurs</title>
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?><title>Comptes des utilisateurs</title>
 
 <div class="container d-flex flex-column align-items-center">
     <table class="table">
@@ -15,7 +18,7 @@
 </div>
 
 <div class="container d-flex flex-column align-items-center">
-    <div>
+    <div class="col-10 col-md-6">
         <form action="<?= BASE_URL . 'addUser'; ?>" method="post">
             <label for="firstName">Prénom</label>
             <input type="text" name="firstName" class="form-control">
@@ -37,7 +40,11 @@
                 }
                 ?>
             </select>
-
             <input type="submit" class="btn btn-success m-3" value="Créer utilisateur">
         </form>
     </div>
+</div>
+
+<?php
+require_once APP_PATH . "/views/footer.php";
+?>

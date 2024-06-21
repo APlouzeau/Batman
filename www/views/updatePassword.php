@@ -1,18 +1,42 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 <title>Profil</title>
 
-<div class="container d-flex flex-column align-items-center">
-    <div>
-        <form action="<?= BASE_URL . 'updatePassword'; ?>" method="post">
 
-            <label for="oldPassword">Ancien mot de passe</label>
-            <input type="password" name="oldPassword" class="form-control">
+<div class="updatePassword">
+    <form action="<?= BASE_URL . 'updatePassword'; ?>" method="post">
+        <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <label for="oldPassword">Ancien mot de passe</label>
+                    <input type="password" name="oldPassword" class="form-control">
+                </div>
+            </div>
 
-            <label for="password">Mot de passe</label>
-            <input type="password" name="password" class="form-control">
+            <div class="row">
+                <div class="col-12">
+                    <label for="password">Mot de passe
+                        <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Le mot de passe doit contenir 8 à 16 caractères, au moins un chiffre, une lettre minuscule et une majuscule, pas d'espace, et un symbole."></i>
+                    </label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+            </div>
 
-            <label for="passwordVerify">Mot de passe</label>
-            <input type="password" name="passwordVerify" class="form-control">
-
-            <input type="submit" class="btn btn-success m-3" value="Modifier">
-        </form>
-    </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="passwordVerify">Réécrivez le mot de passe</label>
+                    <input type="password" name="passwordVerify" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12"><input type="submit" class="btn btn-success m-3" value="Modifier"></div>
+            </div>
+        </div>
+    </form>
+</div>
+<?php
+require_once APP_PATH . "/views/footer.php";
+?>

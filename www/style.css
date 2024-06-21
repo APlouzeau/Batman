@@ -3,7 +3,7 @@
   background-color: red;
 }
 
-.remove {
+.remove, .removeBlock {
   color: red;
   display: inline-block;
   content: "×";
@@ -12,6 +12,11 @@
 }
 
 .remove:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.removeBlock:hover {
   opacity: 1;
   cursor: pointer;
 }
@@ -41,4 +46,12 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.work {
+  min-height: calc(100vh - 400px);
+}
+
+.updatePassword {
+  min-width: 300px;
 }/*# sourceMappingURL=style.css.map */

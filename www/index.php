@@ -1,7 +1,11 @@
 <?php
+#if (session_status() === PHP_SESSION_NONE) {
+session_start();
+#}
+
 define("APP_PATH", __DIR__);
 define("BASE_URL", "/");
-require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/controller/commonFunctions.php";
 require_once APP_PATH . "/models/entities/router.php";
 require_once APP_PATH . "/controller/userController.php";
 require_once APP_PATH . "/controller/estimateController.php";
@@ -10,7 +14,6 @@ require_once APP_PATH . "/controller/homeController.php";
 require_once APP_PATH . "/controller/productController.php";
 require_once APP_PATH . "/controller/projectsController.php";
 require_once APP_PATH . "/controller/testController.php";
-require_once APP_PATH . "/views/header.php";
 
 $router = new Router();
 // $method, $path, $controller, $action
@@ -63,11 +66,11 @@ $router->addRoute('POST', BASE_URL . 'registerdriver', 'estimateController', 're
 
 //routes projects
 $router->addRoute('GET', BASE_URL . 'projects', 'ProjectsController', 'projectsPage');
-$router->addRoute('GET', BASE_URL . 'editSituationPage', 'ProjectsController', 'editSituationPage');
+$router->addRoute('POST', BASE_URL . 'editSituationPage', 'ProjectsController', 'editSituationPage');
 $router->addRoute('POST', BASE_URL . 'saveSituation', 'ProjectsController', 'saveSituation');
-$router->addRoute('GET', BASE_URL . 'orderPage', 'ProjectsController', 'orderPage');
+$router->addRoute('POST', BASE_URL . 'orderPage', 'ProjectsController', 'orderPage');
 $router->addRoute('POST', BASE_URL . 'saveOrder', 'ProjectsController', 'saveOrder');
-$router->addRoute('GET', BASE_URL . 'resultsPage', 'ProjectsController', 'resultsPage');
+$router->addRoute('POST', BASE_URL . 'resultsPage', 'ProjectsController', 'resultsPage');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -77,5 +80,3 @@ $handler = $router->getHandler($method, $uri);
 $controller = new $handler['controller']();
 $action = $handler['action'];
 $controller->$action();
-
-require_once APP_PATH . "/views/footer.php";

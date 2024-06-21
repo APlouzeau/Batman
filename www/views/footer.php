@@ -8,8 +8,7 @@
     </div>
 </footer>
 
-</div>
-<script src="https://kit.fontawesome.com/57a212c93a.js" crossorigin="anonymous"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../script.js"></script>
 </body>
 

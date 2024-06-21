@@ -1,3 +1,7 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 <title><?= $roll->getName() ?></title>
 
 <div class="container">
@@ -11,4 +15,7 @@
         <p><?= $roll->getPrice() ?> €/m²</p>
     </div>
 </div>
-<script src="../JS//products.js"></script>
+<script src="../js//products.js"></script>
+<?php
+require_once APP_PATH . "/views/footer.php";
+?>

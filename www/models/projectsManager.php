@@ -26,7 +26,7 @@ class ProjectsManager extends PDOServer
 
     public function expense(ProductByTask $productByTask)
     {
-        $req = $this->db->prepare('UPDATE productByTask SET expense = :expense WHERE idTask = :idTask AND row = :row');
+        $req = $this->db->prepare('UPDATE productbytask SET expense = :expense WHERE idTask = :idTask AND row = :row');
         $req->bindValue(':expense', $productByTask->getExpense(), PDO::PARAM_INT);
         $req->bindValue(':idTask', $productByTask->getIdTask(), PDO::PARAM_INT);
         $req->bindValue(':row', $productByTask->getRow(), PDO::PARAM_INT);
@@ -35,7 +35,14 @@ class ProjectsManager extends PDOServer
 
     public function getTotalProductByProject($idEstimate)
     {
-        $req = $this->db->prepare('SELECT idProduct, SUM(expense) AS expense, SUM(quantityProduct) AS quantityProduct, unitPriceProduct FROM productbytask INNER JOIN tasks ON productbytask.idTask = tasks.id WHERE tasks.idEstimate = :idEstimate GROUP BY idProduct');
+        $req = $this->db->prepare('SELECT 
+        idProduct, 
+        SUM(expense) AS expense, 
+        SUM(quantityProduct) AS quantityProduct, 
+        unitPriceProduct FROM productbytask 
+        INNER JOIN tasks ON productbytask.idTask = tasks.id 
+        WHERE tasks.idEstimate = :idEstimate 
+        GROUP BY idProduct');
         $req->bindValue(':idEstimate', $idEstimate, PDO::PARAM_INT);
         $req->execute();
         $products = [];
@@ -49,8 +56,13 @@ class ProjectsManager extends PDOServer
 
     public function getRemainingBudgetPerSituation($idEstimate)
     {
-        $req = $this->db->prepare('SELECT idProduct, quantityProduct * unitPriceProduct * situation / 100 - expense AS expense FROM productbytask INNER JOIN tasks ON productbytask.idTask = tasks.id WHERE tasks.idEstimate = :idEstimate GROUP BY idProduct');
-        $req->bindValue(':idEstimate', $idEstimate, PDO::PARAM_INT);
+        $req = $this->db->prepare('SELECT idProduct, 
+                                    SUM(quantityProduct * unitPriceProduct * situation / 100 - expense) AS expense 
+                                    FROM productbytask 
+                                    INNER JOIN tasks ON productbytask.idTask = tasks.id 
+                                    WHERE tasks.idEstimate = :idEstimate 
+                                    GROUP BY idProduct');
+        $req->bindParam(':idEstimate', $idEstimate, PDO::PARAM_INT);
         $req->execute();
         $datas = $req->fetchAll();
         $marges = [];

@@ -17,6 +17,7 @@ class EstimateManager extends PDOServer
 
     public function getEstimateIdByName($nameEstimate)
     {
+
         $req = $this->db->prepare("SELECT * FROM estimate WHERE nameEstimate = :nameEstimate");
         $req->bindValue(":nameEstimate", $nameEstimate, PDO::PARAM_STR);
         $req->execute();
@@ -54,7 +55,7 @@ class EstimateManager extends PDOServer
         $req->bindValue(":prefix", $prefix . '%', PDO::PARAM_STR);
         $req->execute();
         $data = $req->fetchAll();
-        $imput = sprintf(strval($prefix) . "%'.03d<br />", strval(count($data)) + 1);
+        $imput = sprintf(strval($prefix) . "%'.03d", strval(count($data)) + 1);
         $req = $this->db->prepare("UPDATE estimate SET driver = :driver, imput = :imput WHERE id = :idEstimate");
         $req->bindValue(":driver", $driver, PDO::PARAM_INT);
         $req->bindValue(":imput", $imput, PDO::PARAM_STR);

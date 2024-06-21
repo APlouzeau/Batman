@@ -1,3 +1,7 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 <title>Edition devis</title>
 
 <div class="container">
