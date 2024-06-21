@@ -17,6 +17,7 @@ class EstimateManager extends PDOServer
 
     public function getEstimateIdByName($nameEstimate)
     {
+
         $req = $this->db->prepare("SELECT * FROM estimate WHERE nameEstimate = :nameEstimate");
         $req->bindValue(":nameEstimate", $nameEstimate, PDO::PARAM_STR);
         $req->execute();

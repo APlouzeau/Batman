@@ -1,3 +1,8 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
+
 <form method="post" class="container" action="<?= BASE_URL . 'modify?id=' . $product->getId(); ?>">
     <label class="form-label" for="name">Nom / Ref</label>
     <input type="name" name="name" id="name" class="form-control" min=1 max=255 value="<?= $product->getName() ?>">

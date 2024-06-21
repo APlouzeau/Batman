@@ -8,8 +8,7 @@
     </div>
 </footer>
 
-</div>
-<script src="../JS/bootstrap.bundle.min.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../script.js"></script>
 </body>
 

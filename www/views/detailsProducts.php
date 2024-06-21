@@ -1,3 +1,7 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 <title><?= $roll->getName() ?></title>
 
 <div class="container">
@@ -12,3 +16,6 @@
     </div>
 </div>
 <script src="../js//products.js"></script>
+<?php
+require_once APP_PATH . "/views/footer.php";
+?>

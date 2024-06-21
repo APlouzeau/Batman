@@ -10,7 +10,7 @@ class CustomersManager extends PDOServer
     {
         echo 'addCustomer appelée';
         $req = $this->db->prepare("INSERT INTO customer (nameCustomer, adress, mailGeneric, siren, nameContact, mailContact, adressContact) VALUES (:nameCustomer, :adress, :mailGeneric, :siren, :nameContact, :mailContact, :adressContact)");
-        var_dump($customer);
+        ($customer);
         $req->bindValue(":nameCustomer", $customer->getNameCustomer(), PDO::PARAM_STR);
         $req->bindValue(":adress", $customer->getAdress(), PDO::PARAM_STR);
         $req->bindValue(":mailGeneric", $customer->getMailGeneric(), PDO::PARAM_STR);
@@ -18,7 +18,6 @@ class CustomersManager extends PDOServer
         $req->bindValue(":nameContact", $customer->getNameContact(), PDO::PARAM_STR);
         $req->bindValue(":mailContact", $customer->getMailContact(), PDO::PARAM_STR);
         $req->bindValue(":adressContact", $customer->getAdressContact(), PDO::PARAM_STR);
-        var_dump($req);
         $req->execute();
         $temp = $this->db->lastInsertId();
         return $temp;

@@ -1,3 +1,7 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 <title>Produits</title>
 
 <h3 class="text-center text-uppercase mt-5" data-bs-toggle="popover" title="Popover Header" data-bs-content="Some content inside the popover">Produits</h3>
@@ -37,9 +41,10 @@
     </section>
 </div>
 
-<div class="formAddProducts" hidden>
+<div class="formAddProducts col-10 col-md-6" hidden>
     <form method="post" class="container mt-5" style="min-height:50em" action="<?= BASE_URL . 'create'; ?>">
-        <div class="d-flex flex-column col-7 col-md-6 col-lg-5 col-xl-4 m-auto p-3">
+        <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+        <div class="">
             <label class="form-label" for="name">Nom / Ref</label>
             <div class="d-flex">
                 <input type="name" name="name" id="name" class="form-control" min=1 max=100 placeholder="Référence du produit">
@@ -48,7 +53,6 @@
 
             <label class="form-label" for="type">Type</label>
             <div class="d-flex">
-
                 <select class="form-select" type="type" name="type" id="type" aria-label="Default select example">
                     <?php foreach ($typesList as $type) { ?>
                         <option class="" value="<?= $type->getID() ?>"><?= $type->getName() ?></option>
@@ -79,7 +83,7 @@
 
             <label class="form-label" for="descriptionProduct">Description</label>
             <div class="d-flex">
-                <textarea type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du rouleau"></textarea>
+                <textarea type="text" name="descriptionProduct" id="descriptionProduct" class="form-control" placeholder="Description/destination du produit"></textarea>
                 <i class="fa-sharp fa-solid fa-circle-info m-auto" title="La description complète sera affichée sur la page dédiée au produit. Essayez d'être le plus précis possible."></i>
             </div>
 

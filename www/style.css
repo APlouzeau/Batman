@@ -46,4 +46,12 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.work {
+  min-height: calc(100vh - 400px);
+}
+
+.updatePassword {
+  min-width: 300px;
 }/*# sourceMappingURL=style.css.map */

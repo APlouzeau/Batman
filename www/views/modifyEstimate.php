@@ -1,4 +1,7 @@
-<title>Edition devis</title>
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 
 <div class="container">
     <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
@@ -117,7 +120,7 @@
 
     <h5 class="resultPriceTotal"></h5>
 </div>
+<script src="../js/createEstimateScript.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";
 ?>
-<script src="../js/createEstimateScript.js"></script>

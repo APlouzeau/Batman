@@ -11,6 +11,7 @@ class EstimateController
 {
     public function estimate()
     {
+        $titlePage = 'Devis';
         require_once APP_PATH . "/views/estimate.php";
     }
 
@@ -23,6 +24,7 @@ class EstimateController
             $contactCustomer = $selectedCustomer->getNameContact();
             $mailContact = $selectedCustomer->getMailContact();
             $adressContact = $selectedCustomer->getAdressContact();
+            $titlePage = 'Nouveau devis';
             require_once APP_PATH . "/views/newEstimate.php";
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -31,7 +33,7 @@ class EstimateController
     public function newEstimate()
     {
         $estimateManager = new EstimateManager();
-        if ($_GET && $_SESSION['role'] != 'Assistant') {
+        if ($_GET && $_SESSION['role'] != 'Assistant' && $_GET['csrf_token'] == $_SESSION['csrf_token']) {
             $nameEstimate = $_GET["nameEstimate"];
             $idCustomer = $_GET["id"];
             try {
@@ -48,6 +50,7 @@ class EstimateController
                 $taskManager = new TaskManager();
                 $tasksList = $taskManager->showTasksById($estimate->getId());
                 $rowCount = 0;
+                $titlePage = 'Edition devis';
                 require_once APP_PATH . "/views/modifyEstimate.php";
             } catch (Exception $e) {
                 $error = $e->getMessage();
@@ -112,6 +115,7 @@ class EstimateController
             } catch (Exception $e) {
                 error_log('Erreur : ' . $e->getMessage());
             }
+            $titlePage = 'Recherche de devis';
             require_once APP_PATH . '/views/searchEstimate.php';
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -141,6 +145,7 @@ class EstimateController
                     $rowCount++;
                 }
             }
+            $titlePage = 'Edition devis';
             require_once APP_PATH . '/views/modifyEstimate.php';
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -177,6 +182,7 @@ class EstimateController
     public function accountingPage()
     {
         if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
+            $titlePage = 'Comptabilité';
             require_once APP_PATH . "/views/accounting.php";
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -190,6 +196,7 @@ class EstimateController
             $estimateList = $estimateManager->showEstimateToModify();
             $userManager = new UserManager();
             $driverList = $userManager->getDrivers();
+            $titlePage = 'Devis à enregistrer';
             require_once APP_PATH . "/views/estimateToRegister.php";
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -198,7 +205,7 @@ class EstimateController
 
     public function registerEstimate()
     {
-        if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
+        if (($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $estimateManager = new EstimateManager();
             $estimateManager->registerEstimate($_POST["id"], $_POST["driver"]);
             $this->accountingPage();
@@ -212,6 +219,7 @@ class EstimateController
         if ($_SESSION['role'] == 'Comptable' || $_SESSION['role'] == 'Administrateur') {
             $estimateManager = new EstimateManager();
             $estimateList = $estimateManager->showEstimateRegistered();
+            $titlePage = 'Devis enregistrés';
             require_once APP_PATH . "/views/estimateRegistered.php";
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
