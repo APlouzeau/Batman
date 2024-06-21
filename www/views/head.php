@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-?>
 
 <head>
     <meta charset="UTF-8">
@@ -20,3 +14,5 @@ if (session_status() === PHP_SESSION_NONE) {
     <script defer src="/node_modules/@fortawesome/fontawesome-free/js/brands.js"></script>
     <script defer src="/node_modules/@fortawesome/fontawesome-free/js/solid.js"></script>
     <script defer src="/node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"></script>
+    <title><?= $titlePage ?? 'B@TMAN' ?></title>
+</head>

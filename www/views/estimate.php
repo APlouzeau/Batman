@@ -1,4 +1,7 @@
-<title>Devis</title>
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
 
 <h3 class="text-center text-uppercase mt-5">Devis</h3>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 50em" id="divButtonsEstimate">

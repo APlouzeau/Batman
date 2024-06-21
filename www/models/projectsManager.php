@@ -57,12 +57,12 @@ class ProjectsManager extends PDOServer
     public function getRemainingBudgetPerSituation($idEstimate)
     {
         $req = $this->db->prepare('SELECT idProduct, 
-                                    quantityProduct * unitPriceProduct * situation / 100 - expense AS expense 
+                                    SUM(quantityProduct * unitPriceProduct * situation / 100 - expense) AS expense 
                                     FROM productbytask 
                                     INNER JOIN tasks ON productbytask.idTask = tasks.id 
                                     WHERE tasks.idEstimate = :idEstimate 
                                     GROUP BY idProduct');
-        $req->bindValue(':idEstimate', $idEstimate, PDO::PARAM_INT);
+        $req->bindParam(':idEstimate', $idEstimate, PDO::PARAM_INT);
         $req->execute();
         $datas = $req->fetchAll();
         $marges = [];

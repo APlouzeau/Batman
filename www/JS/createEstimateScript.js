@@ -41,7 +41,6 @@ arrayBlockClassId = [];
 for (let i = 0; i < blockClass.length; i++) {
     arrayBlockClassId.push(blockClass[i]['id']);
 };
-console.log(arrayBlockClassId);
 arrayBlockClassId.forEach(element => {
     const blockSelected = document.querySelector('.' + element);
     const removeBlock = blockSelected.querySelector('.removeBlock');
@@ -93,7 +92,6 @@ function showUnitPrice(rowSelected) {
 }
 
 function remove(rowSelected) {
-    console.log('remove appelée');
     rowSelected.remove();
 }
 

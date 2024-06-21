@@ -1,3 +1,8 @@
+<?php
+require_once APP_PATH . "/views/head.php";
+require_once APP_PATH . "/views/header.php";
+?>
+
 <h3 class="text-center text-uppercase mt-5">Selection du client</h3>
 <div class="container d-flex align-items-center" style="min-height: 50em">
     <form method="get" class="container" action="<?= BASE_URL . 'newEstimate'; ?>">

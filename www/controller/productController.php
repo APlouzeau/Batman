@@ -3,35 +3,25 @@ require_once APP_PATH . "/models/estimateManager.php";
 require_once APP_PATH . "/models/typesManager.php";
 require_once APP_PATH . "/models/productsManager.php";
 
-class ProductController extends CommonFunctions
+class ProductController
 {
 
     public function createProduct()
     {
         $productsManager = new ProductsManager();
-        if ($_POST && ($_SESSION['role'] != 'Assistant' && $_SESSION['role'] != 'Comptable')) {
-            $inputNames = ['name', 'type', 'length', 'recovery', 'summary', 'descriptionProduct', 'price', 'unit'];
-            $xss = $this->xss($inputNames);
+        if ($_POST && ($_SESSION['role'] != 'Assistant' && $_SESSION['role'] != 'Comptable') && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
+            $inputNames = [
+                'name',
+                'type',
+                'length',
+                'recovery',
+                'summary',
+                'descriptionProduct',
+                'price',
+                'unit'
+            ];
+            $xss = xss($inputNames);
             if (gettype($xss) == 'array') {
-                /* $xss = [
-                    "name" => htmlspecialchars($_POST["name"], ENT_NOQUOTES),
-                    "type" => htmlspecialchars($_POST["type"], ENT_NOQUOTES),
-                "length" => htmlspecialchars($_POST["length"], ENT_NOQUOTES),
-                "recovery" => htmlspecialchars($_POST["recovery"], ENT_NOQUOTES),
-                "summary" => htmlspecialchars($_POST["summary"], ENT_NOQUOTES),
-                "descriptionProduct" => htmlspecialchars($_POST["descriptionProduct"], ENT_NOQUOTES),
-                "price" => htmlspecialchars($_POST["price"], ENT_NOQUOTES),
-                "unit" => htmlspecialchars($_POST['unit'], ENT_NOQUOTES)
-                ];
-            var_dump($xss); */
-                /*  $product = [];
-            $counter = 0;
-            foreach ($xss as $key => $value) {
-                if ($value == $_POST[$key]) {
-                    $product[$key] = $value;
-                    $counter++;
-                    if ($counter == count($xss)) {
-                        var_dump($product); */
                 try {
                     $newProduct = new Products($xss);
                     $productsManager->addProducts($newProduct);
@@ -46,30 +36,31 @@ class ProductController extends CommonFunctions
         }
     }
 
-
-
     public function products()
     {
         $productsManager = new ProductsManager();
         $rollList = $productsManager->showProducts();
         $typesManager = new TypesManager();
         $typesList = $typesManager->showTypes();
+        $titlePage = 'Produits';
         require_once APP_PATH . '/views/products.php';
     }
     public function details()
     {
         $productsManager = new ProductsManager();
         $roll = $productsManager->getProductsById($_GET["id"]);
+        $titlePage = $roll->getName();
         require_once APP_PATH . '/views/detailsProducts.php';
     }
 
     public function modifyProductPage()
     {
-        if ($_GET && $_SESSION['role'] == 'Administrateur') {
+        if ($_GET && $_SESSION['role'] == 'Administrateur' && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $productsManager = new ProductsManager();
             $product = $productsManager->getProductsById($_GET["id"]);
             $typesManager = new TypesManager();
             $typesList = $typesManager->showTypes();
+            $titlePage = $product->getName();
             require_once APP_PATH . '/views/modifyProducts.php';
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
@@ -78,7 +69,7 @@ class ProductController extends CommonFunctions
 
     public function modifyProduct()
     {
-        if ($_POST && $_SESSION['role'] == 'Administrateur') {
+        if ($_POST && $_SESSION['role'] == 'Administrateur' && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $productsManager = new ProductsManager();
             $product = $productsManager->getProductsById($_GET["id"]);
             $typesManager = new TypesManager();
@@ -119,7 +110,7 @@ class ProductController extends CommonFunctions
 
     public function deleteProduct()
     {
-        if ($_GET && $_SESSION['role'] == 'Administrateur') {
+        if ($_GET && $_SESSION['role'] == 'Administrateur'  && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
             $productsManager = new ProductsManager();
             $productsManager->deleteProducts($_GET["id"]);
             $this->products();

@@ -1,25 +1,23 @@
-</head>
-
 <body>
     <header>
         <h1 class="text-center text-light display-1 fw-bold"><a styles="none" href="<?= BASE_URL ?>">B@TMAN</a></h1>
-        <?php
-        if ($_SESSION) {
-            ($_SESSION);
-            echo '<p class="text-end">Bonjour ' . $_SESSION['firstName'] . '</p>';
-        ?>
-            <div class="50px d-flex flex-row-reverse">
-                <a href="<?= BASE_URL . 'logout'; ?>" type="button" class="btn btn-danger align-item-center">Deconnexion</a>
-                <a href="<?= BASE_URL . 'profile'; ?>" type="button" class="btn btn-success">Compte</a>
-                <?php
-                if ($_SESSION['role'] == 'Administrateur') {
-                ?>
-                    <a href="<?= BASE_URL . 'usersAccount'; ?>" type="button" class="btn btn-success">Gestion utilisateurs</a>
-                <?php
-                }
-                ?>
-            </div>
-        <?php } ?>
+        <div class="d-flex flex-column align-items-end me-3">
+            <?php
+            if ($_SESSION) {
+                echo '<p class="text-end">Bonjour ' . $_SESSION['firstName'] . '</p>';
+            ?>
+                <div class="mb-1">
+                    <?php
+                    if ($_SESSION['role'] == 'Administrateur') {
+                    ?>
+                        <a href="<?= BASE_URL . 'usersAccount'; ?>" type="button" class="btn btn-success">Gestion utilisateurs</a>
+                    <?php
+                    }
+                    ?>
+                    <a href="<?= BASE_URL . 'profile'; ?>" type="button" class="btn btn-success">Compte</a>
+                    <a href="<?= BASE_URL . 'logout'; ?>" type="button" class="btn btn-danger align-item-center">Deconnexion</a>
+                </div>
+        </div>
 
         <nav class="navbar navbar-expand-lg bg-primary">
             <div class="container-fluid">
@@ -60,5 +58,6 @@
             </div>
         </nav>
 
+    <?php } ?>
     </header>
-    <div style="min-height: 50em">
+    <div class="d-flex justify-content-center align-items-center flex-column work">
