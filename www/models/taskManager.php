@@ -22,11 +22,14 @@ class TaskManager extends PDOServer
 
     public function addProductByTask($idTask, ProductByTask $productByTask, Products $products)
     {
-        $req = $this->db->prepare("INSERT INTO productbytask (idProduct, idTask, row, quantityProduct, unitPriceProduct, unit) VALUES (:idProduct, :idTask, :row, :quantityProduct, :unitPriceProduct, :unit)");
+        $req = $this->db->prepare("INSERT INTO productbytask 
+        (idProduct, idTask, row, quantityProduct, unitPriceProduct, unit) 
+        VALUES 
+        (:idProduct, :idTask, :row, :quantityProduct, :unitPriceProduct, :unit)");
         $req->bindValue(":idProduct", $products->getId(), PDO::PARAM_INT);
         $req->bindValue(":idTask", $idTask, PDO::PARAM_INT);
         $req->bindValue(":row", $productByTask->getRow(), PDO::PARAM_INT);
-        $req->bindValue(":quantityProduct", $productByTask->getQuantityProduct(), PDO::PARAM_INT);
+        $req->bindValue(":quantityProduct", $productByTask->getQuantityProduct(), PDO::PARAM_STR);
         $req->bindValue(":unitPriceProduct", $productByTask->getUnitPriceProduct(), PDO::PARAM_STR);
         $req->bindValue(":unit", $productByTask->getUnit(), PDO::PARAM_STR);
         $req->execute();

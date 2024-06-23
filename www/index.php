@@ -72,11 +72,14 @@ $router->addRoute('POST', BASE_URL . 'orderPage', 'ProjectsController', 'orderPa
 $router->addRoute('POST', BASE_URL . 'saveOrder', 'ProjectsController', 'saveOrder');
 $router->addRoute('POST', BASE_URL . 'resultsPage', 'ProjectsController', 'resultsPage');
 
+//Ajax
+$router->addRoute('POST', BASE_URL . 'verifyName', 'ProductController', 'verifyName');
+
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-
 $handler = $router->getHandler($method, $uri);
+
 $controller = new $handler['controller']();
 $action = $handler['action'];
 $controller->$action();

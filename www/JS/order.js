@@ -17,18 +17,24 @@ for (let i = 0; i < arrayClassQuantity.length; i++) {
         arrayClassRowId.push(arrayClassRow[i]['id']);
     }
 };
-
 function calcPrice(element) {
+    const unitSelector = element.querySelector('.product');
+    const unit = unitSelector.options[unitSelector.selectedIndex].dataset.unit;
+    const resultPrice = element.querySelector('.order');
     const quantity = element.querySelector('.quantity');
     let quantityValue = quantity.value;
-    const getPrice = element.querySelector('.unitPrice');
-    let priceNumber = getPrice.value;
-    let price = quantityValue * priceNumber;
-    const resultPrice = element.querySelector('.order');
-    resultPrice.innerText = price;
     const classOrder = element.querySelector('.orderInput');
-    classOrder.value = price;
-    return price;
+    if (unit == 'h') {
+        resultPrice.innerText = Number.parseFloat(quantityValue).toFixed(2);
+        classOrder.value = Number.parseFloat(quantityValue).toFixed(2);
+    } else {
+        const getPrice = element.querySelector('.unitPrice');
+        let priceNumber = getPrice.value;
+        let price = Number.parseFloat(quantityValue * priceNumber).toFixed(2);
+        resultPrice.innerText = price;
+        classOrder.value = price;
+        return price;
+    }
 }
 
 function changeColor (arrayClassId) {

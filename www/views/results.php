@@ -12,7 +12,7 @@ require_once APP_PATH . "/views/header.php";
     ?>
         <div class="py-2 block<?= $taskDetails['taskNumber'] ?>">
             <label for="description" class="fs-5 fw-bold">Description</label>
-            <textarea rows="2" class="form-control description bg-info bg-gradient" disabled><?= $taskDetails['descriptionTask'] ?></textarea>
+            <textarea rows="2" class="form-control description descriptionArea border-black" disabled><?= $taskDetails['descriptionTask'] ?></textarea>
             <div class="table-responsive">
                 <table class="text-center table table-info">
                     <thead>
@@ -21,6 +21,7 @@ require_once APP_PATH . "/views/header.php";
                             <th>Quantité</th>
                             <th>Avancement</th>
                             <th>Budget prévu</th>
+                            <th>Montant dépensé</th>
                             <th>Budget restant</th>
                         </tr>
                     </thead>
@@ -33,8 +34,9 @@ require_once APP_PATH . "/views/header.php";
                                 <td style="min-width: 140px"><?= $product->getName() ?></td>
                                 <td style="min-width: 140px"><?= $productByTask->getQuantityProduct() . ' ' . $product->getUnit()  ?></td>
                                 <td style="min-width: 140px"><?= $productByTask->getSituation() ?> %</td>
-                                <td style="min-width: 140px"><?= $this->projectedBudget($productByTask) ?> €</td>
-                                <td style="min-width: 140px"><?= $this->remainingBudget($productByTask) ?> €</td>
+                                <td style="min-width: 140px"><?= number_format($this->projectedBudget($productByTask), 2, '.', ' ') . ' ' . $this->getUnitResults($productByTask) ?></td>
+                                <td style="min-width: 140px"><?= number_format($productByTask->getExpense(), 2, '.', ' ') . ' ' . $this->getUnitResults($productByTask) ?></td>
+                                <td class="remainingBudget" style="min-width: 140px"><?= number_format($this->remainingBudget($productByTask), 2, '.', ' ') . ' ' . $this->getUnitResults($productByTask) ?></td>
                             </tr>
                         <?php
                         }
@@ -67,10 +69,10 @@ require_once APP_PATH . "/views/header.php";
                 ?>
                     <tr>
                         <td><?= $product->getName() ?></td>
-                        <td><?= $productResult->getQuantityProduct() ?></td>
-                        <td><?= $this->totalBudget($productResult) ?> €</td>
-                        <td><?= $productResult->getExpense() ?> €</td>
-                        <td class="margin"><?= $this->getMarge($productResult, $marges) ?> €</td>
+                        <td><?= $productResult->getQuantityProduct() . ' ' . $productResult->getUnit() ?></td>
+                        <td><?= number_format($this->totalBudget($productResult), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult) ?> </td>
+                        <td><?= number_format($productResult->getExpense(), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult)  ?> </td>
+                        <td class="margin"><?= number_format($this->getMarge($productResult, $margesMaterials, $margesWorkForce), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult) ?> </td>
                     </tr>
                 <?php
                 }

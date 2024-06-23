@@ -15,7 +15,7 @@ require_once APP_PATH . "/views/header.php";
             }
             ?>
         </select>
-        <input type="submit" value="Modifier devis" class="btn btn-warning">
+        <input type="submit" value="Modifier devis" class="btn btn-warning estimateButton" disabled>
     </form>
 </div>
 <script src="JS/searchEstimateScript.js"></script>

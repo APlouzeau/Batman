@@ -1,6 +1,5 @@
 <?php
 
-
 class ProductsManager extends PDOServer
 {
 
@@ -20,10 +19,23 @@ class ProductsManager extends PDOServer
         $req->execute();
     }
 
-    public function showProducts()
+    public function showAllProducts()
     {
         $products = [];
         $req = $this->db->query("SELECT * FROM products ORDER BY name");
+        $req->execute();
+        $datas = $req->fetchAll();
+        foreach ($datas as $data) {
+            $product = new Products($data);
+            $products[] = $product;
+        }
+        return $products;
+    }
+
+    public function showProductsCatalog()
+    {
+        $products = [];
+        $req = $this->db->query("SELECT * FROM products WHERE NOT type = 5 ORDER BY name");
         $req->execute();
         $datas = $req->fetchAll();
         foreach ($datas as $data) {
@@ -59,7 +71,9 @@ class ProductsManager extends PDOServer
     }
     public function getProductsByName($name)
     {
-        $req = $this->db->query("SELECT * FROM products WHERE name = '$name'");
+        $req = $this->db->prepare("SELECT * FROM products WHERE name = :name");
+        $req->bindValue(':name', $name, PDO::PARAM_STR);
+        $req->execute();
         $data = $req->fetch();
         $product = new Products($data);
         return $product;
@@ -75,6 +89,15 @@ class ProductsManager extends PDOServer
     public function getNameProductsByIdTask($idTask)
     {
         $req = $this->db->query("SELECT name FROM products WHERE id = '$idTask'");
+        $data = $req->fetch();
+        return $data;
+    }
+
+    public function verifyNameManager(string $name)
+    {
+        $req = $this->db->prepare("SELECT name from products WHERE name = :name");
+        $req->bindValue(":name", $name, PDO::PARAM_STR);
+        $req->execute();
         $data = $req->fetch();
         return $data;
     }
