@@ -98,7 +98,7 @@ require_once APP_PATH . "/views/header.php";
             <?php
             }
             ?>
-            <div class="container text-end">
+            <div class="container text-end pb-4">
                 <input type="submit" value="Enregistrer situation" class="btn btn-primary">
             </div>
         </div>

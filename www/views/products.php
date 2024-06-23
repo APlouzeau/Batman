@@ -7,7 +7,7 @@ require_once APP_PATH . "/views/header.php";
 <h3 class="text-center text-uppercase mt-5" data-bs-toggle="popover" title="Popover Header" data-bs-content="Some content inside the popover">Produits</h3>
 <input class="role" type="hidden" name="role" value="<?= $_SESSION['role'] ?>">
 <div class="container d-flex align-items-center justify-content-center" hidden>
-    <div class="buttonProducts" hidden>
+    <div class="buttonProducts">
         <button type="button" class="btn btn-success addProduct">Nouveau Produit</button>
         <button type="button" class="btn btn-success showCatalog">Catalogue</button>
     </div>
@@ -16,7 +16,7 @@ require_once APP_PATH . "/views/header.php";
 <div class="container catalog mt-5" hidden>
     <section class="d-flex flex-wrap justify-content-center">
         <?php
-        $products = $productsManager->showProducts();
+        $products = $productsManager->showProductsCatalog();
         foreach ($products as $product) :
         ?>
             <div class="card m-4" style="width: 20rem;">
@@ -41,13 +41,14 @@ require_once APP_PATH . "/views/header.php";
     </section>
 </div>
 
-<div class="formAddProducts col-10 col-md-6" hidden>
+<div class="formAddProducts col-10 col-md-6 col-xxl-4" hidden>
     <form method="post" class="container mt-5" style="min-height:50em" action="<?= BASE_URL . 'create'; ?>">
         <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="">
             <label class="form-label" for="name">Nom / Ref</label>
+            <label class="errorName fw-bold" hidden></label>
             <div class="d-flex">
-                <input type="name" name="name" id="name" class="form-control" min=1 max=100 placeholder="Référence du produit">
+                <input type="name" name="name" id="name" class="form-control" min=1 max=100 placeholder="Référence du produit" onchange="verifyName(this)">
                 <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Indiquer ici le nom du produit, tel qu'il apparaitra en titre dans sa vignette de catalogue."></i>
             </div>
 
@@ -65,13 +66,13 @@ require_once APP_PATH . "/views/header.php";
 
             <label class="form-label" for="length">Longueur</label>
             <div class="d-flex">
-                <input type="number" name="length" id="length" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Longueur du produit">
+                <input type="number" name="length" id="length" step="0.01" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Longueur du produit">
                 <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Indiquer ici la taille du produit, si celui-ci en a une. Ceci peut par exemple servir à calculer le nombre de rouleau à commander"></i>
             </div>
 
             <label class="form-label" for="recovery">Recouvrement</label>
             <div class="d-flex">
-                <input type="number" name="recovery" id="recovery" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Le recouvrement longitudinal en mm"></input>
+                <input type="number" name="recovery" id="recovery" step="0.01" class="form-control" onkeydown="return event.keyCode !== 69" placeholder="Le recouvrement longitudinal en mm"></input>
                 <i class="fa-sharp fa-solid fa-circle-info m-auto" title="La largeur de superposition des produits l'un sur l'autre aide à calculer les pertes."></i>
             </div>
 
@@ -98,13 +99,12 @@ require_once APP_PATH . "/views/header.php";
                 </select>
                 <i class="fa-sharp fa-solid fa-circle-info m-auto" title="Le prix d'achat du produit, en fonction de l'unité de prix normale conseillée pour ledit produit."></i>
             </div>
-            <input type="submit" value="Créer" class="btn btn-success mt-3" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right">
+            <input type="submit" value="Créer" class="btn btn-success mt-3 createButton" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right" disabled>
         </div>
     </form>
 </div>
 
 </div>
-<script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../js/products.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";

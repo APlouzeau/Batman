@@ -22,7 +22,7 @@ class ProjectsController
             $productByTaskManager = new productByTaskManager();
             $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
             $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
-            $productList = $productsManager->showProducts();
+            $productList = $productsManager->showAllProducts();
             $typesList = $typesManager->showTypes();
             $titlePage = 'Situations';
             require_once APP_PATH . "/views/editSituation.php";
@@ -74,7 +74,7 @@ class ProjectsController
             $productByTaskManager = new productByTaskManager();
             $estimate = $estimateManager->showEstimateById($_POST['idEstimate']);
             $tasksList = $taskManager->showTasksById($_POST['idEstimate']);
-            $productList = $productsManager->showProducts();
+            $productList = $productsManager->showAllProducts();
             $typesList = $typesManager->showTypes();
             $titlePage = 'Commandes';
             require_once APP_PATH . "/views/order.php";
@@ -98,14 +98,14 @@ class ProjectsController
                 for ($i = 0; $i < $result; $i++) {
                     $j = 0;
                     foreach ($_POST['expense' . $i] as $value) {
-                        $row = (is_numeric($_POST['row' . $i][$j]) ? (int)$_POST['row' . $i][$j] : 0);
-                        $newExpense = (is_numeric($_POST['expense' . $i][$j]) ? (int)$_POST['expense' . $i][$j] : 0);
-                        $oldExpense = (is_numeric($_POST['alreadyBuy' . $i][$j]) ? (int)$_POST['alreadyBuy' . $i][$j] : 0);
+                        $row = (is_numeric($_POST['row' . $i][$j]) ? $_POST['row' . $i][$j] : 0);
+                        $newExpense = (is_numeric($_POST['expense' . $i][$j]) ? floatval($_POST['expense' . $i][$j]) : 0);
+                        $oldExpense = (is_numeric($_POST['alreadyBuy' . $i][$j]) ? floatval($_POST['alreadyBuy' . $i][$j]) : 0);
                         $expense = $newExpense + $oldExpense;
                         $newProductByTask = new ProductByTask([
                             'idTask' => $_POST['taskId' . $i],
                             'row' => $row,
-                            'expense' => $expense,
+                            'expense' => strval($expense),
                         ]);
                         $j++;
                         $projectManager->expense($newProductByTask);
@@ -129,37 +129,50 @@ class ProjectsController
         $productsManager = new ProductsManager();
         $projectsManager = new ProjectsManager();
         $productsResultList = $projectsManager->getTotalProductByProject($_POST['idEstimate']);
-        $marges = $projectsManager->getRemainingBudgetPerSituation($_POST['idEstimate']);
+        $margesMaterials = $projectsManager->getRemainingBudgetPerSituation($_POST['idEstimate']);
+        $margesWorkForce = $projectsManager->getRemainingWorkForcePerSituation($_POST['idEstimate']);
         $titlePage = 'Résultats';
         require_once APP_PATH . "/views/results.php";
     }
 
+    public function getUnitResults(ProductByTask $productByTask)
+    {
+        if ($productByTask->getUnit() == 'h') {
+            $unit = 'h';
+        } else {
+            $unit = '€';
+        }
+        return $unit;
+    }
     public function totalBudget(ProductByTask $productByTask)
     {
-        return $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct();
-    }
-
-    public function projectedExpense(ProductByTask $productByTask)
-    {
-        return $this->totalBudget($productByTask) * $productByTask->getSituation() / 100;
+        if ($this->getUnitResults($productByTask) == 'h') {
+            $totalBudget = $productByTask->getQuantityProduct();
+        } else {
+            $totalBudget = $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct();
+        };
+        return $totalBudget;
     }
 
     public function remainingBudget(ProductByTask $productByTask)
     {
-        return $this->totalBudget($productByTask) - $this->projectedExpense($productByTask);
+        return $this->projectedBudget($productByTask) - $productByTask->getExpense();
     }
-
 
     public function projectedBudget(ProductByTask $productByTask)
     {
         return $this->totalBudget($productByTask) * $productByTask->getSituation() / 100;
     }
 
-    public function getMarge(ProductByTask $productByTask, array $marges)
+    public function getMarge(ProductByTask $productByTask, ?array $margesMaterials, ProductByTask $margesWorkForce)
     {
-        foreach ($marges as $marge) {
-            if ($productByTask->getIdProduct() == $marge->getIdProduct()) {
-                return $marge->getExpense();
+        if ($productByTask->getUnit() == 'h') {
+            return number_format($margesWorkForce->getExpense() - $productByTask->getExpense(), 2, '.', '\'');
+        } else {
+            foreach ($margesMaterials as $marge) {
+                if ($productByTask->getIdProduct() == $marge->getIdProduct()) {
+                    return $marge->getExpense();
+                }
             }
         }
     }

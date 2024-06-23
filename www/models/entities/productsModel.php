@@ -5,10 +5,10 @@ class Products
     private int $id;
     private string $name;
     private string $type;
-    private string $length;
-    private string $recovery;
-    private string $summary;
-    private string $descriptionProduct;
+    private ?string $length;
+    private ?string $recovery;
+    private ?string $summary;
+    private ?string $descriptionProduct;
     private float $price;
     private ?string $unit;
 

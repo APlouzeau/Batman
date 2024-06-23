@@ -1,4 +1,5 @@
 <?php
+
 require_once APP_PATH . "/models/estimateManager.php";
 require_once APP_PATH . "/models/typesManager.php";
 require_once APP_PATH . "/models/productsManager.php";
@@ -8,8 +9,12 @@ class ProductController
 
     public function createProduct()
     {
-        $productsManager = new ProductsManager();
-        if ($_POST && ($_SESSION['role'] != 'Assistant' && $_SESSION['role'] != 'Comptable') && $_POST['csrf_token'] == $_SESSION['csrf_token']) {
+        if (
+            $_POST &&
+            $_SESSION['role'] != 'Assistant' &&
+            $_SESSION['role'] != 'Comptable' &&
+            $_POST['csrf_token'] == $_SESSION['csrf_token']
+        ) {
             $inputNames = [
                 'name',
                 'type',
@@ -24,6 +29,7 @@ class ProductController
             if (gettype($xss) == 'array') {
                 try {
                     $newProduct = new Products($xss);
+                    $productsManager = new ProductsManager();
                     $productsManager->addProducts($newProduct);
                     echo "L'ajout a réussi.";
                     $this->products();
@@ -39,7 +45,7 @@ class ProductController
     public function products()
     {
         $productsManager = new ProductsManager();
-        $rollList = $productsManager->showProducts();
+        $rollList = $productsManager->showProductsCatalog();
         $typesManager = new TypesManager();
         $typesList = $typesManager->showTypes();
         $titlePage = 'Produits';
@@ -116,6 +122,21 @@ class ProductController
             $this->products();
         } else {
             echo "Vous n'avez pas les droits pour acceder à cette page.";
+        }
+    }
+
+    public function verifyName()
+    {
+        $name = $_POST['name'];
+        if (is_null($name)) {
+            return json_encode('Nom obligatoire');
+        }
+        try {
+            $productsManager = new ProductsManager();
+            $result = $productsManager->verifyNameManager($name);
+            echo (is_array($result) && sizeof($result) >= 1 && $result[0] !== false) ? json_encode(false) : json_encode(true);
+        } catch (Exception $e) {
+            return json_encode('Le produit existe déjà');
         }
     }
 }
