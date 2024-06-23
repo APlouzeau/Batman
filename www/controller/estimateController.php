@@ -46,7 +46,7 @@ class EstimateController
                 $typesManager = new TypesManager();
                 $typesList = $typesManager->showTypes();
                 $productsManager = new ProductsManager();
-                $productList = $productsManager->showProducts();
+                $productList = $productsManager->showAllProducts();
                 $taskManager = new TaskManager();
                 $tasksList = $taskManager->showTasksById($estimate->getId());
                 $rowCount = 0;
@@ -62,10 +62,14 @@ class EstimateController
 
     public function saveEstimate()
     {
-        $taskManager = new TaskManager();
-        $productByTaskManager = new productByTaskManager();
-        $productsManager = new ProductsManager();
-        if ($_POST && $_SESSION['role'] != 'Assistant') {
+        ($_POST);
+        if (
+            $_POST &&
+            $_SESSION['role'] != 'Assistant' &&
+            $_POST['csrf_token'] == $_SESSION['csrf_token']
+        ) {
+            $taskManager = new TaskManager();
+            $productsManager = new ProductsManager();
             try {
                 $result = 0;
                 $search = 'description';
@@ -88,7 +92,7 @@ class EstimateController
                             'id' => $product->getId()
                         ]);
                         $newProductByTask = new ProductByTask([
-                            'quantityProduct' => $_POST['quantity' . $i][$j],
+                            'quantityProduct' => strval($_POST['quantity' . $i][$j]),
                             'unitPriceProduct' => $_POST['unitPrice' . $i][$j],
                             'row' => $_POST['row' . $i][$j],
                             'unit' => $_POST['unit' . $i][$j],
@@ -132,7 +136,7 @@ class EstimateController
                 $estimate = $estimateManager->showEstimateById($_GET['idEstimate']);
             };
             $productsManager = new ProductsManager();
-            $productList = $productsManager->showProducts();
+            $productList = $productsManager->showAllProducts();
             $typesManager = new TypesManager();
             $typesList = $typesManager->showTypes();
             $taskManager = new TaskManager();

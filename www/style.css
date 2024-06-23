@@ -54,4 +54,8 @@ input[type=number] {
 
 .updatePassword {
   min-width: 300px;
+}
+
+.descriptionArea {
+  background-color: #FFF3CD;
 }/*# sourceMappingURL=style.css.map */

@@ -4,7 +4,7 @@ require_once APP_PATH . "/views/header.php";
 ?>
 <title>Chantiers</title>
 
-<h3 class="text-center text-uppercase mt-5">Chantiers</h3>
+<h3 class="text-center text-uppercase mt-5 title">Chantiers</h3>
 <div class="container d-flex align-items-center justify-content-center" style="min-height: 50em">
     <div class="buttonSelection ">
         <?php if ($_SESSION['role'] != 'Assistant') {
@@ -18,7 +18,7 @@ require_once APP_PATH . "/views/header.php";
     <form method="post" action="<?= BASE_URL . 'editSituationPage'; ?>" class="situation text-center" hidden>
         <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="form-floating">
-            <select class=" form-select selectEstimate" aria-label="Default select example" name="idEstimate">
+            <select class=" form-select selectEstimateSituation" aria-label="Default select example" name="idEstimate">
                 <option selected>- -</option>
                 <?php foreach ($projectList as $project) { ?>
                     <option class="estimate" value="<?= $project['id'] ?>"><?= $project['nameEstimate'] ?></option>
@@ -28,13 +28,13 @@ require_once APP_PATH . "/views/header.php";
             </select>
             <label for="floatingSelect">Selectionner le chantier</label>
         </div>
-        <input type="submit" class="btn btn-success" value="Selectionner chantier">
+        <input type="submit" class="btn btn-success buttonSituation" value="Selectionner chantier" disabled>
         <button type="button" class="btn btn-danger returnSituation" hidden>Retour</button>
     </form>
     <form method="post" action="<?= BASE_URL . 'orderPage'; ?>" class="order text-center" hidden>
         <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class=" form-floating">
-            <select class=" form-select selectEstimate" aria-label="Default select example" name="idEstimate">
+            <select class=" form-select selectEstimateOrder" aria-label="Default select example" name="idEstimate">
                 <option selected>- -</option>
                 <?php foreach ($projectList as $project) { ?>
                     <option class="estimate" value="<?= $project['id'] ?>"><?= $project['nameEstimate'] ?></option>
@@ -44,13 +44,13 @@ require_once APP_PATH . "/views/header.php";
             </select>
             <label for="floatingSelect">Selectionner le chantier</label>
         </div>
-        <input type="submit" class="btn btn-success" value="Selectionner chantier">
+        <input type="submit" class="btn btn-success buttonOrder" value="Selectionner chantier" disabled>
         <button type="button" class="btn btn-danger returnOrder" hidden>Retour</button>
     </form>
     <form method="post" action="<?= BASE_URL . 'resultsPage'; ?>" class="results text-center" hidden>
         <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="form-floating">
-            <select class=" form-select selectEstimate" aria-label="Default select example" name="idEstimate">
+            <select class=" form-select selectEstimateResults" aria-label="Default select example" name="idEstimate">
                 <option selected>- -</option>
                 <?php foreach ($projectList as $project) { ?>
                     <option class="estimate" value="<?= $project['id'] ?>"><?= $project['nameEstimate'] ?></option>
@@ -60,7 +60,7 @@ require_once APP_PATH . "/views/header.php";
             </select>
             <label for="floatingSelect">Selectionner le chantier</label>
         </div>
-        <input type="submit" class="btn btn-success" value="Selectionner chantier">
+        <input type="submit" class="btn btn-success buttonResults" value="Selectionner chantier" disabled>
         <button type="button" class="btn btn-danger returnResults" hidden>Retour</button>
     </form>
 </div>
