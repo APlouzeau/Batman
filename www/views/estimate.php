@@ -18,6 +18,7 @@ require_once APP_PATH . "/views/header.php";
     </div>
     <div class="container" id="formEstimate" hidden=true>
         <form method="post" action="<?= BASE_URL . 'addCustomer'; ?>">
+            <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             <ul class="list-group">
                 <li class="list-group-item">
 

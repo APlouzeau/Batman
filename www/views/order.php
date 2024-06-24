@@ -55,10 +55,10 @@ require_once APP_PATH . "/views/header.php";
                                         <td>
                                             <select class="form-select product" style="min-width: 95px;" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]" disabled>
                                                 <?php foreach ($productList as $type => $product) { ?>
-                                                    <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>" <?php
-                                                                                                                                    if ($product->getName() == $testproduct->getName()) {
-                                                                                                                                        echo 'selected';
-                                                                                                                                    } ?>><?= $product->getName() ?></option>
+                                                    <option class="<?= $product->getType() ?>" data-unit="<?= $product->getUnit() ?>" value="<?= $product->getName() ?>" <?php
+                                                                                                                                                                            if ($product->getName() == $testproduct->getName()) {
+                                                                                                                                                                                echo 'selected';
+                                                                                                                                                                            } ?>><?= $product->getName() ?></option>
                                                 <?php
                                                 }
                                                 ?>
@@ -78,7 +78,7 @@ require_once APP_PATH . "/views/header.php";
                                             </div>
                                         </td>
                                         <td>
-                                            <input class="form-control text-center quantity" style="min-width: 40px;" id="quantity<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" placeholder="<?= $productByTask->getQuantityProduct() ?>">
+                                            <input class="form-control text-center quantity" style="min-width: 40px;" step="0.01" id="quantity<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" placeholder="<?= $productByTask->getQuantityProduct() ?>">
                                         </td>
                                         <td>
                                             <div class="currency-wrap">

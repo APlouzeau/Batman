@@ -10,6 +10,7 @@ require_once APP_PATH . "/views/header.php";
     <form method="post" action="<?= BASE_URL . 'modifyEstimate'; ?>">
         <input type="hidden" id="controlUpdate" name="controlUpdate" value="update">
         <input type="hidden" name="idEstimate" value="<?= $estimate->getId() ?>">
+        <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="blockList">
             <?php
             if (!empty($tasksList)) {
@@ -78,13 +79,13 @@ require_once APP_PATH . "/views/header.php";
                                                 <div class="currency-wrap">
                                                     <span class="currency-code unit"><?= $productByTask->getUnit() ?></span>
                                                     <input type="hidden" class="unitName" name="unit<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getUnit() ?>">
-                                                    <input class="form-control quantity text-center" style="min-width: 100px" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" value="<?= $productByTask->getQuantityProduct() ?>" required>
+                                                    <input class="form-control quantity text-center" style="min-width: 100px" step="0.001" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" value="<?= $productByTask->getQuantityProduct() ?>" required>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="currency-wrap">
                                                     <span class="currency-code">€</span>
-                                                    <input class="form-control unitPrice text-center" style="min-width: 100px" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" required>
+                                                    <input class="form-control unitPrice text-center" style="min-width: 100px" step="0.001" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" onkeydown="return event.keyCode !== 69" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" required>
                                                 </div>
                                             </td>
                                             <td>

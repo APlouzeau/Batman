@@ -21,7 +21,7 @@ require_once APP_PATH . "/views/header.php";
                 <label for="floatingSelect">Devis à enregistrer</label>
             </div>
             <div class=" form-floating">
-                <select class="form-select selectEstimate" aria-label="Default select example" name="driver">
+                <select class="form-select selectDriver" aria-label="Default select example" name="driver">
                     <option selected>- -</option>
                     <?php foreach ($driverList as $driver) { ?>
                         <option class="estimate" value="<?= $driver->getId() ?>"><?= $driver->getFirstName() . ' ' . $driver->getName() ?></option>
@@ -31,11 +31,12 @@ require_once APP_PATH . "/views/header.php";
                 </select>
                 <label for="floatingSelect">Conducteur de travaux</label>
             </div>
-            <input type="submit" value="Enregistrer chantier" class="btn btn-success">
+            <input type="submit" value="Enregistrer chantier" class="btn btn-success estimateToRegisterButton" disabled>
         </div>
 
     </form>
 </div>
+<script src="../js/estimateToRegister.js"></script>
 <?php
 require_once APP_PATH . "/views/footer.php";
 ?>

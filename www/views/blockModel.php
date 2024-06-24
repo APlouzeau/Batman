@@ -44,13 +44,13 @@
                         <div class="currency-wrap">
                             <span class="currency-code unit"></span>
                             <input type="hidden" class="unitName" name="" value="">
-                            <input class="form-control quantity text-center" style="min-width: 100px;" type="number">
+                            <input class="form-control quantity text-center" step="0.01" style="min-width: 100px;" type="number">
                         </div>
                     </td>
                     <td>
                         <div class="currency-wrap">
                             <span class="currency-code">€</span>
-                            <input class="form-control unitPrice text-center" style="min-width: 100px;" type="number" step="0.01" value="">
+                            <input class="form-control unitPrice text-center" step="0.01" style="min-width: 100px;" type="number" step="0.01" value="">
                         </div>
                     </td>
                     <td>

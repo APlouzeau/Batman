@@ -32,4 +32,10 @@ class Router
             }
         }
     }
+
+
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
 }

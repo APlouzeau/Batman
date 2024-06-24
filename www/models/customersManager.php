@@ -8,9 +8,7 @@ class CustomersManager extends PDOServer
 
     public function addCustomer(Customers $customer)
     {
-        echo 'addCustomer appelée';
         $req = $this->db->prepare("INSERT INTO customer (nameCustomer, adress, mailGeneric, siren, nameContact, mailContact, adressContact) VALUES (:nameCustomer, :adress, :mailGeneric, :siren, :nameContact, :mailContact, :adressContact)");
-        ($customer);
         $req->bindValue(":nameCustomer", $customer->getNameCustomer(), PDO::PARAM_STR);
         $req->bindValue(":adress", $customer->getAdress(), PDO::PARAM_STR);
         $req->bindValue(":mailGeneric", $customer->getMailGeneric(), PDO::PARAM_STR);
