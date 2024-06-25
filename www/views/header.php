@@ -60,4 +60,3 @@
 
     <?php } ?>
     </header>
-    <div class="d-flex justify-content-center align-items-center flex-column work">
