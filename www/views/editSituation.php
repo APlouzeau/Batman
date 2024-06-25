@@ -3,7 +3,7 @@ require_once APP_PATH . "/views/head.php";
 require_once APP_PATH . "/views/header.php";
 ?>
 
-<h2 class="text-center text-uppercase">situation</h2>
+<h2 class="text-center text-uppercase mt-5">situation</h2>
 <h3 class="text-center text-uppercase"><?= $estimate->getNameEstimate(); ?></h3>
 
 <div class="container">
@@ -41,7 +41,7 @@ require_once APP_PATH . "/views/header.php";
                                     <tr class="rowId row<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>" id="<?= $taskDetails['taskNumber'] . $productByTask->getRow() ?>">
                                         <input type="hidden" class="rowNb" name="row<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getRow() ?>">
                                         <td>
-                                            <select class="form-select type" id="type" aria-label="Default select example" disabled>
+                                            <select class="form-select type" id="type" aria-label="Default select example" style="min-width: 140px" disabled>
                                                 <?php foreach ($typesList as $type) { ?>
                                                     <option class="" value="<?= $type->getName() ?>" <?php
                                                                                                         if ($type->getName() == $testproduct->getType()) {
@@ -53,7 +53,7 @@ require_once APP_PATH . "/views/header.php";
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select product" id="product" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]" disabled>
+                                            <select class="form-select product" id="product" aria-label="Default select example" name="product<?= $taskDetails['taskNumber'] ?>[]" style="min-width: 140px" disabled>
                                                 <?php foreach ($productList as $type => $product) { ?>
                                                     <option class="<?= $product->getType() ?>" value="<?= $product->getName() ?>" <?php
                                                                                                                                     if ($product->getName() == $testproduct->getName()) {
@@ -65,24 +65,24 @@ require_once APP_PATH . "/views/header.php";
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control text-center quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask->getQuantityProduct() ?>" disabled>
+                                            <input class="form-control text-center quantity" id="quantity" name="quantity<?= $taskDetails['taskNumber'] ?>[]" type="number" value="<?= $productByTask->getQuantityProduct() ?>" style="min-width: 140px" disabled>
                                         </td>
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
-                                                <input class="form-control text-center unitPrice text-currency" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" disabled>
+                                                <input class="form-control text-center unitPrice text-currency" style="min-width: 150px" name="unitPrice<?= $taskDetails['taskNumber'] ?>[]" type="number" step="any" id="unitPrice" value="<?= $productByTask->getUnitPriceProduct() ?>" style="min-width: 140px" disabled>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">€</span>
-                                                <input type="number" step="any" data-type="currency" class="resultPrice text-center form-control text-currency" value="<?= $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct() ?>" disabled></input>
+                                                <input type="number" step="any" data-type="currency" class="resultPrice text-center form-control text-currency" style="min-width: 150px" value="<?= $productByTask->getQuantityProduct() * $productByTask->getUnitPriceProduct() ?>" disabled></input>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="currency-wrap">
                                                 <span class="currency-code">%</span>
-                                                <input type="number" class="form-control text-center text-currency" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getSituation() ?>">
+                                                <input type="number" class="form-control text-center text-currency" style="min-width: 150px" name="situation<?= $taskDetails['taskNumber'] ?>[]" value="<?= $productByTask->getSituation() ?>">
                                             </div>
                                         </td>
                                     </tr>

@@ -5,15 +5,16 @@ require_once APP_PATH . "/views/header.php";
 <title>Chantiers</title>
 
 <h3 class="text-center text-uppercase mt-5 title">Chantiers</h3>
-<div class="container d-flex align-items-center justify-content-center" style="min-height: 50em">
-    <div class="buttonSelection ">
-        <?php if ($_SESSION['role'] != 'Assistant') {
-        ?>
-            <button type="button" class="btn btn-success situationButton">Situation</button>
-            <button type="button" class="btn btn-success orderButton">Commande</button>
-        <?php
-        } ?>
-        <button type="button" class="btn btn-success resultsButton">Résultats</button>
+<div class="work d-flex">
+    <div class="container d-flex align-items-center justify-content-center" ">
+        <div class=" buttonSelection ">
+            <?php if ($_SESSION['role'] != 'Assistant') {
+            ?>
+                <button type=" button" class="btn btn-success situationButton">Situation</button>
+        <button type="button" class="btn btn-success orderButton">Commande</button>
+    <?php
+            } ?>
+    <button type="button" class="btn btn-success resultsButton">Résultats</button>
     </div>
     <form method="post" action="<?= BASE_URL . 'editSituationPage'; ?>" class="situation text-center" hidden>
         <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
@@ -63,6 +64,7 @@ require_once APP_PATH . "/views/header.php";
         <input type="submit" class="btn btn-success buttonResults" value="Selectionner chantier" disabled>
         <button type="button" class="btn btn-danger returnResults" hidden>Retour</button>
     </form>
+</div>
 </div>
 <script src="../js/projects.js"></script>
 <?php

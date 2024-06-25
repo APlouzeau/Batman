@@ -1,4 +1,3 @@
-</div>
 <footer class="bg-primary d-flex justify-content-around align-items-center text-light" style="min-height: 7em">
     <div class="contact">
         Contact : batman@outlook.com

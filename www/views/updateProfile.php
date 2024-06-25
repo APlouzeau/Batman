@@ -5,16 +5,22 @@ require_once APP_PATH . "/views/header.php";
 <title>Profil</title>
 
 
-<div class="col-8 col-md-4 col-lg-3 col-xl-2">
-    <form action="<?= BASE_URL . 'updateProfile'; ?>" method="post">
-        <label for="firstName">Prénom</label>
-        <input type="text" name="firstName" class="form-control">
+<div class="container">
+    <form action="<?= BASE_URL . 'updateProfile'; ?>" method="post" class="work d-flex flex-column justify-content-center align-items-center ">
+        <div>
+            <label for="firstName">Prénom</label>
+            <input type="text" name="firstName" class="form-control">
+        </div>
 
-        <label for="name">Nom</label>
-        <input type="text" name="name" class="form-control">
+        <div>
+            <label for="name">Nom</label>
+            <input type="text" name="name" class="form-control">
+        </div>
 
-        <label for="mail">Adresse mail</label>
-        <input type="email" name="mail" class="form-control">
+        <div>
+            <label for="mail">Adresse mail</label>
+            <input type="email" name="mail" class="form-control">
+        </div>
 
         <input type="submit" class="btn btn-success m-3" value="Modifier">
     </form>

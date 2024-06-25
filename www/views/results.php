@@ -2,7 +2,7 @@
 require_once APP_PATH . "/views/head.php";
 require_once APP_PATH . "/views/header.php";
 ?>
-<h2 class="text-center text-uppercase">resultats</h2>
+<h2 class="text-center text-uppercase mt-5">resultats</h2>
 <h3 class="text-center text-uppercase pt-3"><?= $estimate->getNameEstimate(); ?></h3>
 
 <div class="container pb-5">

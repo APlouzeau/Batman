@@ -5,8 +5,8 @@ require_once APP_PATH . "/views/header.php";
 <title>Profil</title>
 
 
-<div class="updatePassword">
-    <form action="<?= BASE_URL . 'updatePassword'; ?>" method="post">
+<div class="container updatePassword col-md-4 col-xl-2">
+    <form action="<?= BASE_URL . 'updatePassword'; ?>" method="post" class="work d-flex flex-column justify-content-center align-items-center">
         <input class="csrf_token" type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="container">
             <div class="row">
@@ -31,7 +31,7 @@ require_once APP_PATH . "/views/header.php";
                     <input type="password" name="passwordVerify" class="form-control">
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-12"><input type="submit" class="btn btn-success m-3" value="Modifier"></div>
             </div>
         </div>
