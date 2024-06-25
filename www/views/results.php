@@ -68,11 +68,11 @@ require_once APP_PATH . "/views/header.php";
                     $product = $productsManager->getProductsById($productResult->getIdProduct());
                 ?>
                     <tr>
-                        <td><?= $product->getName() ?></td>
-                        <td><?= $productResult->getQuantityProduct() . ' ' . $productResult->getUnit() ?></td>
-                        <td><?= number_format($this->totalBudget($productResult), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult) ?> </td>
-                        <td><?= number_format($productResult->getExpense(), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult)  ?> </td>
-                        <td class="margin"><?= number_format($this->getMarge($productResult, $margesMaterials, $margesWorkForce), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult) ?> </td>
+                        <td style="min-width: 140px"><?= $product->getName() ?></td>
+                        <td style="min-width: 140px"><?= $productResult->getQuantityProduct() . ' ' . $productResult->getUnit() ?></td>
+                        <td style="min-width: 140px"><?= number_format($this->totalBudget($productResult), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult) ?> </td>
+                        <td style="min-width: 140px"><?= number_format($productResult->getExpense(), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult)  ?> </td>
+                        <td style="min-width: 140px" class="margin"><?= number_format($this->getMarge($productResult, $margesMaterials, $margesWorkForce), 2, '.', ' ') . ' ' . $this->getUnitResults($productResult) ?> </td>
                     </tr>
                 <?php
                 }
